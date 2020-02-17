@@ -1616,6 +1616,7 @@ class plotEditor():
             root = tk.Tk()
             messagebox.showerror("Startup", "Failed to Initialize tool:\n{}".format(e))
             root.destroy()
+            raise ValueError("Inputs not fully specified")
         self.__initialize_plot()
         
         
