@@ -1,1 +1,1 @@
-from pltEditorTool import plotEditor
+import pltEditorTool.plotEditor 
