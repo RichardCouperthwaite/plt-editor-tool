@@ -1,10 +1,16 @@
 from distutils.core import setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
   name = 'pltEditorTool',         # How you named your package folder (MyLib)
   packages = ['pltEditorTool'],   # Chose the same as "name"
-  version = '1.0.8',    # Start with a small number and increase it with every change you make
+  version = '1.0.9',    # Start with a small number and increase it with every change you make
   license='GNU Lesser General Public License v3 (LGPLv3)',        # Chose a license from here: https://help.github.com/articles/licensing-a-repository
-  description = 'GUI Pyplot Parameter Editor',   # Give a short description about your library
+  description = 'This module provide a GUI based approach for setting up and editing matplotlib plots',   # Give a short description about your library
+  long_description=long_description,
+  long_description_content_type="text/markdown",
   author = 'Richard Couperthwaite',                   # Type in your name
   author_email = 'richard.couperthwaite@gmail.com',      # Type in your E-Mail
   url = 'https://github.com/RichardCouperthwaite/plt-editor-tool',   # Provide either the link to your github or to your website
