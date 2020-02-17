@@ -1576,7 +1576,7 @@ class plot():
         self.fig.savefig(self.save_fname)
 
 
-class plot_processor():
+class plotEditor():
     def __init__(self, x=[], y=[], x_err=[], y_err=[], fill=[], 
                  fill_alt=[], labels=[]):
         self.x = x

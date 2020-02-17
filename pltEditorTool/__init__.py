@@ -1,1 +1,1 @@
-from pltEditorTool import plot_processor
+from pltEditorTool import plotEditor
