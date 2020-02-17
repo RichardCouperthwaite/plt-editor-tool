@@ -1616,7 +1616,6 @@ class plot_processor():
             root = tk.Tk()
             messagebox.showerror("Startup", "Failed to Initialize tool:\n{}".format(e))
             root.destroy()
-            return False
         self.__initialize_plot()
         
         
