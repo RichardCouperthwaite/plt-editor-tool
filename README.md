@@ -31,7 +31,6 @@ The code is maintained in the Github repository. Create pull requests to contrib
 
 ### Todos
 
- - Add plot canvas to show the plots
  - Add scatter plots with color sequence and size sequence options
 
 License
