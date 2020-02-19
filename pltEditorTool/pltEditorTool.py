@@ -953,7 +953,7 @@ class window(tk.Frame):
             menu = self.seldat["menu"]
             menu.delete(0, "end")
             for string in self.axis_dict[self.current_axis.get()]['plots']:
-                menu.add_command(label=string, command=lambda value=string: value)
+                menu.add_command(label=string, command=lambda value=string: self.seldat_selected.set(value))
             self.seldat_selected.set(self.axis_dict[self.current_axis.get()]['plots'][0])
 
         
@@ -1006,7 +1006,7 @@ class window(tk.Frame):
         menu = self.seldat["menu"]
         menu.delete(0, "end")
         for string in self.axis_dict[self.current_axis.get()]['plots']:
-            menu.add_command(label=string, command=lambda value=string: value)
+            menu.add_command(label=string, command=lambda value=string: self.seldat_selected.set(value))
         self.seldat_selected.set(self.axis_dict[self.current_axis.get()]['plots'][0])
             
         # print(self.axis_dict[self.current_axis.get()]['plots'])
@@ -1432,6 +1432,7 @@ class plot():
                     ax.legend(loc=data['legend'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
+        self.fig.close()
         
     def save_plot2(self):
         plt.close('all')
@@ -1571,6 +1572,7 @@ class plot():
                             self.axes[i][j].legend(loc=data['legend'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
+        self.fig.close()
 
 
 class plotEditor():
@@ -1791,7 +1793,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 1: Full data")
                 try:
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 1 Successful!")
                 except Exception as e:
                     print("Test Case 1 Failed: {}".format(e))
@@ -1799,7 +1801,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 2: leave out error data")
                 try:
-                    plot_processor(x=x, y=y, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 2 Successful!")
                 except Exception as e:
                     print("Test Case 2 Failed: {}".format(e))
@@ -1807,7 +1809,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 3: leave out fill data")
                 try:
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, labels=labels)
                     print("Test Case 3 Successful!")
                 except Exception as e:
                     print("Test Case 3 Failed: {}".format(e))
@@ -1815,7 +1817,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 4: leave out fill_alt data")
                 try:
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, labels=labels)
                     print("Test Case 4 Successful!")
                 except Exception as e:
                     print("Test Case 4 Failed: {}".format(e))
@@ -1823,7 +1825,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 5: leave out labels")
                 try:
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt)
                     print("Test Case 5 Successful!")
                 except Exception as e:
                     print("Test Case 5 Failed: {}".format(e))
@@ -1831,7 +1833,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 6: leave out y")
                 try:
-                    plot_processor(x=x, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 6 Successful!")
                 except Exception as e:
                     print("Test Case 6 Failed: {}".format(e))
@@ -1839,7 +1841,7 @@ if __name__ == "__main__":
                 print("#################################################")
                 print("Test Case 7: leave out x")
                 try:
-                    plot_processor(y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 7 Successful!")
                 except Exception as e:
                     print("Test Case 7 Failed: {}".format(e))
@@ -1854,7 +1856,7 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     labels = ['Experimental','Computation']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 8 Successful!")
                 except Exception as e:
                     print("Test Case 8 Failed: {}".format(e))
@@ -1869,7 +1871,7 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     labels = ['Experimental','Computation']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 9 Successful!")
                 except Exception as e:
                     print("Test Case 9 Failed: {}".format(e))
@@ -1884,7 +1886,7 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     labels = ['Experimental','Computation']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 10 Successful!")
                 except Exception as e:
                     print("Test Case 10 Failed: {}".format(e))
@@ -1899,7 +1901,7 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     labels = ['Experimental','Computation']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 11 Successful!")
                 except Exception as e:
                     print("Test Case 11 Failed: {}".format(e))
@@ -1914,7 +1916,7 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     labels = ['Experimental','Computation']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 12 Successful!")
                 except Exception as e:
                     print("Test Case 12 Failed: {}".format(e))
@@ -1929,7 +1931,7 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1]]
                     labels = ['Experimental','Computation']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 13 Successful!")
                 except Exception as e:
                     print("Test Case 13 Failed: {}".format(e))
@@ -1944,11 +1946,11 @@ if __name__ == "__main__":
                     fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     fill_alt = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
                     labels = ['Experimental']
-                    plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+                    plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
                     print("Test Case 14 Successful!")
                 except Exception as e:
                     print("Test Case 14 Failed: {}".format(e))
     else:
-        plot_processor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
+        plotEditor(x=x, y=y, x_err=x_err, y_err=y_err, fill=fill, fill_alt=fill_alt, labels=labels)
     
     
