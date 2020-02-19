@@ -1432,7 +1432,7 @@ class plot():
                     ax.legend(loc=data['legend'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
-        self.fig.close()
+        plt.close('all')
         
     def save_plot2(self):
         plt.close('all')
@@ -1572,7 +1572,7 @@ class plot():
                             self.axes[i][j].legend(loc=data['legend'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
-        self.fig.close()
+        plt.close('all')
 
 
 class plotEditor():
