@@ -2,3 +2,6 @@
 *.zip
 MANIFEST
 *.pyc
+*.gz
+pltEditorTool/__pycache__/pltEditorTool.cpython-35.pyc
+pltEditorTool/__pycache__/__init__.cpython-35.pyc
