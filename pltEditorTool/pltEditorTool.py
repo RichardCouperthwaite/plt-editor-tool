@@ -1015,9 +1015,6 @@ class window(tk.Frame):
     def gen_plot(self):
         self.collect_current_data()
         test_grid = np.zeros((self.gridrow.get(), self.gridcol.get()))
-        print(test_grid)
-        print(self.gridrow.get())
-        print(self.gridcol.get())
         
         plot_dict = {}
         plot_dict['axes'] = list(self.axis_dict.keys())
@@ -1305,7 +1302,7 @@ class plot():
                                 x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                 y_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                     except Exception as e:
-                        print(e.args)
+                        # print(e.args)
                         messagebox.showerror(title='Plot error', message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')
                         return
                     
@@ -1509,7 +1506,7 @@ class plot():
                                 x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                 y_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                     except Exception as e:
-                        print(e.args)
+                        # print(e.args)
                         messagebox.showerror(title='Plot error', message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')
                         return
                     
