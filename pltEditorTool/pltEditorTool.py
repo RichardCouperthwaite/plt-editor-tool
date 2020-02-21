@@ -45,7 +45,9 @@ class window(tk.Frame):
         self.mark_ew   = tk.IntVar()
         self.mark_fc   = tk.StringVar()
         self.mark_sz   = tk.IntVar()
-        self.marker_types = [".",",","o","v","^","<",">","1","2","3","4","8","s","p","P","*","h","H","+","x","X","D","d","|","_","None"]
+        self.marker_types = [".",",","o","v","^","<",">","1","2","3","4","8",
+                             "s","p","P","*","h","H","+","x","X","D","d","|",
+                             "_","None"]
         self.fill_exist = tk.IntVar()
         self.fill_alpha = tk.DoubleVar()
         self.fill_ec    = tk.StringVar()
@@ -83,7 +85,10 @@ class window(tk.Frame):
         self.tuline = tk.IntVar()
         self.legend = tk.StringVar()
         self.lgSize = tk.DoubleVar()
-        self.legend_pos_list = ['best', 'None', 'upper left', 'upper center', 'upper right', 'center left', 'center', 'center right', 'lower left', 'lower center', 'lower right']
+        self.legend_pos_list = ['best', 'None', 'upper left', 'upper center', 
+                                'upper right', 'center left', 'center', 
+                                'center right', 'lower left', 'lower center', 
+                                'lower right']
         # Call the function to obtain the initial values for all the variables 
         # defined above and set the axis count to 1 since this will create the
         # first axis
@@ -98,14 +103,19 @@ class window(tk.Frame):
         #************************************************************#
         #************************************************************#
         # Create a frame to hold the plot details information
-        self.plotsFrame = tk.LabelFrame(self, text='Plot Details', labelanchor='nw', 
-                                  height='100', width='400', bg=bg_blue, font=('Courier New', '12', 'bold'))
-        self.plotsFrame.grid(row=0, column=0, columnspan=3, rowspan=2, padx=10, pady=8, sticky=tk.W+tk.E)
+        self.plotsFrame = tk.LabelFrame(self, text='Plot Details', 
+                                        labelanchor='nw', height='100', 
+                                        width='400', bg=bg_blue, 
+                                        font=('Courier New', '12', 'bold'))
+        self.plotsFrame.grid(row=0, column=0, columnspan=3, rowspan=2, 
+                             padx=10, pady=8, sticky=tk.W+tk.E)
         
         #************************************************************#
         #************************************************************#
         # Option menu for selecting the current set of data
-        self.data_select = tk.OptionMenu(self.plotsFrame, self.current_data, *self.data_list, command=self.plot_changed)
+        self.data_select = tk.OptionMenu(self.plotsFrame, self.current_data, 
+                                         *self.data_list, 
+                                         command=self.plot_changed)
         self.data_select['bg'] = bg_blue
         self.data_select['activebackground'] = bg_blue
         self.data_select['width'] = '19'
@@ -118,59 +128,89 @@ class window(tk.Frame):
         self.data_select['highlightthickness'] = '0'
         self.data_select.grid(row=0, column=0, columnspan=2, sticky=tk.W+tk.E)
         # Input EntryBox for Data Label
-        self.label = tk.Label(self.plotsFrame, text='Data Label:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.plotsFrame, text='Data Label:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=0,column=2, columnspan=2, padx=20)
-        self.data_label = tk.Entry(self.plotsFrame, textvariable=self.dat_lab, width='30')
+        self.data_label = tk.Entry(self.plotsFrame, textvariable=self.dat_lab, 
+                                   width='30')
         self.data_label.grid(row=1, column=2, columnspan=2)
         # Input EntryBox for the Fill data Label
-        self.label = tk.Label(self.plotsFrame, text='Fill Label:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.plotsFrame, text='Fill Label:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=0,column=6, columnspan=2, padx=20)
-        self.data_label = tk.Entry(self.plotsFrame, textvariable=self.dat_lab2, width='30')
+        self.data_label = tk.Entry(self.plotsFrame, textvariable=self.dat_lab2, 
+                                   width='30')
         self.data_label.grid(row=1, column=6, columnspan=2)
         #************************************************************#
         #************************************************************#
         # Window Frame for the Errorbar Data
-        self.ebar_dat = tk.LabelFrame(self.plotsFrame, text='Error Bar', labelanchor='n', bg=bg_blue, font=('Courier New','11','bold'))
+        self.ebar_dat = tk.LabelFrame(self.plotsFrame, text='Error Bar', 
+                                      labelanchor='n', bg=bg_blue, 
+                                      font=('Courier New','11','bold'))
         self.ebar_dat.grid(row=2,column=0, columnspan=2, padx=20)
         # CheckBox for whether to show errobars
-        self.label = tk.Label(self.ebar_dat, text='Error Bar?:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.ebar_dat, text='Error Bar?:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=2,column=0, padx=5, pady=2)
-        self.ebar_exist_check = tk.Checkbutton(self.ebar_dat, variable=self.ebar_exist, bg=bg_blue, activebackground=bg_blue)
+        self.ebar_exist_check = tk.Checkbutton(self.ebar_dat, 
+                                               variable=self.ebar_exist, 
+                                               bg=bg_blue, 
+                                               activebackground=bg_blue)
         self.ebar_exist_check.grid(row=2,column=1, padx=5, pady=2)
         # Errorbar color selection
-        self.label = tk.Label(self.ebar_dat, text='Color:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.ebar_dat, text='Color:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=3,column=0, padx=5, pady=2)
-        self.eb_col = tk.Button(self.ebar_dat, text='', bg=self.ebar_color.get(), activebackground=self.ebar_color.get(), font=('Courier New','10','bold'), command=self.ebar_col_h)
+        self.eb_col = tk.Button(self.ebar_dat, text='', 
+                                bg=self.ebar_color.get(), 
+                                activebackground=self.ebar_color.get(), 
+                                font=('Courier New','10','bold'), 
+                                command=self.ebar_col_h)
         self.eb_col.grid(row=3,column=1, padx=5, pady=2, sticky=tk.W+tk.E)
         # Errorbar linewidth
-        self.label = tk.Label(self.ebar_dat, text='Line width:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.ebar_dat, text='Line width:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=4,column=0, padx=5, pady=2)
-        self.eb_lw = tk.Spinbox(self.ebar_dat, textvariable=self.ebar_linew, width='5', from_=1, to=100, increment=1)
+        self.eb_lw = tk.Spinbox(self.ebar_dat, textvariable=self.ebar_linew, 
+                                width='5', from_=1, to=100, increment=1)
         self.eb_lw.grid(row=4,column=1, padx=5, pady=2)
         # Errorbar Cap Size
-        self.label = tk.Label(self.ebar_dat, text='Cap Size:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.ebar_dat, text='Cap Size:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=5,column=0, padx=5, pady=2)
-        self.eb_cs = tk.Spinbox(self.ebar_dat, textvariable=self.ebar_caps, width='5', from_=1, to=100, increment=1)
+        self.eb_cs = tk.Spinbox(self.ebar_dat, textvariable=self.ebar_caps, 
+                                width='5', from_=1, to=100, increment=1)
         self.eb_cs.grid(row=5,column=1, padx=5, pady=2)
         # Errorbar Cap Thickness
-        self.label = tk.Label(self.ebar_dat, text='Cap Thickness:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.ebar_dat, text='Cap Thickness:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=6,column=0, padx=5, pady=2)
-        self.eb_ct = tk.Spinbox(self.ebar_dat, textvariable=self.ebar_capt, width='5', from_=1, to=100, increment=1)
+        self.eb_ct = tk.Spinbox(self.ebar_dat, textvariable=self.ebar_capt, 
+                                width='5', from_=1, to=100, increment=1)
         self.eb_ct.grid(row=6,column=1, padx=5, pady=2)
         #************************************************************#
         #************************************************************#
         
-        self.line_dat = tk.LabelFrame(self.plotsFrame, text='Line', labelanchor='n', bg=bg_blue, font=('Courier New','11','bold'))
+        self.line_dat = tk.LabelFrame(self.plotsFrame, text='Line', 
+                                      labelanchor='n', bg=bg_blue, 
+                                      font=('Courier New','11','bold'))
         self.line_dat.grid(row=2,column=2, columnspan=2, padx=20)
                         
-        self.label = tk.Label(self.line_dat, text='Color:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.line_dat, text='Color:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=0,column=0, padx=5, pady=2)
-        self.l_col = tk.Button(self.line_dat, text='', bg=self.line_color.get(), activebackground=self.line_color.get(), font=('Courier New','10','bold'), command=self.line_col_h)
+        self.l_col = tk.Button(self.line_dat, text='', 
+                               bg=self.line_color.get(), 
+                               activebackground=self.line_color.get(), 
+                               font=('Courier New','10','bold'), 
+                               command=self.line_col_h)
         self.l_col.grid(row=0,column=1, padx=5, pady=2, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.line_dat, text='Line Style:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.line_dat, text='Line Style:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=1,column=0, padx=5, pady=2)
-        self.l_sty = tk.OptionMenu(self.line_dat, self.line_style, *self.styles)
+        self.l_sty = tk.OptionMenu(self.line_dat, self.line_style, 
+                                   *self.styles)
         self.l_sty['bg'] = bg_blue
         self.l_sty['activebackground'] = bg_blue
         self.l_sty['width'] = '3'
@@ -183,21 +223,27 @@ class window(tk.Frame):
         self.l_sty['highlightthickness'] = '0'
         self.l_sty.grid(row=1,column=1, padx=5, pady=2)
         
-        self.label = tk.Label(self.line_dat, text='Line width:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.line_dat, text='Line width:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=2,column=0, padx=5, pady=2)
-        self.l_wid = tk.Spinbox(self.line_dat, textvariable=self.line_width, width='5', from_=1, to=100, increment=1)
+        self.l_wid = tk.Spinbox(self.line_dat, textvariable=self.line_width,
+                                width='5', from_=1, to=100, increment=1)
         self.l_wid.grid(row=2,column=1, padx=5, pady=2)
         
         
         
         #************************************************************#
         #************************************************************#
-        self.marker_dat = tk.LabelFrame(self.plotsFrame, text='Marker', labelanchor='n', bg=bg_blue, font=('Courier New','11','bold'))
+        self.marker_dat = tk.LabelFrame(self.plotsFrame, text='Marker', 
+                                        labelanchor='n', bg=bg_blue, 
+                                        font=('Courier New','11','bold'))
         self.marker_dat.grid(row=2,column=4, columnspan=2, padx=20)
  
-        self.label = tk.Label(self.marker_dat, text='Type:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.marker_dat, text='Type:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=0,column=0)
-        self.m_type = tk.OptionMenu(self.marker_dat, self.mark_type, *self.marker_types)
+        self.m_type = tk.OptionMenu(self.marker_dat, self.mark_type, 
+                                    *self.marker_types)
         self.m_type['bg'] = bg_blue
         self.m_type['activebackground'] = bg_blue
         self.m_type['width'] = '3'
@@ -211,59 +257,92 @@ class window(tk.Frame):
         self.m_type.grid(row=0,column=1, padx=5, pady=2)
         
         
-        self.label = tk.Label(self.marker_dat, text='Edge Color:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.marker_dat, text='Edge Color:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=1,column=0)
-        self.m_ecol = tk.Button(self.marker_dat, text='', bg=self.mark_ec.get(), activebackground=self.mark_ec.get(), font=('Courier New','10','bold'), command=self.me_col_h)
+        self.m_ecol = tk.Button(self.marker_dat, text='', 
+                                bg=self.mark_ec.get(), 
+                                activebackground=self.mark_ec.get(), 
+                                font=('Courier New','10','bold'), 
+                                command=self.me_col_h)
         self.m_ecol.grid(row=1,column=1, padx=5, pady=2, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.marker_dat, text='Edge Width:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.marker_dat, text='Edge Width:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=2,column=0)
-        self.m_ewid = tk.Spinbox(self.marker_dat, textvariable=self.mark_ew, width='5', from_=1, to=100, increment=1)
+        self.m_ewid = tk.Spinbox(self.marker_dat, textvariable=self.mark_ew, 
+                                 width='5', from_=1, to=100, increment=1)
         self.m_ewid.grid(row=2,column=1, padx=5, pady=2)
         
-        self.label = tk.Label(self.marker_dat, text='Face Color:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.marker_dat, text='Face Color:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=3,column=0)
-        self.m_fcol = tk.Button(self.marker_dat, text='', bg=self.mark_fc.get(), activebackground=self.mark_fc.get(), font=('Courier New','10','bold'), command=self.mf_col_h)
+        self.m_fcol = tk.Button(self.marker_dat, text='', 
+                                bg=self.mark_fc.get(), 
+                                activebackground=self.mark_fc.get(), 
+                                font=('Courier New','10','bold'), 
+                                command=self.mf_col_h)
         self.m_fcol.grid(row=3,column=1, padx=5, pady=2, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.marker_dat, text='Size:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.marker_dat, text='Size:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=4,column=0)
-        self.m_sz = tk.Spinbox(self.marker_dat, textvariable=self.mark_sz, width='5', from_=1, to=100, increment=1)
+        self.m_sz = tk.Spinbox(self.marker_dat, textvariable=self.mark_sz, 
+                               width='5', from_=1, to=100, increment=1)
         self.m_sz.grid(row=4,column=1, padx=5, pady=2)
         
         
         #************************************************************#
         #************************************************************#
-        self.fill_dat = tk.LabelFrame(self.plotsFrame, text='Fill', labelanchor='n', bg=bg_blue, font=('Courier New','11','bold'))
+        self.fill_dat = tk.LabelFrame(self.plotsFrame, text='Fill', 
+                                      labelanchor='n', bg=bg_blue, 
+                                      font=('Courier New','11','bold'))
         self.fill_dat.grid(row=2,column=6, columnspan=2, padx=20)
         
-        self.label = tk.Label(self.fill_dat, text='Fill Plot?:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.fill_dat, text='Fill Plot?:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=0,column=0)
-        self.fill_exist_check = tk.Checkbutton(self.fill_dat, variable=self.fill_exist, bg=bg_blue, activebackground=bg_blue)
+        self.fill_exist_check = tk.Checkbutton(self.fill_dat, 
+                                               variable=self.fill_exist, 
+                                               bg=bg_blue, 
+                                               activebackground=bg_blue)
         self.fill_exist_check.grid(row=0,column=1, padx=5, pady=2)
         
-        self.label = tk.Label(self.fill_dat, text='Alpha:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.fill_dat, text='Alpha:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=1,column=0)
-        self.f_alpha = tk.Spinbox(self.fill_dat, textvariable=self.fill_alpha, width='5', from_=0, to=1, increment=0.01)
+        self.f_alpha = tk.Spinbox(self.fill_dat, textvariable=self.fill_alpha, 
+                                  width='5', from_=0, to=1, increment=0.01)
         self.f_alpha.grid(row=1,column=1, padx=5, pady=2)
         
         
-        self.label = tk.Label(self.fill_dat, text='Edge Color:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.fill_dat, text='Edge Color:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=2,column=0)
-        self.f_ecol = tk.Button(self.fill_dat, text='', bg=self.fill_ec.get(), activebackground=self.fill_ec.get(), font=('Courier New','10','bold'), command=self.fe_col_h)
+        self.f_ecol = tk.Button(self.fill_dat, text='', bg=self.fill_ec.get(), 
+                                activebackground=self.fill_ec.get(), 
+                                font=('Courier New','10','bold'), 
+                                command=self.fe_col_h)
         self.f_ecol.grid(row=2,column=1, padx=5, pady=2, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.fill_dat, text='Face Color:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.fill_dat, text='Face Color:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=3,column=0)
-        self.f_fcol = tk.Button(self.fill_dat, text='', bg=self.fill_fc.get(), activebackground=self.fill_fc.get(), font=('Courier New','10','bold'), command=self.ff_col_h)
+        self.f_fcol = tk.Button(self.fill_dat, text='', bg=self.fill_fc.get(), 
+                                activebackground=self.fill_fc.get(), 
+                                font=('Courier New','10','bold'), 
+                                command=self.ff_col_h)
         self.f_fcol.grid(row=3,column=1, padx=5, pady=2, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.fill_dat, text='Line Width:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.fill_dat, text='Line Width:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=4,column=0)
-        self.f_linew = tk.Spinbox(self.fill_dat, textvariable=self.fill_linew, width='5', from_=0, to=100, increment=1)
+        self.f_linew = tk.Spinbox(self.fill_dat, textvariable=self.fill_linew, 
+                                  width='5', from_=0, to=100, increment=1)
         self.f_linew.grid(row=4,column=1, padx=5, pady=2)
                
-        self.label = tk.Label(self.fill_dat, text='Line Style:', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.fill_dat, text='Line Style:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=5,column=0)
         self.f_ls = tk.OptionMenu(self.fill_dat, self.fill_lines, *self.styles)
         self.f_ls['bg'] = bg_blue
@@ -281,45 +360,71 @@ class window(tk.Frame):
         #************************************************************#
         #************************************************************#
         # Create a frame to hold the axis details information
-        self.axisFrame = tk.LabelFrame(self, text='Axis Details', labelanchor='nw', 
-                                  height='100', width='400', bg=bg_blue, font=('Courier New', '12', 'bold'))
-        self.axisFrame.grid(row=2, column=0, columnspan=3, rowspan=2, padx=10, pady=8)       
+        self.axisFrame = tk.LabelFrame(self, text='Axis Details', 
+                                       labelanchor='nw', height='100', 
+                                       width='400', bg=bg_blue, 
+                                       font=('Courier New', '12', 'bold'))
+        self.axisFrame.grid(row=2, column=0, columnspan=3, rowspan=2, 
+                            padx=10, pady=8)       
         
         
         #************************************************************#
         #************************************************************#
         # Create the frame to specify the grid size
-        self.gridFrame = tk.LabelFrame(self.axisFrame, text='Grid Size', labelanchor='n', 
-                                        font=('Courier New','12','bold'), bg=bg_blue)
-        self.gridFrame.grid(row=0, column=0, columnspan=3, padx=8, pady=6, sticky=tk.W+tk.E)
-        self.label = tk.Label(self.gridFrame, text='Rows:', font=('Courier New','10'), bg=bg_blue)
+        self.gridFrame = tk.LabelFrame(self.axisFrame, text='Grid Size', 
+                                       labelanchor='n', 
+                                       font=('Courier New','12','bold'), 
+                                       bg=bg_blue)
+        self.gridFrame.grid(row=0, column=0, columnspan=3, padx=8, pady=6, 
+                            sticky=tk.W+tk.E)
+        self.label = tk.Label(self.gridFrame, text='Rows:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=0, padx=2, pady=1)
-        self.gridrEntry = tk.Spinbox(self.gridFrame, textvariable=self.gridrow, width='10', from_=1, to=100, increment=1)
+        self.gridrEntry = tk.Spinbox(self.gridFrame, textvariable=self.gridrow, 
+                                     width='10', from_=1, to=100, increment=1)
         self.gridrEntry.grid(row=0, column=1, padx=2, pady=1)
-        self.label = tk.Label(self.gridFrame, text='Columns:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.gridFrame, text='Columns:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=2, padx=2, pady=1)
-        self.gridcEntry = tk.Spinbox(self.gridFrame, textvariable=self.gridcol, width='10', from_=1, to=100, increment=1)
+        self.gridcEntry = tk.Spinbox(self.gridFrame, textvariable=self.gridcol, 
+                                     width='10', from_=1, to=100, increment=1)
         self.gridcEntry.grid(row=0, column=3, padx=2, pady=1)
-        self.label = tk.Label(self.gridFrame, text='Share x:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.gridFrame, text='Share x:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=0, padx=2, pady=1)
-        self.sharex_check = tk.Checkbutton(self.gridFrame, variable=self.sharex, bg=bg_blue, activebackground=bg_blue)
+        self.sharex_check = tk.Checkbutton(self.gridFrame, 
+                                           variable=self.sharex, bg=bg_blue, 
+                                           activebackground=bg_blue)
         self.sharex_check.grid(row=1, column=1, padx=5, pady=2)
-        self.label = tk.Label(self.gridFrame, text='Share y:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.gridFrame, text='Share y:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=2, padx=2, pady=1)
-        self.sharey_check = tk.Checkbutton(self.gridFrame, variable=self.sharey, bg=bg_blue, activebackground=bg_blue)
+        self.sharey_check = tk.Checkbutton(self.gridFrame, 
+                                           variable=self.sharey, 
+                                           bg=bg_blue, 
+                                           activebackground=bg_blue)
         self.sharey_check.grid(row=1, column=3, padx=5, pady=2)
         
         #************************************************************#
         #************************************************************#
         # Create button for adding a new axis to the plot
-        self.createFrame = tk.LabelFrame(self.axisFrame, text='Create or Delete Axes', labelanchor='n', 
-                                        font=('Courier New','12','bold'), bg=bg_blue)
-        self.createFrame.grid(row=0, column=3, columnspan=2, padx=8, pady=6, sticky=tk.W+tk.E)
+        self.createFrame = tk.LabelFrame(self.axisFrame, 
+                                         text='Create or Delete Axes', 
+                                         labelanchor='n', 
+                                        font=('Courier New','12','bold'), 
+                                        bg=bg_blue)
+        self.createFrame.grid(row=0, column=3, columnspan=2, padx=8, pady=6, 
+                              sticky=tk.W+tk.E)
         
-        self.addnewAxis = tk.Button(self.createFrame, text = 'Add New Axis', font=('Courier New','10','bold'), bg = bg_green, activebackground=bg_green, command=self.add_new_axis)
+        self.addnewAxis = tk.Button(self.createFrame, text = 'Add New Axis', 
+                                    font=('Courier New','10','bold'), 
+                                    bg = bg_green, activebackground=bg_green, 
+                                    command=self.add_new_axis)
         self.addnewAxis.grid(row=0, column=0, sticky=tk.W+tk.E, padx=8, pady=6)
                 
-        self.axis_select = tk.OptionMenu(self.createFrame, self.current_axis, *self.axis_list, command=self.axis_changed)
+        self.axis_select = tk.OptionMenu(self.createFrame, self.current_axis, 
+                                         *self.axis_list, 
+                                         command=self.axis_changed)
         self.axis_select['bg'] = bg_blue
         self.axis_select['activebackground'] = bg_blue
         self.axis_select['width'] = '19'
@@ -332,23 +437,33 @@ class window(tk.Frame):
         self.axis_select['highlightthickness'] = '0'
         self.axis_select.grid(row=0, column=1, sticky=tk.W+tk.E)
         
-        self.delAxis = tk.Button(self.createFrame, text = 'Delete Axis', font=('Courier New','10','bold'), bg = bg_red, activebackground=bg_red, command=self.del_curr_axis)
+        self.delAxis = tk.Button(self.createFrame, text = 'Delete Axis', 
+                                 font=('Courier New','10','bold'), bg = bg_red, 
+                                 activebackground=bg_red, 
+                                 command=self.del_curr_axis)
         self.delAxis.grid(row=0, column=2, sticky=tk.W+tk.E, padx=8, pady=6)
         
         #************************************************************#
         #************************************************************#
         # Create Frame for data selection for the axis
-        self.selDataFrame = tk.LabelFrame(self.axisFrame, text='Data Selection', labelanchor='n', 
-                                font=('Courier New','12','bold'), bg=bg_blue, width=500, height=100)
-        self.selDataFrame.grid(row=1, column=0, columnspan=3, padx=8, pady=6, sticky=tk.W+tk.E)
+        self.selDataFrame = tk.LabelFrame(self.axisFrame, 
+                                          text='Data Selection', 
+                                          labelanchor='n', 
+                                          font=('Courier New','12','bold'), 
+                                          bg=bg_blue, width=500, height=100)
+        self.selDataFrame.grid(row=1, column=0, columnspan=3, padx=8, pady=6, 
+                               sticky=tk.W+tk.E)
 
-        self.label = tk.Label(self.selDataFrame, text='All Data', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.selDataFrame, text='All Data', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
         self.label.grid(row=0,column=0, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.selDataFrame, text='Selected Data', bg=bg_blue, font=('Courier New','10','bold'))
+        self.label = tk.Label(self.selDataFrame, text='Selected Data', 
+                              bg=bg_blue, font=('Courier New','10','bold'))
         self.label.grid(row=0,column=2, sticky=tk.W+tk.E)
         
-        self.alldat = tk.OptionMenu(self.selDataFrame, self.alldat_selected, *self.data_list)
+        self.alldat = tk.OptionMenu(self.selDataFrame, self.alldat_selected, 
+                                    *self.data_list)
         self.alldat['bg'] = bg_blue
         self.alldat['activebackground'] = bg_blue
         self.alldat['width'] = '19'
@@ -361,13 +476,18 @@ class window(tk.Frame):
         self.alldat['highlightthickness'] = '0'
         self.alldat.grid(row=1, column=0, padx=5)
         
-        self.add_dat = tk.Button(self.selDataFrame, text='>', bg = bg_green, activebackground=bg_green, command=self.add_plot_to_axis)
+        self.add_dat = tk.Button(self.selDataFrame, text='>', bg = bg_green, 
+                                 activebackground=bg_green, 
+                                 command=self.add_plot_to_axis)
         self.add_dat.grid(row=1, column=1)
         
-        self.rem_dat = tk.Button(self.selDataFrame, text='<', bg = bg_red, activebackground=bg_red, command=self.remove_plot_from_axis)
+        self.rem_dat = tk.Button(self.selDataFrame, text='<', bg = bg_red, 
+                                 activebackground=bg_red, 
+                                 command=self.remove_plot_from_axis)
         self.rem_dat.grid(row=1, column=3)
         
-        self.seldat = tk.OptionMenu(self.selDataFrame, self.seldat_selected, *self.selected_axis_data)
+        self.seldat = tk.OptionMenu(self.selDataFrame, self.seldat_selected, 
+                                    *self.selected_axis_data)
         self.seldat['bg'] = bg_blue
         self.seldat['activebackground'] = bg_blue
         self.seldat['width'] = '19'
@@ -384,141 +504,202 @@ class window(tk.Frame):
         #************************************************************#
         #************************************************************#
         # Create Frame for data position for the axis
-        self.axPosFrame = tk.LabelFrame(self.axisFrame, text='Axis Position', labelanchor='n', 
-                                font=('Courier New','12','bold'), bg=bg_blue, width=500, height=100)
-        self.axPosFrame.grid(row=1, column=3, columnspan=2, padx=8, pady=6, sticky=tk.W+tk.E)
+        self.axPosFrame = tk.LabelFrame(self.axisFrame, text='Axis Position', 
+                                        labelanchor='n', 
+                                font=('Courier New','12','bold'), bg=bg_blue, 
+                                width=500, height=100)
+        self.axPosFrame.grid(row=1, column=3, columnspan=2, padx=8, pady=6, 
+                             sticky=tk.W+tk.E)
                         
-        self.label = tk.Label(self.axPosFrame, text='Row:',font=('Courier New','10','bold'), bg=bg_blue)
+        self.label = tk.Label(self.axPosFrame, text='Row:',
+                              font=('Courier New','10','bold'), bg=bg_blue)
         self.label.grid(row=0, column=0)
-        self.axrow_sb = tk.Spinbox(self.axPosFrame, textvariable=self.axrow, width='10', from_=0, to=100, increment=1)
+        self.axrow_sb = tk.Spinbox(self.axPosFrame, textvariable=self.axrow, 
+                                   width='10', from_=0, to=100, increment=1)
         self.axrow_sb.grid(row=0, column=1, padx=2, pady=1)
-        self.label = tk.Label(self.axPosFrame, text='Row Span:',font=('Courier New','10','bold'), bg=bg_blue)
+        self.label = tk.Label(self.axPosFrame, text='Row Span:',
+                              font=('Courier New','10','bold'), bg=bg_blue)
         self.label.grid(row=0, column=2)
-        self.axrowspan_sb = tk.Spinbox(self.axPosFrame, textvariable=self.axrowspan, width='10', from_=1, to=100, increment=1)
+        self.axrowspan_sb = tk.Spinbox(self.axPosFrame, 
+                                       textvariable=self.axrowspan, width='10', 
+                                       from_=1, to=100, increment=1)
         self.axrowspan_sb.grid(row=0, column=3, padx=2, pady=1)
         
-        self.label = tk.Label(self.axPosFrame, text='Column:',font=('Courier New','10','bold'), bg=bg_blue)
+        self.label = tk.Label(self.axPosFrame, text='Column:',
+                              font=('Courier New','10','bold'), bg=bg_blue)
         self.label.grid(row=1, column=0)
-        self.axcol_sb = tk.Spinbox(self.axPosFrame, textvariable=self.axcol, width='10', from_=0, to=100, increment=1)
+        self.axcol_sb = tk.Spinbox(self.axPosFrame, textvariable=self.axcol, 
+                                   width='10', from_=0, to=100, increment=1)
         self.axcol_sb.grid(row=1, column=1, padx=2, pady=1)
-        self.label = tk.Label(self.axPosFrame, text='Column Span:',font=('Courier New','10','bold'), bg=bg_blue)
+        self.label = tk.Label(self.axPosFrame, text='Column Span:',
+                              font=('Courier New','10','bold'), bg=bg_blue)
         self.label.grid(row=1, column=2)
-        self.axcolspan_sb = tk.Spinbox(self.axPosFrame, textvariable=self.axcolspan, width='10', from_=1, to=100, increment=1)
+        self.axcolspan_sb = tk.Spinbox(self.axPosFrame, 
+                                       textvariable=self.axcolspan, width='10', 
+                                       from_=1, to=100, increment=1)
         self.axcolspan_sb.grid(row=1, column=3, padx=2, pady=1)
         
         #************************************************************#
         #************************************************************#
         # create the frame that will hold the information for the axis labels
-        self.axlabFrame = tk.LabelFrame(self.axisFrame, text='Axis Labels', labelanchor='n', 
-                                  height='100', width='200', bg=bg_blue, font=('Courier New', '12', 'bold'))
-        self.axlabFrame.grid(row=3, column=0, columnspan=5, padx=8, pady=6, sticky=tk.W+tk.E)
+        self.axlabFrame = tk.LabelFrame(self.axisFrame, text='Axis Labels', 
+                                        labelanchor='n', height='100', 
+                                        width='200', bg=bg_blue, 
+                                        font=('Courier New', '12', 'bold'))
+        self.axlabFrame.grid(row=3, column=0, columnspan=5, padx=8, pady=6, 
+                             sticky=tk.W+tk.E)
         
         # Create a text field for the x-axis title
-        self.label = tk.Label(self.axlabFrame, text='X-Axis: Label:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='X-Axis: Label:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=0, padx=2, pady=1)
-        self.xlabEntry = tk.Entry(self.axlabFrame, textvariable=self.xlab, width='50')
+        self.xlabEntry = tk.Entry(self.axlabFrame, textvariable=self.xlab, 
+                                  width='50')
         self.xlabEntry.grid(row=0, column=1, padx=2, pady=1)
         # Create a text field for entering the lower x_limit
-        self.label = tk.Label(self.axlabFrame, text='Lower Limit:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Lower Limit:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=2, padx=2, pady=1)
-        self.xlimloEntry = tk.Entry(self.axlabFrame, textvariable=self.xlimlow, width='5')
+        self.xlimloEntry = tk.Entry(self.axlabFrame, textvariable=self.xlimlow, 
+                                    width='5')
         self.xlimloEntry.grid(row=0, column=3, padx=2, pady=1)
         # Create a text field for entering the upper x_limit
-        self.label = tk.Label(self.axlabFrame, text='Upper Limit:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Upper Limit:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=4, padx=2, pady=1)
-        self.xlimhiEntry = tk.Entry(self.axlabFrame, textvariable=self.xlimhi, width='5')
+        self.xlimhiEntry = tk.Entry(self.axlabFrame, textvariable=self.xlimhi, 
+                                    width='5')
         self.xlimhiEntry.grid(row=0, column=5, padx=2, pady=1)
         # Create checkbox for axis ticks
-        self.label = tk.Label(self.axlabFrame, text='Show ticks:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Show ticks:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=6, padx=2, pady=1)
-        self.xtickcheck = tk.Checkbutton(self.axlabFrame, variable=self.xticks, bg=bg_blue, activebackground=bg_blue)
+        self.xtickcheck = tk.Checkbutton(self.axlabFrame, variable=self.xticks, 
+                                         bg=bg_blue, activebackground=bg_blue)
         self.xtickcheck.grid(row=0, column=7, padx=2, pady=1)
         
         # Create Textbox for the y-Axis label
-        self.label = tk.Label(self.axlabFrame, text='Y-Axis: Label:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Y-Axis: Label:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=0, padx=2, pady=1)
-        self.ylabEntry = tk.Entry(self.axlabFrame, textvariable=self.ylab, width='50')
+        self.ylabEntry = tk.Entry(self.axlabFrame, textvariable=self.ylab, 
+                                  width='50')
         self.ylabEntry.grid(row=1, column=1, padx=2, pady=1)
         # Create entry for lower y-Limit
-        self.label = tk.Label(self.axlabFrame, text='Lower Limit:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Lower Limit:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=2, padx=2, pady=1)
-        self.ylimloEntry = tk.Entry(self.axlabFrame, textvariable=self.ylimlow, width='5')
+        self.ylimloEntry = tk.Entry(self.axlabFrame, textvariable=self.ylimlow,
+                                    width='5')
         self.ylimloEntry.grid(row=1, column=3, padx=2, pady=1)
         # Create entry for upper y_limit
-        self.label = tk.Label(self.axlabFrame, text='Upper Limit:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Upper Limit:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=4, padx=2, pady=1)
-        self.ylimhiEntry = tk.Entry(self.axlabFrame, textvariable=self.ylimhi, width='5')
+        self.ylimhiEntry = tk.Entry(self.axlabFrame, textvariable=self.ylimhi, 
+                                    width='5')
         self.ylimhiEntry.grid(row=1, column=5, padx=2, pady=1)
         # Create checkbox for axis ticks
-        self.label = tk.Label(self.axlabFrame, text='Show ticks:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Show ticks:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=6, padx=2, pady=1)
-        self.xtickcheck = tk.Checkbutton(self.axlabFrame, variable=self.yticks, bg=bg_blue, activebackground=bg_blue)
+        self.xtickcheck = tk.Checkbutton(self.axlabFrame, variable=self.yticks, 
+                                         bg=bg_blue, activebackground=bg_blue)
         self.xtickcheck.grid(row=1, column=7, padx=2, pady=1)
         
         # Create a Spinbox for the text size
-        self.label = tk.Label(self.axlabFrame, text='Font Size:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Font Size:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=2, column=0, padx=2, pady=1)
-        self.xlabSize = tk.Spinbox(self.axlabFrame, textvariable=self.axsize, from_=1, to=30, increment=0.5)
+        self.xlabSize = tk.Spinbox(self.axlabFrame, textvariable=self.axsize, 
+                                   from_=1, to=30, increment=0.5)
         self.xlabSize.grid(row=2, column=1)
         # Create a checkbutton for bold font
-        self.label = tk.Label(self.axlabFrame, text='Bold:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Bold:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=2, column=2, padx=2, pady=1)
-        self.xboldselect = tk.Checkbutton(self.axlabFrame, variable=self.axbold, bg=bg_blue, activebackground=bg_blue)
+        self.xboldselect = tk.Checkbutton(self.axlabFrame, 
+                                          variable=self.axbold, bg=bg_blue, 
+                                          activebackground=bg_blue)
         self.xboldselect.grid(row=2, column=3, padx=2, pady=1)
         # Create a checkbutton for italic font
-        self.label = tk.Label(self.axlabFrame, text='Italic:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Italic:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=2, column=4, padx=2, pady=1)
-        self.xboldselect = tk.Checkbutton(self.axlabFrame, variable=self.axitalic, bg=bg_blue, activebackground=bg_blue)
+        self.xboldselect = tk.Checkbutton(self.axlabFrame,
+                                          variable=self.axitalic, bg=bg_blue, 
+                                          activebackground=bg_blue)
         self.xboldselect.grid(row=2, column=5, padx=2, pady=1)
         # Create a checkbutton for underline font
-        self.label = tk.Label(self.axlabFrame, text='Small-Caps:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.axlabFrame, text='Small-Caps:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=2, column=6, padx=2, pady=1)
-        self.xboldselect = tk.Checkbutton(self.axlabFrame, variable=self.axuline, bg=bg_blue, activebackground=bg_blue)
+        self.xboldselect = tk.Checkbutton(self.axlabFrame, 
+                                          variable=self.axuline, bg=bg_blue, 
+                                          activebackground=bg_blue)
         self.xboldselect.grid(row=2, column=7, padx=2, pady=1)
 
         #************************************************************#
         #************************************************************#
         # Create frame for the plot title information
-        self.titFrame = tk.LabelFrame(self.axisFrame, text='Plot Title', labelanchor='n', 
-                                  height='100', width='200', bg=bg_blue, font=('Courier New', '12', 'bold'))
-        self.titFrame.grid(row=4, column=0, columnspan=4, padx=8, pady=6, sticky=tk.W+tk.E)
+        self.titFrame = tk.LabelFrame(self.axisFrame, text='Plot Title', 
+                                      labelanchor='n', height='100',
+                                      width='200', bg=bg_blue, 
+                                      font=('Courier New', '12', 'bold'))
+        self.titFrame.grid(row=4, column=0, columnspan=4, padx=8, pady=6, 
+                           sticky=tk.W+tk.E)
         
         # Create entry box for title
-        self.label = tk.Label(self.titFrame, text='Label:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.titFrame, text='Label:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=0, column=0, padx=2, pady=1)
-        self.titleEntry = tk.Entry(self.titFrame, textvariable=self.title, width='80')
+        self.titleEntry = tk.Entry(self.titFrame, textvariable=self.title, 
+                                   width='80')
         self.titleEntry.grid(row=0, column=1, padx=2, pady=1, columnspan=7)
         # Create spinbox for title size
-        self.label = tk.Label(self.titFrame, text='Font Size:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.titFrame, text='Font Size:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=0, padx=2, pady=1)
-        self.titleSize = tk.Spinbox(self.titFrame, textvariable=self.tsize, from_=1, to=30, increment=0.5)
+        self.titleSize = tk.Spinbox(self.titFrame, textvariable=self.tsize, 
+                                    from_=1, to=30, increment=0.5)
         self.titleSize.grid(row=1, column=1)
         # Create select box for bold font
-        self.label = tk.Label(self.titFrame, text='Bold:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.titFrame, text='Bold:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=2, padx=2, pady=1)
-        self.yboldselect = tk.Checkbutton(self.titFrame, variable=self.tbold, bg=bg_blue, activebackground=bg_blue)
+        self.yboldselect = tk.Checkbutton(self.titFrame, variable=self.tbold, 
+                                          bg=bg_blue, activebackground=bg_blue)
         self.yboldselect.grid(row=1, column=3, padx=2, pady=1)
         # Create select box for italic font
-        self.label = tk.Label(self.titFrame, text='Italic:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.titFrame, text='Italic:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=4, padx=2, pady=1)
-        self.yboldselect = tk.Checkbutton(self.titFrame, variable=self.titalic, bg=bg_blue, activebackground=bg_blue)
+        self.yboldselect = tk.Checkbutton(self.titFrame, variable=self.titalic, 
+                                          bg=bg_blue, activebackground=bg_blue)
         self.yboldselect.grid(row=1, column=5, padx=2, pady=1)
         # Create select box for underline font
-        self.label = tk.Label(self.titFrame, text='Small-Caps:', font=('Courier New','10'), bg=bg_blue)
+        self.label = tk.Label(self.titFrame, text='Small-Caps:', 
+                              font=('Courier New','10'), bg=bg_blue)
         self.label.grid(row=1, column=6, padx=2, pady=1)
-        self.yboldselect = tk.Checkbutton(self.titFrame, variable=self.tuline, bg=bg_blue, activebackground=bg_blue)
+        self.yboldselect = tk.Checkbutton(self.titFrame, variable=self.tuline, 
+                                          bg=bg_blue, activebackground=bg_blue)
         self.yboldselect.grid(row=1, column=7, padx=2, pady=1)   
         
         #************************************************************#
         #************************************************************#
         # Create frame for the legend position information
-        self.legFrame = tk.LabelFrame(self.axisFrame, text='Legend', labelanchor='n', 
-                                  height='100', width='200', bg=bg_blue, font=('Courier New', '12', 'bold'))
-        self.legFrame.grid(row=4, column=4, columnspan=1, padx=8, pady=6, sticky=tk.W+tk.E)
+        self.legFrame = tk.LabelFrame(self.axisFrame, text='Legend', 
+                                      labelanchor='n', height='100', 
+                                      width='200', bg=bg_blue, 
+                                      font=('Courier New', '12', 'bold'))
+        self.legFrame.grid(row=4, column=4, columnspan=1, padx=8, pady=6, 
+                           sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.legFrame, text='Position:', font=('Courier New','10', 'bold'), bg=bg_blue)
+        self.label = tk.Label(self.legFrame, text='Position:', 
+                              font=('Courier New','10', 'bold'), bg=bg_blue)
         self.label.grid(row=0, column=0, padx=2, pady=1, sticky=tk.W+tk.E)
-        self.leg_pos = tk.OptionMenu(self.legFrame, self.legend, *self.legend_pos_list)
+        self.leg_pos = tk.OptionMenu(self.legFrame, self.legend, 
+                                     *self.legend_pos_list)
         self.leg_pos['bg'] = bg_blue
         self.leg_pos['activebackground'] = bg_blue
         self.leg_pos['width'] = '19'
@@ -531,21 +712,25 @@ class window(tk.Frame):
         self.leg_pos['highlightthickness'] = '0'
         self.leg_pos.grid(row=1, column=0, padx=50, pady=5, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.legFrame, text='Font Size:', font=('Courier New','10', 'bold'), bg=bg_blue)
+        self.label = tk.Label(self.legFrame, text='Font Size:', 
+                              font=('Courier New','10', 'bold'), bg=bg_blue)
         self.label.grid(row=0, column=1, padx=2, pady=1, sticky=tk.W+tk.E)
-        self.legSize = tk.Spinbox(self.legFrame, textvariable=self.lgSize, from_=1, to=30, increment=0.5)
+        self.legSize = tk.Spinbox(self.legFrame, textvariable=self.lgSize, 
+                                  from_=1, to=30, increment=0.5)
         self.legSize.grid(row=1, column=1)
         
         
         #************************************************************#
         #************************************************************#
         # Create a button for showing the plot
-        self.show_plot = tk.Button(self, text = '---SHOW PLOT---', bg = bg_green, activebackground=bg_green, 
+        self.show_plot = tk.Button(self, text = '---SHOW PLOT---', 
+                                   bg = bg_green, activebackground=bg_green, 
                                    command=self.gen_plot)
         self.show_plot.grid(row=4, column=0, sticky=tk.W+tk.E, padx=10, pady=8)
         
         # Create a button for saving the plot
-        self.save_plot = tk.Button(self, text = '---SAVE PLOT---', bg = '#4E51B5', activebackground='#4E51B5',
+        self.save_plot = tk.Button(self, text = '---SAVE PLOT---', 
+                                   bg = '#4E51B5', activebackground='#4E51B5',
                                    command=self.save_plot)
         self.save_plot.grid(row=4, column=2, sticky=tk.W+tk.E, padx=10, pady=8)
         
@@ -826,8 +1011,10 @@ class window(tk.Frame):
                                    'x_label':'x',
                                    'y_label':'y',
                                    'title':'Plot',
-                                   'axis_text':{'size':8, 'Bold':0, 'Italic':0, 'Underline':0},
-                                   'title_text':{'size':8, 'Bold':1, 'Italic':0, 'Underline':0},
+                                   'axis_text':{'size':8, 'Bold':0, 
+                                                'Italic':0, 'Underline':0},
+                                   'title_text':{'size':8, 'Bold':1, 
+                                                 'Italic':0, 'Underline':0},
                                    'position':[0,0,1,1],
                                    'legend':'best',
                                    'legendFontSize':8,
@@ -859,8 +1046,10 @@ class window(tk.Frame):
                                    'x_label':'x',
                                    'y_label':'y',
                                    'title':'Plot',
-                                   'axis_text':{'size':8, 'Bold':0, 'Italic':0, 'Underline':0},
-                                   'title_text':{'size':8, 'Bold':1, 'Italic':0, 'Underline':0},
+                                   'axis_text':{'size':8, 'Bold':0, 
+                                                'Italic':0, 'Underline':0},
+                                   'title_text':{'size':8, 'Bold':1, 
+                                                 'Italic':0, 'Underline':0},
                                    'position':[0,0,1,1],
                                    'legend':'best',
                                    'legendFontSize':8,
@@ -869,7 +1058,8 @@ class window(tk.Frame):
         menu = self.axis_select["menu"]
         menu.delete(0, "end")
         for string in self.axis_list:
-            menu.add_command(label=string, command=lambda value=string: self.axis_changed(value))
+            menu.add_command(label=string, 
+                             command=lambda value=string: self.axis_changed(value))
         self.axis_count += 1
         
     def del_curr_axis(self):
@@ -884,7 +1074,8 @@ class window(tk.Frame):
             if string != self.current_axis.get():
                 temp_axis_list.append(string)
                 temp_axis_dict[string] = self.axis_dict[string]
-                menu.add_command(label=string, command=lambda value=string: self.axis_changed(value))
+                menu.add_command(label=string, 
+                                 command=lambda value=string: self.axis_changed(value))
         self.axis_dict = temp_axis_dict
         self.axis_list = temp_axis_list
         
@@ -971,7 +1162,8 @@ class window(tk.Frame):
             menu = self.seldat["menu"]
             menu.delete(0, "end")
             for string in self.axis_dict[self.current_axis.get()]['plots']:
-                menu.add_command(label=string, command=lambda value=string: self.seldat_selected.set(value))
+                menu.add_command(label=string, 
+                                 command=lambda value=string: self.seldat_selected.set(value))
             self.seldat_selected.set(self.axis_dict[self.current_axis.get()]['plots'][0])
 
         
@@ -1024,7 +1216,8 @@ class window(tk.Frame):
         menu = self.seldat["menu"]
         menu.delete(0, "end")
         for string in self.axis_dict[self.current_axis.get()]['plots']:
-            menu.add_command(label=string, command=lambda value=string: self.seldat_selected.set(value))
+            menu.add_command(label=string, 
+                             command=lambda value=string: self.seldat_selected.set(value))
         self.seldat_selected.set(self.axis_dict[self.current_axis.get()]['plots'][0])
             
         # print(self.axis_dict[self.current_axis.get()]['plots'])
@@ -1051,10 +1244,12 @@ class window(tk.Frame):
                     for j in range(data['position'][3]):
                         test_grid[data['position'][0]+i, data['position'][1]+j] = 1
             if np.sum(test_grid) != plot_dict['gsr']*plot_dict['gsc']:
-                messagebox.showerror(title='Grid Error', message="All Grid Spaces must be filled!")
+                messagebox.showerror(title='Grid Error', 
+                                     message="All Grid Spaces must be filled!")
                 return
         except IndexError:
-            messagebox.showerror(title='Grid Error', message="Grid index of plot exceeds Grid Bounds!")
+            messagebox.showerror(title='Grid Error', 
+                                 message="Grid index of plot exceeds Grid Bounds!")
             return
         
         
@@ -1065,14 +1260,17 @@ class window(tk.Frame):
         
     def save_plot(self):
         self.collect_current_data()
-        file = filedialog.asksaveasfile(defaultextension='.png', title='Save Matplotlib Figure', 
-                                        filetypes=[('png files (*.png)', '*.png')])
+        file = filedialog.asksaveasfile(defaultextension='.png', 
+                                        title='Save Matplotlib Figure', 
+                                        filetypes=[('png files (*.png)', 
+                                                    '*.png')])
         if file != None:
             test_grid = np.zeros((self.gridrow.get(), self.gridcol.get()))
             plot_dict = {}
             plot_dict['axes'] = list(self.axis_dict.keys())
             plot_dict['axis data'] = self.axis_dict
-            plot_dict['fig_size'] = [3+3*self.gridrow.get(), 3.5+3.5*self.gridcol.get()]
+            plot_dict['fig_size'] = [3+3*self.gridrow.get(), 
+                                     3.5+3.5*self.gridcol.get()]
             plot_dict['gsr'] = self.gridrow.get()
             plot_dict['gsc'] = self.gridcol.get()
             plot_dict['sharex'] = self.sharex.get()
@@ -1084,12 +1282,15 @@ class window(tk.Frame):
                     data = plot_dict['axis data'][axis]
                     for i in range(data['position'][2]):
                         for j in range(data['position'][3]):
-                            test_grid[data['position'][0]+i, data['position'][1]+j] = 1
+                            test_grid[data['position'][0]+i, 
+                                      data['position'][1]+j] = 1
                 if np.sum(test_grid) != plot_dict['gsr']*plot_dict['gsc']:
-                    messagebox.showerror(title='Grid Error', message="All Grid Spaces must be filled!")
+                    messagebox.showerror(title='Grid Error', 
+                                         message="All Grid Spaces must be filled!")
                     return
             except IndexError:
-                messagebox.showerror(title='Grid Error', message="Grid index of plot exceeds Grid Bounds!")
+                messagebox.showerror(title='Grid Error', 
+                                     message="Grid index of plot exceeds Grid Bounds!")
                 return
             
             if (self.sharex.get() == 0) and (self.sharey.get() == 0):
@@ -1164,7 +1365,9 @@ class plot():
     def __init__(self, axis_dict, fname):
         self.axis_list = axis_dict['axes']
         self.axis_data = axis_dict['axis data']
-        self.fig = plt.figure(constrained_layout=True, figsize=(axis_dict['fig_size'][1], axis_dict['fig_size'][0]))
+        self.fig = plt.figure(constrained_layout=True, 
+                              figsize=(axis_dict['fig_size'][1], 
+                                       axis_dict['fig_size'][0]))
         self.rows = axis_dict['gsr']
         self.cols = axis_dict['gsc']
         self.gs = GridSpec(self.rows, self.cols, figure=self.fig)
@@ -1193,11 +1396,15 @@ class plot():
                 plot = data['plots_data'][plot_num]
                 
                 if plot['fill']['exist'] == 1 and len(plot['dif_top'])>0:
-                    ax.fill_between(np.array(plot['x']),np.array(plot['y'])+np.array(plot['dif_top']),
+                    ax.fill_between(np.array(plot['x']),
+                                    np.array(plot['y'])+np.array(plot['dif_top']),
                                     np.array(plot['y'])-np.array(plot['dif_bot']),
-                                     alpha=plot['fill']['alpha'],ec=plot['fill']['edge_col'],
-                                     fc=plot['fill']['face_col'],lw=plot['fill']['line_wid'],
-                                     ls=plot['fill']['line_sty'],label=plot['fill-label'])
+                                     alpha=plot['fill']['alpha'],
+                                     ec=plot['fill']['edge_col'],
+                                     fc=plot['fill']['face_col'],
+                                     lw=plot['fill']['line_wid'],
+                                     ls=plot['fill']['line_sty'],
+                                     label=plot['fill-label'])
                     label_length += 'label'
                 
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
@@ -1206,20 +1413,33 @@ class plot():
                         plot['y_err'] = np.zeros_like(np.array(plot['y']))
                     if plot['x_err'] == []:
                         plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                    ax.errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],xerr=plot['x_err'],
-                                ecolor=plot['ebar']['color'],elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],ls=plot['line']['style'],lw=plot['line']['width'],
-                                marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],label=plot['label'])
+                    ax.errorbar(x=plot['x'],y=plot['y'],
+                                yerr=plot['y_err'],xerr=plot['x_err'],
+                                ecolor=plot['ebar']['color'],
+                                elinewidth=plot['ebar']['linew'],
+                                capsize=plot['ebar']['capsize'],
+                                capthick=plot['ebar']['capthick'],
+                                color=plot['line']['color'],
+                                ls=plot['line']['style'],
+                                lw=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                mec=plot['marker']['edge_col'],
+                                mew=plot['marker']['edge_wid'],
+                                mfc=plot['marker']['face_col'],
+                                ms=plot['marker']['size'],
+                                label=plot['label'])
                     label_length += 'label'
                 else:
-                    ax.plot(plot['x'],plot['y'],color=plot['line']['color'],
-                            ls=plot['line']['style'],lw=plot['line']['width'],
-                            marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                            mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                            ms=plot['marker']['size'],label=plot['label'])
+                    ax.plot(plot['x'],plot['y'],
+                            color=plot['line']['color'],
+                            ls=plot['line']['style'],
+                            lw=plot['line']['width'],
+                            marker=plot['marker']['type'],
+                            mec=plot['marker']['edge_col'],
+                            mew=plot['marker']['edge_wid'],
+                            mfc=plot['marker']['face_col'],
+                            ms=plot['marker']['size'],
+                            label=plot['label'])
                     label_length += 'label'
                     
             style = ['normal', 'italic']
@@ -1245,7 +1465,8 @@ class plot():
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
-                    ax.legend(loc=data['legend'], fontsize=data['legendFontSize'])
+                    ax.legend(loc=data['legend'], 
+                              fontsize=data['legendFontSize'])
         self.fig.show()
         
     def show_plot2(self):
@@ -1322,7 +1543,8 @@ class plot():
                                 y_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                     except Exception as e:
                         # print(e.args)
-                        messagebox.showerror(title='Plot error', message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')
+                        messagebox.showerror(title='Plot error', 
+                                             message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')
                         return
                     
                     self.axes[i][j] = self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
@@ -1331,11 +1553,15 @@ class plot():
                         plot = data['plots_data'][plot_num]
                         
                         if plot['fill']['exist'] == 1 and len(plot['dif_top'])>0:
-                            self.axes[i][j].fill_between(np.array(plot['x']),np.array(plot['y'])+np.array(plot['dif_top']),
-                                            np.array(plot['y'])-np.array(plot['dif_bot']),
-                                             alpha=plot['fill']['alpha'],ec=plot['fill']['edge_col'],
-                                             fc=plot['fill']['face_col'],lw=plot['fill']['line_wid'],
-                                             ls=plot['fill']['line_sty'],label=plot['fill-label'])
+                            self.axes[i][j].fill_between(np.array(plot['x']),
+                                                         np.array(plot['y'])+np.array(plot['dif_top']),
+                                                         np.array(plot['y'])-np.array(plot['dif_bot']),
+                                                         alpha=plot['fill']['alpha'],
+                                                         ec=plot['fill']['edge_col'],
+                                                         fc=plot['fill']['face_col'],
+                                                         lw=plot['fill']['line_wid'],
+                                                         ls=plot['fill']['line_sty'],
+                                                         label=plot['fill-label'])
                             label_length += 'label'
                         
                         no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
@@ -1344,20 +1570,34 @@ class plot():
                                 plot['y_err'] = np.zeros_like(np.array(plot['y']))
                             if plot['x_err'] == []:
                                 plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                            self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],xerr=plot['x_err'],
-                                        ecolor=plot['ebar']['color'],elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],ls=plot['line']['style'],lw=plot['line']['width'],
-                                        marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],label=plot['label'])
+                            self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                                     yerr=plot['y_err'],
+                                                     xerr=plot['x_err'],
+                                                     ecolor=plot['ebar']['color'],
+                                                     elinewidth=plot['ebar']['linew'],
+                                                     capsize=plot['ebar']['capsize'],
+                                                     capthick=plot['ebar']['capthick'],
+                                                     color=plot['line']['color'],
+                                                     ls=plot['line']['style'],
+                                                     lw=plot['line']['width'],
+                                                     marker=plot['marker']['type'],
+                                                     mec=plot['marker']['edge_col'],
+                                                     mew=plot['marker']['edge_wid'],
+                                                     mfc=plot['marker']['face_col'],
+                                                     ms=plot['marker']['size'],
+                                                     label=plot['label'])
                             label_length += 'label'
                         else:
-                            self.axes[i][j].plot(plot['x'],plot['y'],color=plot['line']['color'],
-                                    ls=plot['line']['style'],lw=plot['line']['width'],
-                                    marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                                    mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                                    ms=plot['marker']['size'],label=plot['label'])
+                            self.axes[i][j].plot(plot['x'],plot['y'],
+                                                 color=plot['line']['color'],
+                                                 ls=plot['line']['style'],
+                                                 lw=plot['line']['width'],
+                                                 marker=plot['marker']['type'],
+                                                 mec=plot['marker']['edge_col'],
+                                                 mew=plot['marker']['edge_wid'],
+                                                 mfc=plot['marker']['face_col'],
+                                                 ms=plot['marker']['size'],
+                                                 label=plot['label'])
                             label_length += 'label'
                             
                     style = ['normal', 'italic']
@@ -1369,21 +1609,25 @@ class plot():
                         self.axes[i][j].set_xticks([],[])
                     if data['yticks'] == 0:
                         self.axes[i][j].set_yticks([],[])
-                    self.axes[i][j].set_xlabel(x_label, fontsize=data['axis_text']['size'], 
-                                  fontstyle=style[data['axis_text']['Italic']], 
-                                  fontvariant=variant[data['axis_text']['Underline']], 
-                                  fontweight=weight[data['axis_text']['Bold']])
-                    self.axes[i][j].set_ylabel(y_label, fontsize=data['axis_text']['size'], 
-                                  fontstyle=style[data['axis_text']['Italic']], 
-                                  fontvariant=variant[data['axis_text']['Underline']], 
-                                  fontweight=weight[data['axis_text']['Bold']])
-                    self.axes[i][j].set_title(data['title'], fontsize=data['title_text']['size'], 
-                                  fontstyle=style[data['title_text']['Italic']], 
-                                  fontvariant=variant[data['title_text']['Underline']], 
-                                  fontweight=weight[data['title_text']['Bold']])
+                    self.axes[i][j].set_xlabel(x_label, 
+                                               fontsize=data['axis_text']['size'], 
+                                               fontstyle=style[data['axis_text']['Italic']], 
+                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontweight=weight[data['axis_text']['Bold']])
+                    self.axes[i][j].set_ylabel(y_label, 
+                                               fontsize=data['axis_text']['size'], 
+                                               fontstyle=style[data['axis_text']['Italic']], 
+                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontweight=weight[data['axis_text']['Bold']])
+                    self.axes[i][j].set_title(data['title'], 
+                                              fontsize=data['title_text']['size'], 
+                                              fontstyle=style[data['title_text']['Italic']], 
+                                              fontvariant=variant[data['title_text']['Underline']], 
+                                              fontweight=weight[data['title_text']['Bold']])
                     if label_length != 0:
                         if data['legend'] != 'None':
-                            self.axes[i][j].legend(loc=data['legend'], fontsize=data['legendFontSize'])
+                            self.axes[i][j].legend(loc=data['legend'], 
+                                                   fontsize=data['legendFontSize'])
         self.fig.show()
         
         
@@ -1397,11 +1641,15 @@ class plot():
             for plot_num in range(len(data['plots'])):
                 plot = data['plots_data'][plot_num]
                 if plot['fill']['exist'] == 1 and len(plot['dif_top'])>0:
-                    ax.fill_between(np.array(plot['x']),np.array(plot['y'])+np.array(plot['dif_top']),
+                    ax.fill_between(np.array(plot['x']),
+                                    np.array(plot['y'])+np.array(plot['dif_top']),
                                     np.array(plot['y'])-np.array(plot['dif_bot']),
-                                     alpha=plot['fill']['alpha'],ec=plot['fill']['edge_col'],
-                                     fc=plot['fill']['face_col'],lw=plot['fill']['line_wid'],
-                                     ls=plot['fill']['line_sty'],label=plot['fill-label'])
+                                    alpha=plot['fill']['alpha'],
+                                    ec=plot['fill']['edge_col'],
+                                    fc=plot['fill']['face_col'],
+                                    lw=plot['fill']['line_wid'],
+                                    ls=plot['fill']['line_sty'],
+                                    label=plot['fill-label'])
                     label_length += 'label'
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                 if plot['ebar']['exist'] == 1 and not no_err_data:
@@ -1409,20 +1657,32 @@ class plot():
                         plot['y_err'] = np.zeros_like(np.array(plot['y']))
                     if plot['x_err'] == []:
                         plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                    ax.errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],xerr=plot['x_err'],
-                                ecolor=plot['ebar']['color'],elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],ls=plot['line']['style'],lw=plot['line']['width'],
-                                marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],label=plot['label'])
+                    ax.errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],
+                                xerr=plot['x_err'],
+                                ecolor=plot['ebar']['color'],
+                                elinewidth=plot['ebar']['linew'],
+                                capsize=plot['ebar']['capsize'],
+                                capthick=plot['ebar']['capthick'],
+                                color=plot['line']['color'],
+                                ls=plot['line']['style'],
+                                lw=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                mec=plot['marker']['edge_col'],
+                                mew=plot['marker']['edge_wid'],
+                                mfc=plot['marker']['face_col'],
+                                ms=plot['marker']['size'],
+                                label=plot['label'])
                     label_length += 'label'
                 else:
                     ax.plot(plot['x'],plot['y'],color=plot['line']['color'],
-                            ls=plot['line']['style'],lw=plot['line']['width'],
-                            marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                            mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                            ms=plot['marker']['size'],label=plot['label'])
+                            ls=plot['line']['style'],
+                            lw=plot['line']['width'],
+                            marker=plot['marker']['type'],
+                            mec=plot['marker']['edge_col'],
+                            mew=plot['marker']['edge_wid'],
+                            mfc=plot['marker']['face_col'],
+                            ms=plot['marker']['size'],
+                            label=plot['label'])
                     label_length += 'label'
                     
             style = ['normal', 'italic']
@@ -1527,7 +1787,8 @@ class plot():
                                 y_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                     except Exception as e:
                         # print(e.args)
-                        messagebox.showerror(title='Plot error', message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')
+                        messagebox.showerror(title='Plot error', 
+                                             message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')
                         return
                     
                     self.axes[i][j] = self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
@@ -1536,11 +1797,15 @@ class plot():
                         plot = data['plots_data'][plot_num]
                         
                         if plot['fill']['exist'] == 1 and len(plot['dif_top'])>0:
-                            self.axes[i][j].fill_between(np.array(plot['x']),np.array(plot['y'])+np.array(plot['dif_top']),
-                                            np.array(plot['y'])-np.array(plot['dif_bot']),
-                                             alpha=plot['fill']['alpha'],ec=plot['fill']['edge_col'],
-                                             fc=plot['fill']['face_col'],lw=plot['fill']['line_wid'],
-                                             ls=plot['fill']['line_sty'],label=plot['fill-label'])
+                            self.axes[i][j].fill_between(np.array(plot['x']),
+                                                         np.array(plot['y'])+np.array(plot['dif_top']),
+                                                         np.array(plot['y'])-np.array(plot['dif_bot']),
+                                                         alpha=plot['fill']['alpha'],
+                                                         ec=plot['fill']['edge_col'],
+                                                         fc=plot['fill']['face_col'],
+                                                         lw=plot['fill']['line_wid'],
+                                                         ls=plot['fill']['line_sty'],
+                                                         label=plot['fill-label'])
                             label_length += 'label'
                         
                         no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
@@ -1549,20 +1814,34 @@ class plot():
                                 plot['y_err'] = np.zeros_like(np.array(plot['y']))
                             if plot['x_err'] == []:
                                 plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                            self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],xerr=plot['x_err'],
-                                        ecolor=plot['ebar']['color'],elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],ls=plot['line']['style'],lw=plot['line']['width'],
-                                        marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],label=plot['label'])
+                            self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                                     yerr=plot['y_err'],
+                                                     xerr=plot['x_err'],
+                                                     ecolor=plot['ebar']['color'],
+                                                     elinewidth=plot['ebar']['linew'],
+                                                     capsize=plot['ebar']['capsize'],
+                                                     capthick=plot['ebar']['capthick'],
+                                                     color=plot['line']['color'],
+                                                     ls=plot['line']['style'],
+                                                     lw=plot['line']['width'],
+                                                     marker=plot['marker']['type'],
+                                                     mec=plot['marker']['edge_col'],
+                                                     mew=plot['marker']['edge_wid'],
+                                                     mfc=plot['marker']['face_col'],
+                                                     ms=plot['marker']['size'],
+                                                     label=plot['label'])
                             label_length += 'label'
                         else:
-                            self.axes[i][j].plot(plot['x'],plot['y'],color=plot['line']['color'],
-                                    ls=plot['line']['style'],lw=plot['line']['width'],
-                                    marker=plot['marker']['type'],mec=plot['marker']['edge_col'],
-                                    mew=plot['marker']['edge_wid'],mfc=plot['marker']['face_col'],
-                                    ms=plot['marker']['size'],label=plot['label'])
+                            self.axes[i][j].plot(plot['x'],plot['y'],
+                                                 color=plot['line']['color'],
+                                                 ls=plot['line']['style'],
+                                                 lw=plot['line']['width'],
+                                                 marker=plot['marker']['type'],
+                                                 mec=plot['marker']['edge_col'],
+                                                 mew=plot['marker']['edge_wid'],
+                                                 mfc=plot['marker']['face_col'],
+                                                 ms=plot['marker']['size'],
+                                                 label=plot['label'])
                             label_length += 'label'
                             
                     style = ['normal', 'italic']
@@ -1574,21 +1853,25 @@ class plot():
                         self.axes[i][j].set_xticks([],[])
                     if data['yticks'] == 0:
                         self.axes[i][j].set_yticks([],[])
-                    self.axes[i][j].set_xlabel(x_label, fontsize=data['axis_text']['size'], 
-                                  fontstyle=style[data['axis_text']['Italic']], 
-                                  fontvariant=variant[data['axis_text']['Underline']], 
-                                  fontweight=weight[data['axis_text']['Bold']])
-                    self.axes[i][j].set_ylabel(y_label, fontsize=data['axis_text']['size'], 
-                                  fontstyle=style[data['axis_text']['Italic']], 
-                                  fontvariant=variant[data['axis_text']['Underline']], 
-                                  fontweight=weight[data['axis_text']['Bold']])
-                    self.axes[i][j].set_title(data['title'], fontsize=data['title_text']['size'], 
-                                  fontstyle=style[data['title_text']['Italic']], 
-                                  fontvariant=variant[data['title_text']['Underline']], 
-                                  fontweight=weight[data['title_text']['Bold']])
+                    self.axes[i][j].set_xlabel(x_label, 
+                                               fontsize=data['axis_text']['size'], 
+                                               fontstyle=style[data['axis_text']['Italic']], 
+                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontweight=weight[data['axis_text']['Bold']])
+                    self.axes[i][j].set_ylabel(y_label, 
+                                               fontsize=data['axis_text']['size'], 
+                                               fontstyle=style[data['axis_text']['Italic']], 
+                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontweight=weight[data['axis_text']['Bold']])
+                    self.axes[i][j].set_title(data['title'], 
+                                              fontsize=data['title_text']['size'], 
+                                              fontstyle=style[data['title_text']['Italic']], 
+                                              fontvariant=variant[data['title_text']['Underline']], 
+                                              fontweight=weight[data['title_text']['Bold']])
                     if label_length != 0:
                         if data['legend'] != 'None':
-                            self.axes[i][j].legend(loc=data['legend'], fontsize=data['legendFontSize'])
+                            self.axes[i][j].legend(loc=data['legend'], 
+                                                   fontsize=data['legendFontSize'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
         plt.close('all')
@@ -1632,7 +1915,8 @@ class plotEditor():
             self.__check_input()
         except Exception as e:
             root = tk.Tk()
-            messagebox.showerror("Startup", "Failed to Initialize tool:\n{}".format(e))
+            messagebox.showerror("Startup", 
+                                 "Failed to Initialize tool:\n{}".format(e))
             root.destroy()
             raise ValueError("Inputs not fully specified")
         self.__initialize_plot()
