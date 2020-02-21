@@ -97,7 +97,5 @@ The code is maintained in the Github repository. Create pull requests to contrib
  - Add scatter plots with color sequence and size sequence options
  - Legend text font size option
 
-License
-----
-
+### License
 GNU GPLv3
