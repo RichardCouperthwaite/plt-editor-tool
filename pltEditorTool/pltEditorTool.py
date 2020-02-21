@@ -82,6 +82,7 @@ class window(tk.Frame):
         self.titalic = tk.IntVar()
         self.tuline = tk.IntVar()
         self.legend = tk.StringVar()
+        self.lgSize = tk.DoubleVar()
         self.legend_pos_list = ['best', 'None', 'upper left', 'upper center', 'upper right', 'center left', 'center', 'center right', 'lower left', 'lower center', 'lower right']
         # Call the function to obtain the initial values for all the variables 
         # defined above and set the axis count to 1 since this will create the
@@ -515,7 +516,7 @@ class window(tk.Frame):
                                   height='100', width='200', bg=bg_blue, font=('Courier New', '12', 'bold'))
         self.legFrame.grid(row=4, column=4, columnspan=1, padx=8, pady=6, sticky=tk.W+tk.E)
         
-        self.label = tk.Label(self.legFrame, text='Legend Position:', font=('Courier New','10', 'bold'), bg=bg_blue)
+        self.label = tk.Label(self.legFrame, text='Position:', font=('Courier New','10', 'bold'), bg=bg_blue)
         self.label.grid(row=0, column=0, padx=2, pady=1, sticky=tk.W+tk.E)
         self.leg_pos = tk.OptionMenu(self.legFrame, self.legend, *self.legend_pos_list)
         self.leg_pos['bg'] = bg_blue
@@ -529,6 +530,12 @@ class window(tk.Frame):
         self.leg_pos['anchor'] = tk.W
         self.leg_pos['highlightthickness'] = '0'
         self.leg_pos.grid(row=1, column=0, padx=50, pady=5, sticky=tk.W+tk.E)
+        
+        self.label = tk.Label(self.legFrame, text='Font Size:', font=('Courier New','10', 'bold'), bg=bg_blue)
+        self.label.grid(row=0, column=1, padx=2, pady=1, sticky=tk.W+tk.E)
+        self.legSize = tk.Spinbox(self.legFrame, textvariable=self.lgSize, from_=1, to=30, increment=0.5)
+        self.legSize.grid(row=1, column=1)
+        
         
         #************************************************************#
         #************************************************************#
@@ -614,6 +621,7 @@ class window(tk.Frame):
         self.tuline.set(self.axis_dict['axis1']['title_text']['Underline'])
         
         self.legend.set(self.axis_dict['axis1']['legend'])
+        self.lgSize.set(self.axis_dict['axis1']['legendFontSize'])
     
     def ebar_col_h(self):
         col = askcolor(self.ebar_color.get())[1]
@@ -693,6 +701,7 @@ class window(tk.Frame):
             self.axis_dict[self.selected_axis_value]['title_text']['Underline'] = self.tuline.get()
             
             self.axis_dict[self.selected_axis_value]['legend'] = self.legend.get()
+            self.axis_dict[self.selected_axis_value]['legendFontSize'] = self.lgSize.get()
             
             self.selected_axis_value = event
             
@@ -735,6 +744,7 @@ class window(tk.Frame):
             self.tuline.set(self.axis_dict[event]['title_text']['Underline'])
             
             self.legend.set(self.axis_dict[self.selected_axis_value]['legend'])
+            self.lgSize.set(self.axis_dict[self.selected_axis_value]['legendFontSize'])
             
         
     def plot_changed(self, event):
@@ -820,6 +830,7 @@ class window(tk.Frame):
                                    'title_text':{'size':8, 'Bold':1, 'Italic':0, 'Underline':0},
                                    'position':[0,0,1,1],
                                    'legend':'best',
+                                   'legendFontSize':8,
                                    'xticks': 1, 'yticks':1}       
         max_x = -1e16
         min_x = 1e16
@@ -852,6 +863,7 @@ class window(tk.Frame):
                                    'title_text':{'size':8, 'Bold':1, 'Italic':0, 'Underline':0},
                                    'position':[0,0,1,1],
                                    'legend':'best',
+                                   'legendFontSize':8,
                                    'xticks': 1, 'yticks':1}
         self.axis_list.append('axis{}'.format(self.axis_count+1))
         menu = self.axis_select["menu"]
@@ -919,6 +931,7 @@ class window(tk.Frame):
         self.tuline.set(self.axis_dict[event]['title_text']['Underline'])
         
         self.legend.set(self.axis_dict[self.selected_axis_value]['legend'])
+        self.lgSize.set(self.axis_dict[self.selected_axis_value]['legendFontSize'])
         
         
         
@@ -1024,7 +1037,7 @@ class window(tk.Frame):
         plot_dict = {}
         plot_dict['axes'] = list(self.axis_dict.keys())
         plot_dict['axis data'] = self.axis_dict
-        plot_dict['fig_size'] = [4+self.gridrow.get(), 4+self.gridcol.get()]
+        plot_dict['fig_size'] = [2+2*self.gridrow.get(), 2.5+2.5*self.gridcol.get()]
         plot_dict['gsr'] = self.gridrow.get()
         plot_dict['gsc'] = self.gridcol.get()
         plot_dict['sharex'] = self.sharex.get()
@@ -1059,7 +1072,7 @@ class window(tk.Frame):
             plot_dict = {}
             plot_dict['axes'] = list(self.axis_dict.keys())
             plot_dict['axis data'] = self.axis_dict
-            plot_dict['fig_size'] = [2+2*self.gridrow.get(), 2+2*self.gridcol.get()]
+            plot_dict['fig_size'] = [3+3*self.gridrow.get(), 3.5+3.5*self.gridcol.get()]
             plot_dict['gsr'] = self.gridrow.get()
             plot_dict['gsc'] = self.gridcol.get()
             plot_dict['sharex'] = self.sharex.get()
@@ -1142,6 +1155,7 @@ class window(tk.Frame):
         self.axis_dict[self.selected_axis_value]['title_text']['Underline'] = self.tuline.get()
         
         self.axis_dict[self.selected_axis_value]['legend'] = self.legend.get()
+        self.axis_dict[self.selected_axis_value]['legendFontSize'] = self.lgSize.get()
 
 
 
@@ -1150,7 +1164,7 @@ class plot():
     def __init__(self, axis_dict, fname):
         self.axis_list = axis_dict['axes']
         self.axis_data = axis_dict['axis data']
-        self.fig = plt.figure(constrained_layout=True, figsize=(axis_dict['fig_size'][0], axis_dict['fig_size'][1]))
+        self.fig = plt.figure(constrained_layout=True, figsize=(axis_dict['fig_size'][1], axis_dict['fig_size'][0]))
         self.rows = axis_dict['gsr']
         self.cols = axis_dict['gsc']
         self.gs = GridSpec(self.rows, self.cols, figure=self.fig)
@@ -1231,7 +1245,7 @@ class plot():
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
-                    ax.legend(loc=data['legend'])
+                    ax.legend(loc=data['legend'], fontsize=data['legendFontSize'])
         self.fig.show()
         
     def show_plot2(self):
@@ -1369,7 +1383,7 @@ class plot():
                                   fontweight=weight[data['title_text']['Bold']])
                     if label_length != 0:
                         if data['legend'] != 'None':
-                            self.axes[i][j].legend(loc=data['legend'])
+                            self.axes[i][j].legend(loc=data['legend'], fontsize=data['legendFontSize'])
         self.fig.show()
         
         
@@ -1434,7 +1448,7 @@ class plot():
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
-                    ax.legend(loc=data['legend'])
+                    ax.legend(loc=data['legend'], fontsize=data['legendFontSize'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
         plt.close('all')
@@ -1574,7 +1588,7 @@ class plot():
                                   fontweight=weight[data['title_text']['Bold']])
                     if label_length != 0:
                         if data['legend'] != 'None':
-                            self.axes[i][j].legend(loc=data['legend'])
+                            self.axes[i][j].legend(loc=data['legend'], fontsize=data['legendFontSize'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
         plt.close('all')
