@@ -623,33 +623,38 @@ class window(tk.Frame):
         
     def line_col_h(self):
         col = askcolor(self.line_color.get())[1]
-        self.line_color.set(col)
-        self.l_col['bg'] = col
-        self.l_col['activebackground'] = col
+        if col != None:
+            self.line_color.set(col)
+            self.l_col['bg'] = col
+            self.l_col['activebackground'] = col
         
     def me_col_h(self):
         col = askcolor(self.mark_ec.get())[1]
-        self.mark_ec.set(col)
-        self.m_ecol['bg'] = col
-        self.m_ecol['activebackground'] = col
+        if col != None:
+            self.mark_ec.set(col)
+            self.m_ecol['bg'] = col
+            self.m_ecol['activebackground'] = col
     
     def mf_col_h(self):
         col = askcolor(self.mark_fc.get())[1]
-        self.mark_fc.set(col)
-        self.m_fcol['bg'] = col
-        self.m_fcol['activebackground'] = col
+        if col != None:
+            self.mark_fc.set(col)
+            self.m_fcol['bg'] = col
+            self.m_fcol['activebackground'] = col
     
     def fe_col_h(self):
         col = askcolor(self.fill_ec.get())[1]
-        self.fill_ec.set(col)
-        self.f_ecol['bg'] = col
-        self.f_ecol['activebackground'] = col
+        if col != None:
+            self.fill_ec.set(col)
+            self.f_ecol['bg'] = col
+            self.f_ecol['activebackground'] = col
         
     def ff_col_h(self):
         col = askcolor(self.fill_fc.get())[1]
-        self.fill_fc.set(col)
-        self.f_fcol['bg'] = col
-        self.f_fcol['activebackground'] = col
+        if col != None:
+            self.fill_fc.set(col)
+            self.f_fcol['bg'] = col
+            self.f_fcol['activebackground'] = col
         
     def axis_changed(self, event):
         # print(self.axis_dict)
@@ -1054,7 +1059,7 @@ class window(tk.Frame):
             plot_dict = {}
             plot_dict['axes'] = list(self.axis_dict.keys())
             plot_dict['axis data'] = self.axis_dict
-            plot_dict['fig_size'] = [4+self.gridrow.get(), 4+self.gridcol.get()]
+            plot_dict['fig_size'] = [2+2*self.gridrow.get(), 2+2*self.gridcol.get()]
             plot_dict['gsr'] = self.gridrow.get()
             plot_dict['gsc'] = self.gridcol.get()
             plot_dict['sharex'] = self.sharex.get()
@@ -1643,7 +1648,7 @@ class plotEditor():
                     'dif_top':self.dif_top[i],
                     'dif_bot':self.dif_bot[i],
                     'ebar':{'exist':ebar,
-                            'color':'#000000',
+                            'color':line_col[col_count],
                             'linew':1,
                             'capsize':1,
                             'capthick':1},
@@ -1651,7 +1656,7 @@ class plotEditor():
                             'style':'-',
                             'width':2},
                     'marker':{'type':'.',
-                              'edge_col':'#000000',
+                              'edge_col':line_col[col_count],
                               'edge_wid':1,
                               'face_col':line_col[col_count],
                               'size':10},
