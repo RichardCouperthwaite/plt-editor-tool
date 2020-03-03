@@ -1409,9 +1409,9 @@ class plot():
                 
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                 if plot['ebar']['exist'] == 1 and not no_err_data:
-                    if plot['y_err'] == []:
+                    if len(plot['y_err']) == 0:
                         plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                    if plot['x_err'] == []:
+                    if len(plot['x_err']) == 0:
                         plot['x_err'] = np.zeros_like(np.array(plot['x']))
                     ax.errorbar(x=plot['x'],y=plot['y'],
                                 yerr=plot['y_err'],xerr=plot['x_err'],
@@ -1566,9 +1566,9 @@ class plot():
                         
                         no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                         if plot['ebar']['exist'] == 1 and not no_err_data:
-                            if plot['y_err'] == []:
+                            if len(plot['y_err']) == 0:
                                 plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                            if plot['x_err'] == []:
+                            if len(plot['x_err']) == 0:
                                 plot['x_err'] = np.zeros_like(np.array(plot['x']))
                             self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                                      yerr=plot['y_err'],
@@ -1653,9 +1653,9 @@ class plot():
                     label_length += 'label'
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                 if plot['ebar']['exist'] == 1 and not no_err_data:
-                    if plot['y_err'] == []:
+                    if len(plot['y_err']) == 0:
                         plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                    if plot['x_err'] == []:
+                    if len(plot['x_err']) == 0:
                         plot['x_err'] = np.zeros_like(np.array(plot['x']))
                     ax.errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],
                                 xerr=plot['x_err'],
@@ -1810,9 +1810,9 @@ class plot():
                         
                         no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                         if plot['ebar']['exist'] == 1 and not no_err_data:
-                            if plot['y_err'] == []:
+                            if len(plot['y_err']) == 0:
                                 plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                            if plot['x_err'] == []:
+                            if len(plot['x_err']) == 0:
                                 plot['x_err'] = np.zeros_like(np.array(plot['x']))
                             self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                                      yerr=plot['y_err'],
