@@ -1410,10 +1410,41 @@ class plot():
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                 if plot['ebar']['exist'] == 1 and not no_err_data:
                     if len(plot['y_err']) == 0:
-                        plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                        #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                        ax.errorbar(x=plot['x'],y=plot['y'],
+                                xerr=plot['x_err'],
+                                ecolor=plot['ebar']['color'],
+                                elinewidth=plot['ebar']['linew'],
+                                capsize=plot['ebar']['capsize'],
+                                capthick=plot['ebar']['capthick'],
+                                color=plot['line']['color'],
+                                ls=plot['line']['style'],
+                                lw=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                mec=plot['marker']['edge_col'],
+                                mew=plot['marker']['edge_wid'],
+                                mfc=plot['marker']['face_col'],
+                                ms=plot['marker']['size'],
+                                label=plot['label'])
                     if len(plot['x_err']) == 0:
-                        plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                    ax.errorbar(x=plot['x'],y=plot['y'],
+                        #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                        ax.errorbar(x=plot['x'],y=plot['y'],
+                                yerr=plot['y_err'],
+                                ecolor=plot['ebar']['color'],
+                                elinewidth=plot['ebar']['linew'],
+                                capsize=plot['ebar']['capsize'],
+                                capthick=plot['ebar']['capthick'],
+                                color=plot['line']['color'],
+                                ls=plot['line']['style'],
+                                lw=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                mec=plot['marker']['edge_col'],
+                                mew=plot['marker']['edge_wid'],
+                                mfc=plot['marker']['face_col'],
+                                ms=plot['marker']['size'],
+                                label=plot['label'])
+                    if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                        ax.errorbar(x=plot['x'],y=plot['y'],
                                 yerr=plot['y_err'],xerr=plot['x_err'],
                                 ecolor=plot['ebar']['color'],
                                 elinewidth=plot['ebar']['linew'],
@@ -1567,25 +1598,55 @@ class plot():
                         no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
-                                plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                                #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                        xerr=plot['x_err'],
+                                        ecolor=plot['ebar']['color'],
+                                        elinewidth=plot['ebar']['linew'],
+                                        capsize=plot['ebar']['capsize'],
+                                        capthick=plot['ebar']['capthick'],
+                                        color=plot['line']['color'],
+                                        ls=plot['line']['style'],
+                                        lw=plot['line']['width'],
+                                        marker=plot['marker']['type'],
+                                        mec=plot['marker']['edge_col'],
+                                        mew=plot['marker']['edge_wid'],
+                                        mfc=plot['marker']['face_col'],
+                                        ms=plot['marker']['size'],
+                                        label=plot['label'])
                             if len(plot['x_err']) == 0:
-                                plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                            self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                                     yerr=plot['y_err'],
-                                                     xerr=plot['x_err'],
-                                                     ecolor=plot['ebar']['color'],
-                                                     elinewidth=plot['ebar']['linew'],
-                                                     capsize=plot['ebar']['capsize'],
-                                                     capthick=plot['ebar']['capthick'],
-                                                     color=plot['line']['color'],
-                                                     ls=plot['line']['style'],
-                                                     lw=plot['line']['width'],
-                                                     marker=plot['marker']['type'],
-                                                     mec=plot['marker']['edge_col'],
-                                                     mew=plot['marker']['edge_wid'],
-                                                     mfc=plot['marker']['face_col'],
-                                                     ms=plot['marker']['size'],
-                                                     label=plot['label'])
+                                #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                        yerr=plot['y_err'],
+                                        ecolor=plot['ebar']['color'],
+                                        elinewidth=plot['ebar']['linew'],
+                                        capsize=plot['ebar']['capsize'],
+                                        capthick=plot['ebar']['capthick'],
+                                        color=plot['line']['color'],
+                                        ls=plot['line']['style'],
+                                        lw=plot['line']['width'],
+                                        marker=plot['marker']['type'],
+                                        mec=plot['marker']['edge_col'],
+                                        mew=plot['marker']['edge_wid'],
+                                        mfc=plot['marker']['face_col'],
+                                        ms=plot['marker']['size'],
+                                        label=plot['label'])
+                            if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                        yerr=plot['y_err'],xerr=plot['x_err'],
+                                        ecolor=plot['ebar']['color'],
+                                        elinewidth=plot['ebar']['linew'],
+                                        capsize=plot['ebar']['capsize'],
+                                        capthick=plot['ebar']['capthick'],
+                                        color=plot['line']['color'],
+                                        ls=plot['line']['style'],
+                                        lw=plot['line']['width'],
+                                        marker=plot['marker']['type'],
+                                        mec=plot['marker']['edge_col'],
+                                        mew=plot['marker']['edge_wid'],
+                                        mfc=plot['marker']['face_col'],
+                                        ms=plot['marker']['size'],
+                                        label=plot['label'])
                             label_length += 'label'
                         else:
                             self.axes[i][j].plot(plot['x'],plot['y'],
@@ -1654,11 +1715,42 @@ class plot():
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                 if plot['ebar']['exist'] == 1 and not no_err_data:
                     if len(plot['y_err']) == 0:
-                        plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                    if len(plot['x_err']) == 0:
-                        plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                    ax.errorbar(x=plot['x'],y=plot['y'],yerr=plot['y_err'],
+                        #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                        ax.errorbar(x=plot['x'],y=plot['y'],
                                 xerr=plot['x_err'],
+                                ecolor=plot['ebar']['color'],
+                                elinewidth=plot['ebar']['linew'],
+                                capsize=plot['ebar']['capsize'],
+                                capthick=plot['ebar']['capthick'],
+                                color=plot['line']['color'],
+                                ls=plot['line']['style'],
+                                lw=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                mec=plot['marker']['edge_col'],
+                                mew=plot['marker']['edge_wid'],
+                                mfc=plot['marker']['face_col'],
+                                ms=plot['marker']['size'],
+                                label=plot['label'])
+                    if len(plot['x_err']) == 0:
+                        #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                        ax.errorbar(x=plot['x'],y=plot['y'],
+                                yerr=plot['y_err'],
+                                ecolor=plot['ebar']['color'],
+                                elinewidth=plot['ebar']['linew'],
+                                capsize=plot['ebar']['capsize'],
+                                capthick=plot['ebar']['capthick'],
+                                color=plot['line']['color'],
+                                ls=plot['line']['style'],
+                                lw=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                mec=plot['marker']['edge_col'],
+                                mew=plot['marker']['edge_wid'],
+                                mfc=plot['marker']['face_col'],
+                                ms=plot['marker']['size'],
+                                label=plot['label'])
+                    if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                        ax.errorbar(x=plot['x'],y=plot['y'],
+                                yerr=plot['y_err'],xerr=plot['x_err'],
                                 ecolor=plot['ebar']['color'],
                                 elinewidth=plot['ebar']['linew'],
                                 capsize=plot['ebar']['capsize'],
@@ -1811,25 +1903,55 @@ class plot():
                         no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
-                                plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                                #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                        xerr=plot['x_err'],
+                                        ecolor=plot['ebar']['color'],
+                                        elinewidth=plot['ebar']['linew'],
+                                        capsize=plot['ebar']['capsize'],
+                                        capthick=plot['ebar']['capthick'],
+                                        color=plot['line']['color'],
+                                        ls=plot['line']['style'],
+                                        lw=plot['line']['width'],
+                                        marker=plot['marker']['type'],
+                                        mec=plot['marker']['edge_col'],
+                                        mew=plot['marker']['edge_wid'],
+                                        mfc=plot['marker']['face_col'],
+                                        ms=plot['marker']['size'],
+                                        label=plot['label'])
                             if len(plot['x_err']) == 0:
-                                plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                            self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                                     yerr=plot['y_err'],
-                                                     xerr=plot['x_err'],
-                                                     ecolor=plot['ebar']['color'],
-                                                     elinewidth=plot['ebar']['linew'],
-                                                     capsize=plot['ebar']['capsize'],
-                                                     capthick=plot['ebar']['capthick'],
-                                                     color=plot['line']['color'],
-                                                     ls=plot['line']['style'],
-                                                     lw=plot['line']['width'],
-                                                     marker=plot['marker']['type'],
-                                                     mec=plot['marker']['edge_col'],
-                                                     mew=plot['marker']['edge_wid'],
-                                                     mfc=plot['marker']['face_col'],
-                                                     ms=plot['marker']['size'],
-                                                     label=plot['label'])
+                                #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                        yerr=plot['y_err'],
+                                        ecolor=plot['ebar']['color'],
+                                        elinewidth=plot['ebar']['linew'],
+                                        capsize=plot['ebar']['capsize'],
+                                        capthick=plot['ebar']['capthick'],
+                                        color=plot['line']['color'],
+                                        ls=plot['line']['style'],
+                                        lw=plot['line']['width'],
+                                        marker=plot['marker']['type'],
+                                        mec=plot['marker']['edge_col'],
+                                        mew=plot['marker']['edge_wid'],
+                                        mfc=plot['marker']['face_col'],
+                                        ms=plot['marker']['size'],
+                                        label=plot['label'])
+                            if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                        yerr=plot['y_err'],xerr=plot['x_err'],
+                                        ecolor=plot['ebar']['color'],
+                                        elinewidth=plot['ebar']['linew'],
+                                        capsize=plot['ebar']['capsize'],
+                                        capthick=plot['ebar']['capthick'],
+                                        color=plot['line']['color'],
+                                        ls=plot['line']['style'],
+                                        lw=plot['line']['width'],
+                                        marker=plot['marker']['type'],
+                                        mec=plot['marker']['edge_col'],
+                                        mew=plot['marker']['edge_wid'],
+                                        mfc=plot['marker']['face_col'],
+                                        ms=plot['marker']['size'],
+                                        label=plot['label'])
                             label_length += 'label'
                         else:
                             self.axes[i][j].plot(plot['x'],plot['y'],
@@ -1936,7 +2058,7 @@ class plotEditor():
                 fill = 1
             else:
                 fill = 0
-            plot_data_Dict['Plot{}'.format(i+1)] = {
+            plot_data_Dict[self.labels[i]] = {
                     'label': self.labels[i],
                     'fill-label': '{} fill'.format(self.labels[i]),
                     'x': self.x[i],
