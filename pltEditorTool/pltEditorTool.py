@@ -1599,7 +1599,7 @@ class plot():
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
                                 #plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                         xerr=plot['x_err'],
                                         ecolor=plot['ebar']['color'],
                                         elinewidth=plot['ebar']['linew'],
@@ -1616,7 +1616,7 @@ class plot():
                                         label=plot['label'])
                             if len(plot['x_err']) == 0:
                                 #plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                         yerr=plot['y_err'],
                                         ecolor=plot['ebar']['color'],
                                         elinewidth=plot['ebar']['linew'],
@@ -1632,7 +1632,7 @@ class plot():
                                         ms=plot['marker']['size'],
                                         label=plot['label'])
                             if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                         yerr=plot['y_err'],xerr=plot['x_err'],
                                         ecolor=plot['ebar']['color'],
                                         elinewidth=plot['ebar']['linew'],
@@ -1904,7 +1904,7 @@ class plot():
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
                                 #plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                         xerr=plot['x_err'],
                                         ecolor=plot['ebar']['color'],
                                         elinewidth=plot['ebar']['linew'],
@@ -1921,7 +1921,7 @@ class plot():
                                         label=plot['label'])
                             if len(plot['x_err']) == 0:
                                 #plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                         yerr=plot['y_err'],
                                         ecolor=plot['ebar']['color'],
                                         elinewidth=plot['ebar']['linew'],
@@ -1937,7 +1937,7 @@ class plot():
                                         ms=plot['marker']['size'],
                                         label=plot['label'])
                             if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                                ax.errorbar(x=plot['x'],y=plot['y'],
+                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
                                         yerr=plot['y_err'],xerr=plot['x_err'],
                                         ecolor=plot['ebar']['color'],
                                         elinewidth=plot['ebar']['linew'],
