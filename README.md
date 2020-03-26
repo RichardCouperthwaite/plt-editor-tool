@@ -95,7 +95,6 @@ The code is maintained in the Github repository. Create pull requests to contrib
 ### Todos
 
  - Add scatter plots with color sequence and size sequence options
- - Legend text font size option
 
 ### License
 GNU GPLv3
