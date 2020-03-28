@@ -999,7 +999,16 @@ class window(tk.Frame):
             self.f_fcol['activebackground'] = col
             
     def clear_multi_choice(self):
-        pass
+        selected = self.selection_list.curselection()
+        all_val = self.multi_list.get()[1:-1].split(', ')
+        print(all_val)
+        new_list = ''
+        for i in range(len(all_val)):
+            if i != 0:
+                new_list += ' '
+            if i not in selected:
+                new_list += all_val[i][1:-1]
+        self.multi_list.set(new_list)
         
     def axis_changed(self, event):
         # print(self.axis_dict)
@@ -1165,7 +1174,8 @@ class window(tk.Frame):
                                    'position':[0,0,1,1],
                                    'legend':'best',
                                    'legendFontSize':8,
-                                   'xticks': 1, 'yticks':1}       
+                                   'xticks': 1, 'yticks':1, 
+                                   'xscale':0, 'yscale':0}       
         max_x = -1e16
         min_x = 1e16
         max_y = -1e16
@@ -1199,7 +1209,8 @@ class window(tk.Frame):
                                    'position':[0,0,1,1],
                                    'legend':'best',
                                    'legendFontSize':8,
-                                   'xticks': 1, 'yticks':1}
+                                   'xticks': 1, 'yticks':1, 
+                                   'xscale':0, 'yscale':0}
         self.axis_list.append('axis{}'.format(self.axis_count+1))
         menu = self.axis_select["menu"]
         menu.delete(0, "end")
@@ -1256,6 +1267,8 @@ class window(tk.Frame):
         self.ylimhi.set(self.axis_dict[event]['y_lim'][1])
         self.xticks.set(self.axis_dict[event]['xticks'])
         self.yticks.set(self.axis_dict[event]['yticks'])
+        self.xlog.set(self.axis_dict[event]['xscale'])
+        self.ylog.set(self.axis_dict[event]['yscale'])
         
         self.axbold.set(self.axis_dict[event]['axis_text']['Bold'])
         self.axitalic.set(self.axis_dict[event]['axis_text']['Italic'])
@@ -1484,6 +1497,8 @@ class window(tk.Frame):
         self.axis_dict[self.selected_axis_value]['y_lim'][1] = self.ylimhi.get()
         self.axis_dict[self.selected_axis_value]['xticks'] = self.xticks.get()
         self.axis_dict[self.selected_axis_value]['yticks'] = self.yticks.get()
+        self.axis_dict[self.selected_axis_value]['xscale'] = self.xlog.get()
+        self.axis_dict[self.selected_axis_value]['yscale'] = self.ylog.get()
         
         self.axis_dict[self.selected_axis_value]['axis_text']['Bold'] = self.axbold.get()
         self.axis_dict[self.selected_axis_value]['axis_text']['Italic'] = self.axitalic.get()
@@ -1545,7 +1560,7 @@ class plot():
                                      label=plot['fill-label'])
                     label_length += 'label'
                 
-                no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
+                no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
                 if plot['ebar']['exist'] == 1 and not no_err_data:
                     if len(plot['y_err']) == 0:
                         #plot['y_err'] = np.zeros_like(np.array(plot['y']))
@@ -1613,24 +1628,24 @@ class plot():
                     
             style = ['normal', 'italic']
             weight = ['normal', 'bold']
-            variant = ['normal', 'small-caps']
+            scale = ['linear', 'log']
+            
             ax.set_xlim(data['x_lim'])
             ax.set_ylim(data['y_lim']) 
+            ax.set_xscale(scale[data['xscale']])
+            ax.set_yscale(scale[data['yscale']])
             if data['xticks'] == 0:
                 ax.set_xticks([],[])
             if data['yticks'] == 0:
                 ax.set_yticks([],[])
             ax.set_xlabel(data['x_label'], fontsize=data['axis_text']['size'], 
                           fontstyle=style[data['axis_text']['Italic']], 
-                          fontvariant=variant[data['axis_text']['Underline']], 
                           fontweight=weight[data['axis_text']['Bold']])
             ax.set_ylabel(data['y_label'], fontsize=data['axis_text']['size'], 
-                          fontstyle=style[data['axis_text']['Italic']], 
-                          fontvariant=variant[data['axis_text']['Underline']], 
+                          fontstyle=style[data['axis_text']['Italic']],  
                           fontweight=weight[data['axis_text']['Bold']])
             ax.set_title(data['title'], fontsize=data['title_text']['size'], 
-                          fontstyle=style[data['title_text']['Italic']], 
-                          fontvariant=variant[data['title_text']['Underline']], 
+                          fontstyle=style[data['title_text']['Italic']],
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
@@ -1665,11 +1680,15 @@ class plot():
                                         x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                         x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                         y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                        x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                     else:
                                         y_label = ''
                                         y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                         x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                         x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                                         
                                 else:
                                     if (self.axis_names[i][j] in first_col):
@@ -1677,22 +1696,30 @@ class plot():
                                         y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
                                         x_label = ''
                                         x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[0][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                     else:
                                         y_label = ''
                                         y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                         x_label = ''
                                         x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[0][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                             else:
                                 if (self.axis_names[i][j] in first_row):
                                     y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                    x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                 else:
                                     y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
                                     x_label = ''
                                     x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
+                                    x_scale = self.axis_data[self.axis_names[0][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                         else: 
                             if self.sharey == 1:
                                 if (self.axis_names[i][j] in first_col):
@@ -1700,16 +1727,22 @@ class plot():
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                    x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                 else:
                                     y_label = ''
                                     y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
+                                    x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                             else:
                                 y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                 x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                 x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
-                                y_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
+                                y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                y_scale= self.axis_data[self.axis_names[i][j]]['yscale']
                     except Exception as e:
                         # print(e.args)
                         messagebox.showerror(title='Plot error', 
@@ -1733,7 +1766,7 @@ class plot():
                                                          label=plot['fill-label'])
                             label_length += 'label'
                         
-                        no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
+                        no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
                                 #plot['y_err'] = np.zeros_like(np.array(plot['y']))
@@ -1801,27 +1834,26 @@ class plot():
                             
                     style = ['normal', 'italic']
                     weight = ['normal', 'bold']
-                    variant = ['normal', 'small-caps']
+                    scale = ['linear', 'log']
                     self.axes[i][j].set_xlim(x_lim)
                     self.axes[i][j].set_ylim(y_lim) 
+                    self.axes[i][j].set_xscale(scale[x_scale])
+                    self.axes[i][j].set_yscale(scale[y_scale]) 
                     if data['xticks'] == 0:
                         self.axes[i][j].set_xticks([],[])
                     if data['yticks'] == 0:
                         self.axes[i][j].set_yticks([],[])
                     self.axes[i][j].set_xlabel(x_label, 
                                                fontsize=data['axis_text']['size'], 
-                                               fontstyle=style[data['axis_text']['Italic']], 
-                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontstyle=style[data['axis_text']['Italic']],
                                                fontweight=weight[data['axis_text']['Bold']])
                     self.axes[i][j].set_ylabel(y_label, 
                                                fontsize=data['axis_text']['size'], 
-                                               fontstyle=style[data['axis_text']['Italic']], 
-                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontstyle=style[data['axis_text']['Italic']],
                                                fontweight=weight[data['axis_text']['Bold']])
                     self.axes[i][j].set_title(data['title'], 
                                               fontsize=data['title_text']['size'], 
                                               fontstyle=style[data['title_text']['Italic']], 
-                                              fontvariant=variant[data['title_text']['Underline']], 
                                               fontweight=weight[data['title_text']['Bold']])
                     if label_length != 0:
                         if data['legend'] != 'None':
