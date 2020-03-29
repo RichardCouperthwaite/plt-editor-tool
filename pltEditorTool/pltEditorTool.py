@@ -1407,7 +1407,10 @@ class window(tk.Frame):
         
         
         if (self.sharex.get() == 0) and (self.sharey.get() == 0):
-            plot_obj.show_plot()
+            try:
+                plot_obj.show_plot()
+            except Exception as e:
+                print(e)
         else:
             plot_obj.show_plot2()
         
@@ -1540,7 +1543,6 @@ class plot():
     def show_plot(self):
         plt.close('all')
         label_length = ''
-        
         for axis in self.axis_list:
             data = self.axis_data[axis]
             ax = self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
@@ -1553,10 +1555,10 @@ class plot():
                                     np.array(plot['y'])+np.array(plot['dif_top']),
                                     np.array(plot['y'])-np.array(plot['dif_bot']),
                                      alpha=plot['fill']['alpha'],
-                                     ec=plot['fill']['edge_col'],
-                                     fc=plot['fill']['face_col'],
-                                     lw=plot['fill']['line_wid'],
-                                     ls=plot['fill']['line_sty'],
+                                     edgecolor=plot['fill']['edge_col'],
+                                     facecolor=plot['fill']['face_col'],
+                                     linewidth=plot['fill']['line_wid'],
+                                     linestyle=plot['fill']['line_sty'],
                                      label=plot['fill-label'])
                     label_length += 'label'
                 
@@ -1571,13 +1573,13 @@ class plot():
                                 capsize=plot['ebar']['capsize'],
                                 capthick=plot['ebar']['capthick'],
                                 color=plot['line']['color'],
-                                ls=plot['line']['style'],
-                                lw=plot['line']['width'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
                                 marker=plot['marker']['type'],
-                                mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],
-                                mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
                                 label=plot['label'])
                     if len(plot['x_err']) == 0:
                         #plot['x_err'] = np.zeros_like(np.array(plot['x']))
@@ -1588,13 +1590,13 @@ class plot():
                                 capsize=plot['ebar']['capsize'],
                                 capthick=plot['ebar']['capthick'],
                                 color=plot['line']['color'],
-                                ls=plot['line']['style'],
-                                lw=plot['line']['width'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
                                 marker=plot['marker']['type'],
-                                mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],
-                                mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
                                 label=plot['label'])
                     if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                         ax.errorbar(x=plot['x'],y=plot['y'],
@@ -1604,25 +1606,25 @@ class plot():
                                 capsize=plot['ebar']['capsize'],
                                 capthick=plot['ebar']['capthick'],
                                 color=plot['line']['color'],
-                                ls=plot['line']['style'],
-                                lw=plot['line']['width'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
                                 marker=plot['marker']['type'],
-                                mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],
-                                mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
                                 label=plot['label'])
                     label_length += 'label'
                 else:
                     ax.plot(plot['x'],plot['y'],
                             color=plot['line']['color'],
-                            ls=plot['line']['style'],
-                            lw=plot['line']['width'],
+                            linestyle=plot['line']['style'],
+                            linewidth=plot['line']['width'],
                             marker=plot['marker']['type'],
-                            mec=plot['marker']['edge_col'],
-                            mew=plot['marker']['edge_wid'],
-                            mfc=plot['marker']['face_col'],
-                            ms=plot['marker']['size'],
+                            markeredgecolor=plot['marker']['edge_col'],
+                            markeredgewidth=plot['marker']['edge_wid'],
+                            markerfacecolor=plot['marker']['face_col'],
+                            markersize=plot['marker']['size'],
                             label=plot['label'])
                     label_length += 'label'
                     
@@ -1661,7 +1663,8 @@ class plot():
         for axis in self.axis_list:
             data = self.axis_data[axis]
             self.axis_names[data['position'][0]][data['position'][1]] = axis
-        first_row = self.axis_names[0]
+            
+        last_row = self.axis_names[len(self.axis_names)-1]
         first_col = []
 
         for i in range(self.rows):
@@ -1674,7 +1677,7 @@ class plot():
                     try:
                         if self.sharex == 1:
                             if self.sharey == 1:
-                                if (self.axis_names[i][j] in first_row):
+                                if (self.axis_names[i][j] in last_row):
                                     if (self.axis_names[i][j] in first_col):
                                         y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                         x_label = self.axis_data[self.axis_names[i][j]]['x_label']
@@ -1695,18 +1698,18 @@ class plot():
                                         y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                         y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
                                         x_label = ''
-                                        x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
-                                        x_scale = self.axis_data[self.axis_names[0][j]]['xscale']
+                                        x_lim = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['xscale']
                                         y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                     else:
                                         y_label = ''
                                         y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                         x_label = ''
-                                        x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
-                                        x_scale = self.axis_data[self.axis_names[0][j]]['xscale']
+                                        x_lim = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['xscale']
                                         y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                             else:
-                                if (self.axis_names[i][j] in first_row):
+                                if (self.axis_names[i][j] in last_row):
                                     y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
@@ -1717,8 +1720,8 @@ class plot():
                                     y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
                                     x_label = ''
-                                    x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
-                                    x_scale = self.axis_data[self.axis_names[0][j]]['xscale']
+                                    x_lim = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['x_lim']
+                                    x_scale = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['xscale']
                                     y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                         else: 
                             if self.sharey == 1:
@@ -1759,10 +1762,10 @@ class plot():
                                                          np.array(plot['y'])+np.array(plot['dif_top']),
                                                          np.array(plot['y'])-np.array(plot['dif_bot']),
                                                          alpha=plot['fill']['alpha'],
-                                                         ec=plot['fill']['edge_col'],
-                                                         fc=plot['fill']['face_col'],
-                                                         lw=plot['fill']['line_wid'],
-                                                         ls=plot['fill']['line_sty'],
+                                                         edgecolor=plot['fill']['edge_col'],
+                                                         facecolor=plot['fill']['face_col'],
+                                                         linewidth=plot['fill']['line_wid'],
+                                                         linestyle=plot['fill']['line_sty'],
                                                          label=plot['fill-label'])
                             label_length += 'label'
                         
@@ -1777,13 +1780,13 @@ class plot():
                                         capsize=plot['ebar']['capsize'],
                                         capthick=plot['ebar']['capthick'],
                                         color=plot['line']['color'],
-                                        ls=plot['line']['style'],
-                                        lw=plot['line']['width'],
+                                        linestyle=plot['line']['style'],
+                                        linewidth=plot['line']['width'],
                                         marker=plot['marker']['type'],
-                                        mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],
-                                        mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],
+                                        markeredgecolor=plot['marker']['edge_col'],
+                                        markeredgewidth=plot['marker']['edge_wid'],
+                                        markerfacecolor=plot['marker']['face_col'],
+                                        markersize=plot['marker']['size'],
                                         label=plot['label'])
                             if len(plot['x_err']) == 0:
                                 #plot['x_err'] = np.zeros_like(np.array(plot['x']))
@@ -1794,13 +1797,13 @@ class plot():
                                         capsize=plot['ebar']['capsize'],
                                         capthick=plot['ebar']['capthick'],
                                         color=plot['line']['color'],
-                                        ls=plot['line']['style'],
-                                        lw=plot['line']['width'],
+                                        linestyle=plot['line']['style'],
+                                        linewidth=plot['line']['width'],
                                         marker=plot['marker']['type'],
-                                        mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],
-                                        mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],
+                                        markeredgecolor=plot['marker']['edge_col'],
+                                        markeredgewidth=plot['marker']['edge_wid'],
+                                        markerfacecolor=plot['marker']['face_col'],
+                                        markersize=plot['marker']['size'],
                                         label=plot['label'])
                             if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                                 self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
@@ -1810,25 +1813,25 @@ class plot():
                                         capsize=plot['ebar']['capsize'],
                                         capthick=plot['ebar']['capthick'],
                                         color=plot['line']['color'],
-                                        ls=plot['line']['style'],
-                                        lw=plot['line']['width'],
+                                        linestyle=plot['line']['style'],
+                                        linewidth=plot['line']['width'],
                                         marker=plot['marker']['type'],
-                                        mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],
-                                        mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],
+                                        markeredgecolor=plot['marker']['edge_col'],
+                                        markeredgewidth=plot['marker']['edge_wid'],
+                                        markerfacecolor=plot['marker']['face_col'],
+                                        markersize=plot['marker']['size'],
                                         label=plot['label'])
                             label_length += 'label'
                         else:
                             self.axes[i][j].plot(plot['x'],plot['y'],
                                                  color=plot['line']['color'],
-                                                 ls=plot['line']['style'],
-                                                 lw=plot['line']['width'],
+                                                 linestyle=plot['line']['style'],
+                                                 linewidth=plot['line']['width'],
                                                  marker=plot['marker']['type'],
-                                                 mec=plot['marker']['edge_col'],
-                                                 mew=plot['marker']['edge_wid'],
-                                                 mfc=plot['marker']['face_col'],
-                                                 ms=plot['marker']['size'],
+                                                 markeredgecolor=plot['marker']['edge_col'],
+                                                 markeredgewidth=plot['marker']['edge_wid'],
+                                                 markerfacecolor=plot['marker']['face_col'],
+                                                 markersize=plot['marker']['size'],
                                                  label=plot['label'])
                             label_length += 'label'
                             
@@ -1876,10 +1879,10 @@ class plot():
                                     np.array(plot['y'])+np.array(plot['dif_top']),
                                     np.array(plot['y'])-np.array(plot['dif_bot']),
                                     alpha=plot['fill']['alpha'],
-                                    ec=plot['fill']['edge_col'],
-                                    fc=plot['fill']['face_col'],
-                                    lw=plot['fill']['line_wid'],
-                                    ls=plot['fill']['line_sty'],
+                                    edgecolor=plot['fill']['edge_col'],
+                                    facecolor=plot['fill']['face_col'],
+                                    linewidth=plot['fill']['line_wid'],
+                                    linestyle=plot['fill']['line_sty'],
                                     label=plot['fill-label'])
                     label_length += 'label'
                 no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
@@ -1893,13 +1896,13 @@ class plot():
                                 capsize=plot['ebar']['capsize'],
                                 capthick=plot['ebar']['capthick'],
                                 color=plot['line']['color'],
-                                ls=plot['line']['style'],
-                                lw=plot['line']['width'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
                                 marker=plot['marker']['type'],
-                                mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],
-                                mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
                                 label=plot['label'])
                     if len(plot['x_err']) == 0:
                         #plot['x_err'] = np.zeros_like(np.array(plot['x']))
@@ -1910,13 +1913,13 @@ class plot():
                                 capsize=plot['ebar']['capsize'],
                                 capthick=plot['ebar']['capthick'],
                                 color=plot['line']['color'],
-                                ls=plot['line']['style'],
-                                lw=plot['line']['width'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
                                 marker=plot['marker']['type'],
-                                mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],
-                                mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
                                 label=plot['label'])
                     if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                         ax.errorbar(x=plot['x'],y=plot['y'],
@@ -1926,47 +1929,47 @@ class plot():
                                 capsize=plot['ebar']['capsize'],
                                 capthick=plot['ebar']['capthick'],
                                 color=plot['line']['color'],
-                                ls=plot['line']['style'],
-                                lw=plot['line']['width'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
                                 marker=plot['marker']['type'],
-                                mec=plot['marker']['edge_col'],
-                                mew=plot['marker']['edge_wid'],
-                                mfc=plot['marker']['face_col'],
-                                ms=plot['marker']['size'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
                                 label=plot['label'])
                     label_length += 'label'
                 else:
                     ax.plot(plot['x'],plot['y'],color=plot['line']['color'],
-                            ls=plot['line']['style'],
-                            lw=plot['line']['width'],
+                            linestyle=plot['line']['style'],
+                            linewidth=plot['line']['width'],
                             marker=plot['marker']['type'],
-                            mec=plot['marker']['edge_col'],
-                            mew=plot['marker']['edge_wid'],
-                            mfc=plot['marker']['face_col'],
-                            ms=plot['marker']['size'],
+                            markeredgecolor=plot['marker']['edge_col'],
+                            markeredgewidth=plot['marker']['edge_wid'],
+                            markerfacecolor=plot['marker']['face_col'],
+                            markersize=plot['marker']['size'],
                             label=plot['label'])
                     label_length += 'label'
                     
             style = ['normal', 'italic']
             weight = ['normal', 'bold']
-            variant = ['normal', 'small-caps']
+            scale = ['linear', 'log']
+            
             ax.set_xlim(data['x_lim'])
             ax.set_ylim(data['y_lim']) 
+            ax.set_xscale(scale[data['xscale']])
+            ax.set_yscale(scale[data['yscale']])
             if data['xticks'] == 0:
                 ax.set_xticks([],[])
             if data['yticks'] == 0:
                 ax.set_yticks([],[])
             ax.set_xlabel(data['x_label'], fontsize=data['axis_text']['size'], 
                           fontstyle=style[data['axis_text']['Italic']], 
-                          fontvariant=variant[data['axis_text']['Underline']], 
                           fontweight=weight[data['axis_text']['Bold']])
             ax.set_ylabel(data['y_label'], fontsize=data['axis_text']['size'], 
-                          fontstyle=style[data['axis_text']['Italic']], 
-                          fontvariant=variant[data['axis_text']['Underline']], 
+                          fontstyle=style[data['axis_text']['Italic']],  
                           fontweight=weight[data['axis_text']['Bold']])
             ax.set_title(data['title'], fontsize=data['title_text']['size'], 
-                          fontstyle=style[data['title_text']['Italic']], 
-                          fontvariant=variant[data['title_text']['Underline']], 
+                          fontstyle=style[data['title_text']['Italic']],
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
@@ -1983,7 +1986,7 @@ class plot():
         for axis in self.axis_list:
             data = self.axis_data[axis]
             self.axis_names[data['position'][0]][data['position'][1]] = axis
-        first_row = self.axis_names[0]
+        last_row = self.axis_names[len(self.axis_names)-1]
         first_col = []
 
         for i in range(self.rows):
@@ -1996,40 +1999,52 @@ class plot():
                     try:
                         if self.sharex == 1:
                             if self.sharey == 1:
-                                if (self.axis_names[i][j] in first_row):
+                                if (self.axis_names[i][j] in last_row):
                                     if (self.axis_names[i][j] in first_col):
                                         y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                         x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                         x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                         y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                        x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                     else:
                                         y_label = ''
                                         y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                         x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                         x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                                         
                                 else:
                                     if (self.axis_names[i][j] in first_col):
                                         y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                         y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
                                         x_label = ''
-                                        x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
+                                        x_lim = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                     else:
                                         y_label = ''
                                         y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                         x_label = ''
-                                        x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
+                                        x_lim = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['x_lim']
+                                        x_scale = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['xscale']
+                                        y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                             else:
-                                if (self.axis_names[i][j] in first_row):
+                                if (self.axis_names[i][j] in last_row):
                                     y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                    x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                 else:
                                     y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
                                     x_label = ''
-                                    x_lim = self.axis_data[self.axis_names[0][j]]['x_lim']
+                                    x_lim = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['x_lim']
+                                    x_scale = self.axis_data[self.axis_names[len(self.axis_names)-1][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                         else: 
                             if self.sharey == 1:
                                 if (self.axis_names[i][j] in first_col):
@@ -2037,16 +2052,22 @@ class plot():
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
                                     y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                    x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][j]]['yscale']
                                 else:
                                     y_label = ''
                                     y_lim = self.axis_data[self.axis_names[i][0]]['y_lim']
                                     x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                     x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
+                                    x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                    y_scale = self.axis_data[self.axis_names[i][0]]['yscale']
                             else:
                                 y_label = self.axis_data[self.axis_names[i][j]]['y_label']
                                 x_label = self.axis_data[self.axis_names[i][j]]['x_label']
                                 x_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
-                                y_lim = self.axis_data[self.axis_names[i][j]]['x_lim']
+                                y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']
+                                x_scale = self.axis_data[self.axis_names[i][j]]['xscale']
+                                y_scale= self.axis_data[self.axis_names[i][j]]['yscale']
                     except Exception as e:
                         # print(e.args)
                         messagebox.showerror(title='Plot error', 
@@ -2063,10 +2084,10 @@ class plot():
                                                          np.array(plot['y'])+np.array(plot['dif_top']),
                                                          np.array(plot['y'])-np.array(plot['dif_bot']),
                                                          alpha=plot['fill']['alpha'],
-                                                         ec=plot['fill']['edge_col'],
-                                                         fc=plot['fill']['face_col'],
-                                                         lw=plot['fill']['line_wid'],
-                                                         ls=plot['fill']['line_sty'],
+                                                         edgecolor=plot['fill']['edge_col'],
+                                                         facecolor=plot['fill']['face_col'],
+                                                         linewidth=plot['fill']['line_wid'],
+                                                         linestyle=plot['fill']['line_sty'],
                                                          label=plot['fill-label'])
                             label_length += 'label'
                         
@@ -2081,13 +2102,13 @@ class plot():
                                         capsize=plot['ebar']['capsize'],
                                         capthick=plot['ebar']['capthick'],
                                         color=plot['line']['color'],
-                                        ls=plot['line']['style'],
-                                        lw=plot['line']['width'],
+                                        linestyle=plot['line']['style'],
+                                        linewidth=plot['line']['width'],
                                         marker=plot['marker']['type'],
-                                        mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],
-                                        mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],
+                                        markeredgecolor=plot['marker']['edge_col'],
+                                        markeredgewidth=plot['marker']['edge_wid'],
+                                        markerfacecolor=plot['marker']['face_col'],
+                                        markersize=plot['marker']['size'],
                                         label=plot['label'])
                             if len(plot['x_err']) == 0:
                                 #plot['x_err'] = np.zeros_like(np.array(plot['x']))
@@ -2098,13 +2119,13 @@ class plot():
                                         capsize=plot['ebar']['capsize'],
                                         capthick=plot['ebar']['capthick'],
                                         color=plot['line']['color'],
-                                        ls=plot['line']['style'],
-                                        lw=plot['line']['width'],
+                                        linestyle=plot['line']['style'],
+                                        linewidth=plot['line']['width'],
                                         marker=plot['marker']['type'],
-                                        mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],
-                                        mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],
+                                        markeredgecolor=plot['marker']['edge_col'],
+                                        markeredgewidth=plot['marker']['edge_wid'],
+                                        markerfacecolor=plot['marker']['face_col'],
+                                        markersize=plot['marker']['size'],
                                         label=plot['label'])
                             if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                                 self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
@@ -2114,51 +2135,50 @@ class plot():
                                         capsize=plot['ebar']['capsize'],
                                         capthick=plot['ebar']['capthick'],
                                         color=plot['line']['color'],
-                                        ls=plot['line']['style'],
-                                        lw=plot['line']['width'],
+                                        linestyle=plot['line']['style'],
+                                        linewidth=plot['line']['width'],
                                         marker=plot['marker']['type'],
-                                        mec=plot['marker']['edge_col'],
-                                        mew=plot['marker']['edge_wid'],
-                                        mfc=plot['marker']['face_col'],
-                                        ms=plot['marker']['size'],
+                                        markeredgecolor=plot['marker']['edge_col'],
+                                        markeredgewidth=plot['marker']['edge_wid'],
+                                        markerfacecolor=plot['marker']['face_col'],
+                                        markersize=plot['marker']['size'],
                                         label=plot['label'])
                             label_length += 'label'
                         else:
                             self.axes[i][j].plot(plot['x'],plot['y'],
                                                  color=plot['line']['color'],
-                                                 ls=plot['line']['style'],
-                                                 lw=plot['line']['width'],
+                                                 linestyle=plot['line']['style'],
+                                                 linewidth=plot['line']['width'],
                                                  marker=plot['marker']['type'],
-                                                 mec=plot['marker']['edge_col'],
-                                                 mew=plot['marker']['edge_wid'],
-                                                 mfc=plot['marker']['face_col'],
-                                                 ms=plot['marker']['size'],
+                                                 markeredgecolor=plot['marker']['edge_col'],
+                                                 markeredgewidth=plot['marker']['edge_wid'],
+                                                 markerfacecolor=plot['marker']['face_col'],
+                                                 markersize=plot['marker']['size'],
                                                  label=plot['label'])
                             label_length += 'label'
                             
                     style = ['normal', 'italic']
                     weight = ['normal', 'bold']
-                    variant = ['normal', 'small-caps']
+                    scale = ['linear', 'log']
                     self.axes[i][j].set_xlim(x_lim)
                     self.axes[i][j].set_ylim(y_lim) 
+                    self.axes[i][j].set_xscale(scale[x_scale])
+                    self.axes[i][j].set_yscale(scale[y_scale]) 
                     if data['xticks'] == 0:
                         self.axes[i][j].set_xticks([],[])
                     if data['yticks'] == 0:
                         self.axes[i][j].set_yticks([],[])
                     self.axes[i][j].set_xlabel(x_label, 
                                                fontsize=data['axis_text']['size'], 
-                                               fontstyle=style[data['axis_text']['Italic']], 
-                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontstyle=style[data['axis_text']['Italic']],
                                                fontweight=weight[data['axis_text']['Bold']])
                     self.axes[i][j].set_ylabel(y_label, 
                                                fontsize=data['axis_text']['size'], 
-                                               fontstyle=style[data['axis_text']['Italic']], 
-                                               fontvariant=variant[data['axis_text']['Underline']], 
+                                               fontstyle=style[data['axis_text']['Italic']],
                                                fontweight=weight[data['axis_text']['Bold']])
                     self.axes[i][j].set_title(data['title'], 
                                               fontsize=data['title_text']['size'], 
                                               fontstyle=style[data['title_text']['Italic']], 
-                                              fontvariant=variant[data['title_text']['Underline']], 
                                               fontweight=weight[data['title_text']['Bold']])
                     if label_length != 0:
                         if data['legend'] != 'None':
