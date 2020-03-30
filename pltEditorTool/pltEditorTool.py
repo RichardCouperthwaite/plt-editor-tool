@@ -161,11 +161,12 @@ class window(tk.Frame):
         self.label = tk.Label(self.data_sel_frame, text='Multiple:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
         self.label.grid(row=1,column=0)
-        self.multi_select = tk.Checkbutton(self.data_sel_frame, 
+        self.multi_select_check = tk.Checkbutton(self.data_sel_frame, 
                                                variable=self.multi_select, 
                                                bg=bg_blue, 
-                                               activebackground=bg_blue)
-        self.multi_select.grid(row=1,column=1)
+                                               activebackground=bg_blue,
+                                               command=self.multi_select_finish)
+        self.multi_select_check.grid(row=1,column=1)
         self.multi_clear = tk.Button(self.data_sel_frame, 
                                 bg=bg_blue, text='Clear Selection', 
                                 activebackground=bg_blue, 
@@ -935,7 +936,6 @@ class window(tk.Frame):
                                    command=self.save_plot)
         self.save_plot.grid(row=3, column=6, columnspan=2, sticky=tk.W+tk.E+tk.N+tk.S, padx=30, pady=1)
         
-        
     def populate_variables(self):
         self.data_list = list(self.data_dict.keys())
         self.add_first_axis()
@@ -1063,7 +1063,6 @@ class window(tk.Frame):
     def clear_multi_choice(self):
         selected = self.selection_list.curselection()
         all_val = self.multi_list.get()[1:-1].split(', ')
-        print(all_val)
         new_list = ''
         for i in range(len(all_val)):
             if i != 0:
@@ -1071,6 +1070,52 @@ class window(tk.Frame):
             if i not in selected:
                 new_list += all_val[i][1:-1]
         self.multi_list.set(new_list)
+    
+    def multi_select_finish(self):
+        print(self.multi_select.get())
+        if self.multi_select.get() == 0:
+            options = self.multi_list.get()[1:-1].split(', ')
+            print(options)
+            multi_list = []
+            for i in range(len(options)):
+                multi_list.append(options[i][1:-1])
+                
+            for item in multi_list:
+                self.data_dict[item]['label'] = self.dat_lab.get()
+                self.data_dict[item]['fill-label'] = self.dat_lab2.get()
+                
+                self.data_dict[item]['ebar']['exist'] = self.ebar_exist.get()
+                self.data_dict[item]['ebar']['color'] = self.ebar_color.get()
+                self.data_dict[item]['ebar']['linew'] = self.ebar_linew.get()
+                self.data_dict[item]['ebar']['capsize'] = self.ebar_caps.get()
+                self.data_dict[item]['ebar']['capthick'] = self.ebar_capt.get()
+                
+                self.data_dict[item]['line']['exist'] = self.line_exist.get()
+                self.data_dict[item]['line']['color'] = self.line_color.get()
+                self.data_dict[item]['line']['style'] = self.line_style.get()
+                self.data_dict[item]['line']['width'] = self.line_width.get()
+                
+                self.data_dict[item]['marker']['exist'] = self.mark_exist.get()
+                self.data_dict[item]['marker']['type'] = self.mark_type.get()
+                self.data_dict[item]['marker']['edge_col'] = self.mark_ec.get()
+                self.data_dict[item]['marker']['edge_wid'] = self.mark_ew .get()
+                self.data_dict[item]['marker']['face_col'] = self.mark_fc.get()
+                self.data_dict[item]['marker']['size'] = self.mark_sz.get()
+                
+                self.data_dict[item]['fill']['exist'] = self.fill_exist.get()
+                self.data_dict[item]['fill']['alpha'] = self.fill_alpha.get()
+                self.data_dict[item]['fill']['edge_col'] = self.fill_ec.get()
+                self.data_dict[item]['fill']['face_col'] = self.fill_fc.get()
+                self.data_dict[item]['fill']['line_wid'] = self.fill_linew.get()
+                self.data_dict[item]['fill']['line_sty'] = self.fill_lines.get()
+                
+                self.data_dict[item]['scatter']['exist'] = self.scat_exist.get()
+                self.data_dict[item]['scatter']['type'] = self.scat_type.get()
+                self.data_dict[item]['scatter']['current_size'] =  self.scat_size.get()
+                self.data_dict[item]['scatter']['current_color'] = self.scat_color.get()
+                self.data_dict[item]['scatter']['cmap'] = self.cmap_pick.get()
+            self.multi_list.set('')
+        pass
         
     def scatter_select(self):
         if self.scat_exist.get() == 1:
@@ -1085,7 +1130,6 @@ class window(tk.Frame):
         if self.line_exist.get() == 1 or self.mark_exist.get() == 1 \
             or self.ebar_exist.get() == 1 or self.fill_exist.get() == 1:
                 self.scat_exist.set(0)
-        
         
     def axis_changed(self, event):
         # print(self.axis_dict)
@@ -1172,6 +1216,28 @@ class window(tk.Frame):
     def plot_changed(self, event):
         if event == self.selected_data_value:
             return
+        elif self.multi_select.get() == 1:
+            import re
+            split_line = re.compile(',\s*')
+            print(type(split_line))
+            if self.multi_list.get() != '()':
+                options = split_line.split(self.multi_list.get()[1:-1])
+            else:
+                options = []
+            print(options)
+            multi_list = []
+            for i in range(len(options)):
+                if i != '':
+                    multi_list.append(options[i][1:-1])
+            if event not in multi_list:
+                multi_list.append(event)
+            print(multi_list)
+            new_list = ''
+            for item in multi_list:
+                new_list += '{} '.format(item)
+            print(new_list)
+            self.multi_list.set(new_list[:-1])
+            self.selected_data_value = event
         else:
             self.data_dict[self.selected_data_value]['label'] = self.dat_lab.get()
             self.data_dict[self.selected_data_value]['fill-label'] = self.dat_lab2.get()
@@ -1416,7 +1482,6 @@ class window(tk.Frame):
                                  command=lambda value=string: self.seldat_selected.set(value))
             self.seldat_selected.set(self.axis_dict[self.current_axis.get()]['plots'][0])
 
-        
     def remove_plot_from_axis(self):
         plot_name = self.seldat_selected.get()
         temp_plots = []
