@@ -65,6 +65,7 @@ class window(tk.Frame):
         self.scat_size_list = ['']
         self.scat_color = tk.StringVar()
         self.scat_size = tk.StringVar()
+        self.cb_exist =tk.IntVar()
         self.gridrow = tk.IntVar()
         self.gridcol = tk.IntVar()
         self.sharex = tk.IntVar()
@@ -515,6 +516,15 @@ class window(tk.Frame):
         self.scatter_size['anchor'] = tk.W
         self.scatter_size['highlightthickness'] = '0'
         self.scatter_size.grid(row=5,column=0, columnspan=2, padx=5, pady=2)
+        
+        self.label = tk.Label(self.scatter_dat, text='Color Bar?:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
+        self.label.grid(row=6,column=0)
+        self.colorbar_check = tk.Checkbutton(self.scatter_dat, 
+                                               variable=self.cb_exist, 
+                                               bg=bg_blue, 
+                                               activebackground=bg_blue)
+        self.colorbar_check.grid(row=6,column=1, padx=5, pady=2)
         
         #************************************************************#
         #************************************************************#
@@ -1162,6 +1172,7 @@ class window(tk.Frame):
             self.data_dict[self.selected_data_value]['scatter']['type'] = self.scat_type.get()
             self.data_dict[self.selected_data_value]['scatter']['current_size'] =  self.scat_size.get()
             self.data_dict[self.selected_data_value]['scatter']['current_color'] = self.scat_color.get()
+            self.data_dict[self.selected_data_value]['scatter']['colorbar'] = self.cb_exist.get()
         
             self.selected_data_value = event
             self.dat_lab.set(self.data_dict[event]['label'])
@@ -1210,6 +1221,7 @@ class window(tk.Frame):
             self.scat_type.set(self.data_dict[event]['scatter']['type'])
             self.scat_size.set(self.data_dict[event]['scatter']['current_size'])
             self.scat_color.set(self.data_dict[event]['scatter']['current_color'])
+            self.cb_exist.set(self.data_dict[event]['scatter']['colorbar'])
         
     def add_first_axis(self):
         self.axis_dict['axis1'] = {'plots':[],
@@ -1543,6 +1555,12 @@ class window(tk.Frame):
         self.data_dict[self.selected_data_value]['fill']['line_sty'] = self.fill_lines.get()
         self.axis_dict[self.selected_axis_value]['plots'][0] = self.seldat_selected.get()
         self.axis_dict[self.selected_axis_value]['plots'] = self.selected_axis_data
+        
+        self.data_dict[self.selected_data_value]['scatter']['exist'] = self.scat_exist.get()
+        self.data_dict[self.selected_data_value]['scatter']['type'] = self.scat_type.get()
+        self.data_dict[self.selected_data_value]['scatter']['current_size'] =  self.scat_size.get()
+        self.data_dict[self.selected_data_value]['scatter']['current_color'] = self.scat_color.get()
+        self.data_dict[self.selected_data_value]['scatter']['colorbar'] = self.cb_exist.get()
         
         self.axis_dict[self.selected_axis_value]['position'][0] = self.axrow.get()
         self.axis_dict[self.selected_axis_value]['position'][1] = self.axcol.get()
@@ -2303,27 +2321,27 @@ class plotEditor():
         self.same_vector_names = []
         
         for i in range(len(x)):
-            self.same_vectors.append([])
-            self.same_vector_names.append([])
+            self.same_vectors.append(['None'])
+            self.same_vector_names.append(['None'])
             for j in range(len(x)):
                 if len(x[i]) == len(x[j]):
                     self.same_vectors[i].append(x[j])
-                    self.same_vector_names[i].append("{}-{}".format('x',labels[j][:10]))
+                    self.same_vector_names[i].append("{}-{}".format(labels[j][:10],'x'))
                 if len(x[i]) == len(y[j]):
                     self.same_vectors[i].append(y[j])
-                    self.same_vector_names[i].append("{}-{}".format('y',labels[j][:10]))
+                    self.same_vector_names[i].append("{}-{}".format(labels[j][:10],'y'))
                 if len(x[i]) == len(x_err[j]):
                     self.same_vectors[i].append(x_err[j])
-                    self.same_vector_names[i].append("{}-{}".format('x_err',labels[j][:10]))
+                    self.same_vector_names[i].append("{}-{}".format(labels[j][:10],'x_err'))
                 if len(x[i]) == len(y_err[j]):
                     self.same_vectors[i].append(y_err[j])
-                    self.same_vector_names[i].append("{}-{}".format('y_err',labels[j][:10]))
+                    self.same_vector_names[i].append("{}-{}".format(labels[j][:10],'y_err'))
                 if len(x[i]) == len(fill[j]):
                     self.same_vectors[i].append(fill[j])
-                    self.same_vector_names[i].append("{}-{}".format('fill',labels[j][:10]))
+                    self.same_vector_names[i].append("{}-{}".format(labels[j][:10],'fill'))
                 if len(x[i]) == len(fill_alt[j]):
                     self.same_vectors[i].append(fill_alt[j])
-                    self.same_vector_names[i].append("{}-{}".format('fill_alt',labels[j][:10]))
+                    self.same_vector_names[i].append("{}-{}".format(labels[j][:10],'fill_alt'))
                 
         
         try:
@@ -2388,7 +2406,8 @@ class plotEditor():
                             'current_color':self.same_vector_names[i][0],
                             'size_vector_names':self.same_vector_names[i],
                             'size_vectors':self.same_vectors[i],
-                            'current_size':self.same_vector_names[i][0]}}
+                            'current_size':self.same_vector_names[i][0],
+                            'colorbar':0}}
             col_count += 1
             if col_count == 10:
                 col_count = 0
