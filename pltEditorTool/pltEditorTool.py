@@ -150,22 +150,25 @@ class window(tk.Frame):
         self.multi_select = tk.Checkbutton(self.data_sel_frame, 
                                                variable=self.multi_select, 
                                                bg=bg_blue, 
-                                               activebackground=bg_blue)
+                                               activebackground=bg_blue,
+                                               state=tk.DISABLED)
         self.multi_select.grid(row=1,column=1)
         self.multi_clear = tk.Button(self.data_sel_frame, 
                                 bg=bg_blue, text='Clear Selection', 
                                 activebackground=bg_blue, 
                                 font=('Courier New','10','bold'), 
-                                command=self.clear_multi_choice)
+                                command=self.clear_multi_choice,
+                                               state=tk.DISABLED)
         self.multi_clear.grid(row=1,column=2, pady=3, padx=1)
         
-        self.multi_list.set("bee bear dog cat house")
+        #self.multi_list.set("bee bear dog cat house")
         
         self.selection_list = tk.Listbox(self.data_sel_frame,
                                          exportselection=0,
                                          listvariable=self.multi_list,
                                          selectmode=tk.MULTIPLE,
-                                         activestyle='none')
+                                         activestyle='none',
+                                               state=tk.DISABLED)
         self.selection_list.grid(row=2,column=0,columnspan=3, sticky=tk.W+tk.E, 
                                  padx=1, pady=3)
         
@@ -460,7 +463,8 @@ class window(tk.Frame):
                                                variable=self.scat_exist, 
                                                bg=bg_blue, 
                                                activebackground=bg_blue,
-                                               command=self.scatter_select)
+                                               command=self.scatter_select,
+                                               state=tk.DISABLED)
         self.scat_exist_check.grid(row=0,column=1, padx=5, pady=2)
         
         self.label = tk.Label(self.scatter_dat, text='Marker:', bg=bg_blue, 
@@ -523,7 +527,8 @@ class window(tk.Frame):
         self.colorbar_check = tk.Checkbutton(self.scatter_dat, 
                                                variable=self.cb_exist, 
                                                bg=bg_blue, 
-                                               activebackground=bg_blue)
+                                               activebackground=bg_blue,
+                                               state=tk.DISABLED)
         self.colorbar_check.grid(row=6,column=1, padx=5, pady=2)
         
         #************************************************************#
