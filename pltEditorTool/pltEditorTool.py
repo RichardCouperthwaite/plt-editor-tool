@@ -1072,10 +1072,8 @@ class window(tk.Frame):
         self.multi_list.set(new_list)
     
     def multi_select_finish(self):
-        print(self.multi_select.get())
         if self.multi_select.get() == 0:
             options = self.multi_list.get()[1:-1].split(', ')
-            print(options)
             multi_list = []
             for i in range(len(options)):
                 multi_list.append(options[i][1:-1])
@@ -1219,23 +1217,19 @@ class window(tk.Frame):
         elif self.multi_select.get() == 1:
             import re
             split_line = re.compile(',\s*')
-            print(type(split_line))
             if self.multi_list.get() != '()':
                 options = split_line.split(self.multi_list.get()[1:-1])
             else:
                 options = []
-            print(options)
             multi_list = []
             for i in range(len(options)):
                 if i != '':
                     multi_list.append(options[i][1:-1])
             if event not in multi_list:
                 multi_list.append(event)
-            print(multi_list)
             new_list = ''
             for item in multi_list:
                 new_list += '{} '.format(item)
-            print(new_list)
             self.multi_list.set(new_list[:-1])
             self.selected_data_value = event
         else:
