@@ -66,6 +66,20 @@ class window(tk.Frame):
         self.scat_size_list = ['']
         self.scat_color = tk.StringVar()
         self.scat_size = tk.StringVar()
+        self.cmap_list = ['viridis', 'plasma', 'inferno', 'magma','ocean', 
+                            'gist_earth', 'terrain', 'gist_stern', 'gnuplot', 
+                            'gnuplot2', 'CMRmap', 'cubehelix', 'brg', 'hsv', 
+                            'gist_rainbow', 'rainbow', 'jet', 'nipy_spectral', 
+                            'gist_ncar','Greys', 'Purples', 'Blues', 'Greens', 
+                            'Oranges', 'Reds', 'YlOrBr', 'YlOrRd', 'OrRd', 
+                            'PuRd', 'RdPu', 'BuPu', 'GnBu', 'PuBu', 'YlGnBu', 
+                            'PuBuGn', 'BuGn', 'YlGn','binary', 'gist_yarg', 
+                            'gist_gray', 'gray', 'bone', 'pink', 'spring', 
+                            'summer', 'autumn', 'winter', 'cool', 'Wistia', 
+                            'hot', 'afmhot', 'gist_heat', 'copper']
+        self.cb_exist = tk.IntVar()
+        self.cmap_pick = tk.StringVar()
+        self.cmap_pick.set('viridis')
         self.gridrow = tk.IntVar()
         self.gridcol = tk.IntVar()
         self.sharex = tk.IntVar()
@@ -133,7 +147,7 @@ class window(tk.Frame):
                                          command=self.plot_changed)
         self.data_select['bg'] = bg_blue
         self.data_select['activebackground'] = bg_blue
-        self.data_select['width'] = '30'
+        self.data_select['width'] = '20'
         self.data_select['height'] = '1'
         self.data_select['borderwidth'] = '1'
         self.data_select['pady'] = '1'
@@ -197,7 +211,7 @@ class window(tk.Frame):
         self.ebar_dat = tk.LabelFrame(self.plot_options_frame, text='Error Bar', 
                                       labelanchor='n', bg=bg_blue, 
                                       font=('Courier New','11','bold'),
-                                      height=200, width=165)
+                                      height=200, width=160)
         self.ebar_dat.grid(row=0,column=0, columnspan=2, padx=1)
         self.ebar_dat.grid_propagate(0)
         # CheckBox for whether to show errobars
@@ -252,7 +266,7 @@ class window(tk.Frame):
         self.line_dat = tk.LabelFrame(self.plot_options_frame, text='Line', 
                                       labelanchor='n', bg=bg_blue, 
                                       font=('Courier New','11','bold'),
-                                      height=200, width=165)
+                                      height=200, width=135)
         self.line_dat.grid(row=0,column=2, columnspan=2, padx=1)
         self.line_dat.grid_propagate(0)
         
@@ -308,7 +322,7 @@ class window(tk.Frame):
         self.marker_dat = tk.LabelFrame(self.plot_options_frame, text='Marker', 
                                         labelanchor='n', bg=bg_blue, 
                                         font=('Courier New','11','bold'),
-                                      height=200, width=165)
+                                      height=200, width=160)
         self.marker_dat.grid(row=0,column=4, columnspan=2, padx=1)
         self.marker_dat.grid_propagate(0)
         
@@ -381,11 +395,11 @@ class window(tk.Frame):
         self.fill_dat = tk.LabelFrame(self.plot_options_frame, text='Fill', 
                                       labelanchor='n', bg=bg_blue, 
                                       font=('Courier New','11','bold'),
-                                      height=200, width=165)
+                                      height=200, width=160)
         self.fill_dat.grid(row=0,column=6, columnspan=2, padx=1)
         self.fill_dat.grid_propagate(0)
         
-        self.label = tk.Label(self.fill_dat, text='Fill Plot?:', bg=bg_blue, 
+        self.label = tk.Label(self.fill_dat, text='Fill?:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
         self.label.grid(row=0,column=0)
         self.fill_exist_check = tk.Checkbutton(self.fill_dat, 
@@ -450,10 +464,10 @@ class window(tk.Frame):
         self.scatter_dat = tk.LabelFrame(self.plot_options_frame, text='Scatter Plot', 
                                       labelanchor='n', bg=bg_blue, 
                                       font=('Courier New','11','bold'),
-                                      height=200, width=190)
+                                      height=200, width=240)
         self.scatter_dat.grid(row=0,column=8, columnspan=2, padx=1)
         self.scatter_dat.grid_propagate(0)
-        self.label = tk.Label(self.scatter_dat, text='Scatter Plot?:', bg=bg_blue, 
+        self.label = tk.Label(self.scatter_dat, text='Scatter?:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
         self.label.grid(row=0,column=0)
         self.scat_exist_check = tk.Checkbutton(self.scatter_dat, 
@@ -481,15 +495,15 @@ class window(tk.Frame):
         self.scatter_type['highlightthickness'] = '0'
         self.scatter_type.grid(row=1,column=1, padx=5, pady=2)
         
-        self.label = tk.Label(self.scatter_dat, text='Color Vector:', bg=bg_blue, 
+        self.label = tk.Label(self.scatter_dat, text='Color:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
-        self.label.grid(row=2,column=0, columnspan=2)
+        self.label.grid(row=2,column=0)
         
         self.scatter_color = tk.OptionMenu(self.scatter_dat, self.scat_color, 
                                     *self.scat_color_list)
         self.scatter_color['bg'] = bg_blue
         self.scatter_color['activebackground'] = bg_blue
-        self.scatter_color['width'] = '22'
+        self.scatter_color['width'] = '17'
         self.scatter_color['height'] = '1'
         self.scatter_color['borderwidth'] = '1'
         self.scatter_color['pady'] = '1'
@@ -497,17 +511,17 @@ class window(tk.Frame):
         self.scatter_color['relief'] = tk.RAISED
         self.scatter_color['anchor'] = tk.W
         self.scatter_color['highlightthickness'] = '0'
-        self.scatter_color.grid(row=3,column=0, columnspan=2, padx=5, pady=2)
+        self.scatter_color.grid(row=2,column=1, padx=5, pady=2)
         
-        self.label = tk.Label(self.scatter_dat, text='Size Vector:', bg=bg_blue, 
+        self.label = tk.Label(self.scatter_dat, text='Size:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
-        self.label.grid(row=4,column=0, columnspan=2)
+        self.label.grid(row=3,column=0)
         
         self.scatter_size = tk.OptionMenu(self.scatter_dat, self.scat_size, 
                                     *self.scat_size_list)
         self.scatter_size['bg'] = bg_blue
         self.scatter_size['activebackground'] = bg_blue
-        self.scatter_size['width'] = '22'
+        self.scatter_size['width'] = '17'
         self.scatter_size['height'] = '1'
         self.scatter_size['borderwidth'] = '1'
         self.scatter_size['pady'] = '1'
@@ -515,7 +529,34 @@ class window(tk.Frame):
         self.scatter_size['relief'] = tk.RAISED
         self.scatter_size['anchor'] = tk.W
         self.scatter_size['highlightthickness'] = '0'
-        self.scatter_size.grid(row=5,column=0, columnspan=2, padx=5, pady=2)
+        self.scatter_size.grid(row=3,column=1, padx=5, pady=2)
+        
+        self.label = tk.Label(self.scatter_dat, text='Color Bar?:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
+        self.label.grid(row=4,column=0)
+        self.cb_exist_check = tk.Checkbutton(self.scatter_dat, 
+                                               variable=self.cb_exist, 
+                                               bg=bg_blue, 
+                                               activebackground=bg_blue)
+        self.cb_exist_check.grid(row=4,column=1, padx=5, pady=2)
+        
+        self.label = tk.Label(self.scatter_dat, text='Color Map:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
+        self.label.grid(row=5,column=0)
+        
+        self.scatter_size = tk.OptionMenu(self.scatter_dat, self.cmap_pick, 
+                                    *self.cmap_list)
+        self.scatter_size['bg'] = bg_blue
+        self.scatter_size['activebackground'] = bg_blue
+        self.scatter_size['width'] = '17'
+        self.scatter_size['height'] = '1'
+        self.scatter_size['borderwidth'] = '1'
+        self.scatter_size['pady'] = '1'
+        self.scatter_size['padx'] = '2'
+        self.scatter_size['relief'] = tk.RAISED
+        self.scatter_size['anchor'] = tk.W
+        self.scatter_size['highlightthickness'] = '0'
+        self.scatter_size.grid(row=5,column=1, columnspan=2, padx=5, pady=2)
         
         #************************************************************#
         #************************************************************#
@@ -935,6 +976,7 @@ class window(tk.Frame):
         self.scat_size.set(self.scat_size_list[0])
         self.scat_color_list = list(self.data_dict[self.data_list[0]]['scatter']['color_vector_names'])
         self.scat_color.set(self.scat_color_list[0])
+        self.cmap_pick.set('viridis')
         
         self.gridrow.set(1)
         self.gridcol.set(1)
@@ -1163,6 +1205,7 @@ class window(tk.Frame):
             self.data_dict[self.selected_data_value]['scatter']['type'] = self.scat_type.get()
             self.data_dict[self.selected_data_value]['scatter']['current_size'] =  self.scat_size.get()
             self.data_dict[self.selected_data_value]['scatter']['current_color'] = self.scat_color.get()
+            self.data_dict[self.selected_data_value]['scatter']['cmap'] = self.cmap_pick.get()
         
             self.selected_data_value = event
             self.dat_lab.set(self.data_dict[event]['label'])
@@ -1211,6 +1254,7 @@ class window(tk.Frame):
             self.scat_type.set(self.data_dict[event]['scatter']['type'])
             self.scat_size.set(self.data_dict[event]['scatter']['current_size'])
             self.scat_color.set(self.data_dict[event]['scatter']['current_color'])
+            self.cmap_pick.set(self.data_dict[event]['scatter']['cmap'])
         
     def add_first_axis(self):
         self.axis_dict['axis1'] = {'plots':[],
@@ -1430,6 +1474,7 @@ class window(tk.Frame):
         pass
     
     def gen_plot(self):
+        plt.close(1)
         self.collect_current_data()
         test_grid = np.zeros((self.gridrow.get(), self.gridcol.get()))
         
@@ -1506,7 +1551,6 @@ class window(tk.Frame):
                 plot_obj.save_plot()
             else:
                 plot_obj.save_plot2()
-        pass
         
     def collect_current_data(self):
         self.data_dict[self.selected_data_value]['label'] = self.dat_lab.get()
@@ -1536,6 +1580,12 @@ class window(tk.Frame):
         self.data_dict[self.selected_data_value]['fill']['line_sty'] = self.fill_lines.get()
         self.axis_dict[self.selected_axis_value]['plots'][0] = self.seldat_selected.get()
         self.axis_dict[self.selected_axis_value]['plots'] = self.selected_axis_data
+        
+        self.data_dict[self.selected_data_value]['scatter']['exist'] = self.scat_exist.get()
+        self.data_dict[self.selected_data_value]['scatter']['type'] = self.scat_type.get()
+        self.data_dict[self.selected_data_value]['scatter']['current_size'] =  self.scat_size.get()
+        self.data_dict[self.selected_data_value]['scatter']['current_color'] = self.scat_color.get()
+        self.data_dict[self.selected_data_value]['scatter']['cmap'] = self.cmap_pick.get()
         
         self.axis_dict[self.selected_axis_value]['position'][0] = self.axrow.get()
         self.axis_dict[self.selected_axis_value]['position'][1] = self.axcol.get()
@@ -1575,7 +1625,7 @@ class plot():
         self.axis_dict = axis_dict
         self.axis_list = axis_dict['axes']
         self.axis_data = axis_dict['axis data']
-        self.fig = plt.figure(constrained_layout=True, 
+        self.fig = plt.figure(num=1,constrained_layout=True, 
                               figsize=(axis_dict['fig_size'][1], 
                                        axis_dict['fig_size'][0]))
         self.rows = axis_dict['gsr']
@@ -1595,7 +1645,6 @@ class plot():
                 
 
     def show_plot(self):
-        plt.close('all')
         label_length = ''
         for axis in self.axis_list:
             data = self.axis_data[axis]
@@ -1707,14 +1756,9 @@ class plot():
                 if data['legend'] != 'None':
                     ax.legend(loc=data['legend'], 
                               fontsize=data['legendFontSize'])
-        try:
-            self.fig.show()
-            plt.show()
-        except Exception as e:
-            print("Error in show plot: ", e)
+        self.fig.show()
         
     def show_plot2(self):
-        plt.close('all')
         label_length = ''
         
         
@@ -1924,7 +1968,6 @@ class plot():
         
         
     def save_plot(self):
-        plt.close('all')
         label_length = ''
         for axis in self.axis_list:
             data = self.axis_data[axis]
@@ -1943,7 +1986,7 @@ class plot():
                                     linestyle=plot['fill']['line_sty'],
                                     label=plot['fill-label'])
                     label_length += 'label'
-                no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
+                no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
                 if plot['ebar']['exist'] == 1 and not no_err_data:
                     if len(plot['y_err']) == 0:
                         #plot['y_err'] = np.zeros_like(np.array(plot['y']))
@@ -2038,14 +2081,10 @@ class plot():
         save_dir = ''
         for i in range(len(save_dir_list)-1):
             save_dir += save_dir_list[i] + '/'
-        print(save_dir)
         np.save("{}plot_data.npy".format(save_dir), self.axis_dict)
-        # json.dump(self.axis_dict, open("{}plot_data.json".format(save_dir),'w'), )
         write_code_file(save_dir, 'save_plot')
-        plt.close('all')
         
     def save_plot2(self):
-        plt.close('all')
         label_length = ''
         
         
@@ -2157,7 +2196,7 @@ class plot():
                                                          label=plot['fill-label'])
                             label_length += 'label'
                         
-                        no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
+                        no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
                                 #plot['y_err'] = np.zeros_like(np.array(plot['y']))
@@ -2252,9 +2291,8 @@ class plot():
                                                    fontsize=data['legendFontSize'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
-        json.dump(self.axis_dict, open("plot_data.json",'w'), )
+        np.save("{}plot_data.npy".format(save_dir), self.axis_dict)
         write_code_file('save_plot2')
-        plt.close('all')
 
 
 class plotEditor():
@@ -2380,7 +2418,8 @@ class plotEditor():
                             'current_color':self.same_vector_names[i][0],
                             'size_vector_names':self.same_vector_names[i],
                             'size_vectors':self.same_vectors[i],
-                            'current_size':self.same_vector_names[i][0]}}
+                            'current_size':self.same_vector_names[i][0],
+                            'cmap':'viridis'}}
             col_count += 1
             if col_count == 10:
                 col_count = 0
@@ -2438,6 +2477,7 @@ class plotEditor():
     
     def callback(self):
         if messagebox.askokcancel("Quit", "Do you really wish to quit?"):
+            plt.close(1)
             self.root.destroy()
     
 
