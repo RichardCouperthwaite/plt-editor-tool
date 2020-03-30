@@ -1,6 +1,4 @@
-
-
-show_plot_list = ["import numpy as np\n",
+save_plot_list = ["import numpy as np\n",
 "import matplotlib.pyplot as plt\n",
 "from matplotlib.gridspec import GridSpec\n",
 "\n",
@@ -28,7 +26,6 @@ show_plot_list = ["import numpy as np\n",
 "                \n",
 "\n",
 "    def show_plot(self):\n",
-"        plt.close('all')\n",
 "        label_length = ''\n",
 "        for axis in self.axis_list:\n",
 "            data = self.axis_data[axis]\n",
@@ -140,17 +137,14 @@ show_plot_list = ["import numpy as np\n",
 "                if data['legend'] != 'None':\n",
 "                    ax.legend(loc=data['legend'], \n",
 "                              fontsize=data['legendFontSize'])\n",
-"        self.fig.show()\n",
-"        plt.show()\n"
+"        plt.show()\n",
 "        \n",
 "if __name__ == '__main__':\n",
-#"    data_dict = json.load(open('plot_data.json','r'))\n",
-"    np.load('plot_data.npy',allow_pickle='TRUE').item()\n",
-"    plot_obj = plot(data_dict)\n",
+"    data_dict = np.load('plot_data.npy',allow_pickle='TRUE').item()\n",
+"    plot_obj = plot(data_dict, '')\n",
 "    plot_obj.show_plot()\n"]
 
-
-show_plot2_list = ["import numpy as np\n",
+save_plot2_list = ["import numpy as np\n",
 "import matplotlib.pyplot as plt\n",
 "from matplotlib.gridspec import GridSpec\n",
 "\n",
@@ -178,10 +172,7 @@ show_plot2_list = ["import numpy as np\n",
 "                \n",
 "\n",
 "    def show_plot(self):\n",
-"        plt.close('all')\n",
 "        label_length = ''\n",
-"        \n",
-"        \n",
 "        for axis in self.axis_list:\n",
 "            data = self.axis_data[axis]\n",
 "            self.axis_names[data['position'][0]][data['position'][1]] = axis\n",
@@ -384,27 +375,21 @@ show_plot2_list = ["import numpy as np\n",
 "                        if data['legend'] != 'None':\n",
 "                            self.axes[i][j].legend(loc=data['legend'], \n",
 "                                                   fontsize=data['legendFontSize'])\n",
-"        self.fig.show()\n",
-"        plt☺.show()\n",
-"\n",
+"        plt.show()\n",
+"        \n",
 "if __name__ == '__main__':\n",
-#"    data_dict = json.load(open('plot_data.json','r'))\n",
-"    np.load('plot_data.npy',allow_pickle='TRUE').item()\n",
-"    plot_obj = plot(data_dict)\n",
+"    data_dict = np.load('plot_data.npy',allow_pickle='TRUE').item()\n",
+"    plot_obj = plot(data_dict, '')\n",
 "    plot_obj.show_plot()\n"]
 
-def write_code_file(save_dir, list_option):
-    if list_option == 'save_plot':
-        data = show_plot_list
-    elif list_option == 'save_plot2':
-        data = show_plot2_list
-    else:
-        return
+
+
+def write_code_file(save_dir, choice):
+    if choice == 'save_plot':
+        data = save_plot_list
+    elif choice == 'save_plot2':
+        data = save_plot2_list
         
-    with open('{}plot_code.py'.format(save_dir),'w') as f:
+    with open(save_dir+'figure_plot_code.py','w') as f:
         f.writelines(data)
-     
-     
-     
-if __name__ == "__main__":
-    write_code_file("test_file.py",'save_plot')
+       

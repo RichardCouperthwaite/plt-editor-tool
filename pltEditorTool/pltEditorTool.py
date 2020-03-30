@@ -6,13 +6,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from plot_code import write_code_file
-import json
-
 
 # Defined Colours
 bg_blue = '#409fff'
 bg_green = '#6AD535'
 bg_red = '#F22140'
+fig_exist = False
 
 class window(tk.Frame):
     """
@@ -1430,6 +1429,10 @@ class window(tk.Frame):
         pass
     
     def gen_plot(self):
+        global fig_exist
+        if fig_exist:
+            plt.close(1)
+            fig_exist = False
         self.collect_current_data()
         test_grid = np.zeros((self.gridrow.get(), self.gridcol.get()))
         
@@ -1468,6 +1471,10 @@ class window(tk.Frame):
             plot_obj.show_plot2()
         
     def save_plot(self):
+        global fig_exist
+        if fig_exist:
+            plt.close(1)
+            fig_exist = False
         self.collect_current_data()
         file = filedialog.asksaveasfile(defaultextension='.png', 
                                         title='Save Matplotlib Figure', 
@@ -1575,7 +1582,7 @@ class plot():
         self.axis_dict = axis_dict
         self.axis_list = axis_dict['axes']
         self.axis_data = axis_dict['axis data']
-        self.fig = plt.figure(constrained_layout=True, 
+        self.fig = plt.figure(num=1,constrained_layout=True, 
                               figsize=(axis_dict['fig_size'][1], 
                                        axis_dict['fig_size'][0]))
         self.rows = axis_dict['gsr']
@@ -1595,7 +1602,6 @@ class plot():
                 
 
     def show_plot(self):
-        plt.close('all')
         label_length = ''
         for axis in self.axis_list:
             data = self.axis_data[axis]
@@ -1708,12 +1714,11 @@ class plot():
                     ax.legend(loc=data['legend'], 
                               fontsize=data['legendFontSize'])
         self.fig.show()
+        global fig_exist
+        fig_exist = True
         
     def show_plot2(self):
-        plt.close('all')
         label_length = ''
-        
-        
         for axis in self.axis_list:
             data = self.axis_data[axis]
             self.axis_names[data['position'][0]][data['position'][1]] = axis
@@ -1916,11 +1921,13 @@ class plot():
                         if data['legend'] != 'None':
                             self.axes[i][j].legend(loc=data['legend'], 
                                                    fontsize=data['legendFontSize'])
+        self.fig.set_dpi(300)
         self.fig.show()
+        global fig_exist
+        fig_exist = True
         
         
     def save_plot(self):
-        plt.close('all')
         label_length = ''
         for axis in self.axis_list:
             data = self.axis_data[axis]
@@ -1939,7 +1946,7 @@ class plot():
                                     linestyle=plot['fill']['line_sty'],
                                     label=plot['fill-label'])
                     label_length += 'label'
-                no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
+                no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
                 if plot['ebar']['exist'] == 1 and not no_err_data:
                     if len(plot['y_err']) == 0:
                         #plot['y_err'] = np.zeros_like(np.array(plot['y']))
@@ -2028,20 +2035,19 @@ class plot():
             if label_length != 0:
                 if data['legend'] != 'None':
                     ax.legend(loc=data['legend'], fontsize=data['legendFontSize'])
-        # self.fig.set_dpi(600)
+        self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
         save_dir_list = self.save_fname.split('/')
         save_dir = ''
         for i in range(len(save_dir_list)-1):
             save_dir += save_dir_list[i] + '/'
-        print(save_dir)
         np.save("{}plot_data.npy".format(save_dir), self.axis_dict)
         # json.dump(self.axis_dict, open("{}plot_data.json".format(save_dir),'w'), )
         write_code_file(save_dir, 'save_plot')
-        plt.close('all')
+        global fig_exist
+        fig_exist = True
         
     def save_plot2(self):
-        plt.close('all')
         label_length = ''
         
         
@@ -2153,7 +2159,7 @@ class plot():
                                                          label=plot['fill-label'])
                             label_length += 'label'
                         
-                        no_err_data = (plot['y_err'] == [] and plot['x_err'] == [])
+                        no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
                         if plot['ebar']['exist'] == 1 and not no_err_data:
                             if len(plot['y_err']) == 0:
                                 #plot['y_err'] = np.zeros_like(np.array(plot['y']))
@@ -2248,9 +2254,15 @@ class plot():
                                                    fontsize=data['legendFontSize'])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
-        json.dump(self.axis_dict, open("plot_data.json",'w'), )
-        write_code_file('save_plot2')
-        plt.close('all')
+        save_dir_list = self.save_fname.split('/')
+        save_dir = ''
+        for i in range(len(save_dir_list)-1):
+            save_dir += save_dir_list[i] + '/'
+        np.save("{}plot_data.npy".format(save_dir), self.axis_dict)
+        # json.dump(self.axis_dict, open("{}plot_data.json".format(save_dir),'w'), )
+        write_code_file(save_dir, 'save_plot2')
+        global fig_exist
+        fig_exist = True
 
 
 class plotEditor():
@@ -2380,6 +2392,7 @@ class plotEditor():
             col_count += 1
             if col_count == 10:
                 col_count = 0
+
         self.root = tk.Tk()
         self.root.title('Matplotlib Post Processor')
         #root.iconbitmap(bitmap='Main.ico')
@@ -2433,6 +2446,9 @@ class plotEditor():
         self.labels = temp_labels
     
     def callback(self):
+        global fig_exist
+        if fig_exist:
+            plt.close(1)
         if messagebox.askokcancel("Quit", "Do you really wish to quit?"):
             self.root.destroy()
     
