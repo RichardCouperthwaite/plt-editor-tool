@@ -5,6 +5,8 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+from matplotlib import cm
+from matplotlib.colors import Normalize
 from plot_code import write_code_file
 import json
 
@@ -66,6 +68,11 @@ class window(tk.Frame):
         self.scat_size_list = ['']
         self.scat_color = tk.StringVar()
         self.scat_size = tk.StringVar()
+        self.scat_faces = ['none', 'face', 'blue', 'green', 
+                            'red', 'cyan', 'magenta', 'yellow', 
+                            'black', 'white']
+        self.scat_edge = tk.StringVar()
+        self.scat_alpha = tk.DoubleVar()
         self.cmap_list = ['viridis', 'plasma', 'inferno', 'magma','ocean', 
                             'gist_earth', 'terrain', 'gist_stern', 'gnuplot', 
                             'gnuplot2', 'CMRmap', 'cubehelix', 'brg', 'hsv', 
@@ -173,9 +180,7 @@ class window(tk.Frame):
                                 font=('Courier New','10','bold'), 
                                 command=self.clear_multi_choice)
         self.multi_clear.grid(row=1,column=2, pady=3, padx=1)
-        
-        self.multi_list.set("bee bear dog cat house")
-        
+
         self.selection_list = tk.Listbox(self.data_sel_frame,
                                          exportselection=0,
                                          listvariable=self.multi_list,
@@ -387,7 +392,7 @@ class window(tk.Frame):
                               font=('Courier New','10','bold'))
         self.label.grid(row=5,column=0)
         self.m_sz = tk.Spinbox(self.marker_dat, textvariable=self.mark_sz, 
-                               width='5', from_=1, to=100, increment=1)
+                               width='5', from_=1, to=1000, increment=1)
         self.m_sz.grid(row=5,column=1, padx=5, pady=2)
         
         
@@ -495,10 +500,32 @@ class window(tk.Frame):
         self.scatter_type['anchor'] = tk.W
         self.scatter_type['highlightthickness'] = '0'
         self.scatter_type.grid(row=1,column=1, padx=5, pady=2)
+               
+        self.scatter_edge = tk.OptionMenu(self.scatter_dat, self.scat_edge,
+                                    *self.scat_faces)
+        self.scatter_edge['bg'] = bg_blue
+        self.scatter_edge['activebackground'] = bg_blue
+        self.scatter_edge['width'] = '5'
+        self.scatter_edge['height'] = '1'
+        self.scatter_edge['borderwidth'] = '1'
+        self.scatter_edge['pady'] = '1'
+        self.scatter_edge['padx'] = '2'
+        self.scatter_edge['relief'] = tk.RAISED
+        self.scatter_edge['anchor'] = tk.W
+        self.scatter_edge['highlightthickness'] = '0'
+        self.scatter_edge.grid(row=1,column=2, padx=5, pady=2)
+        
+        self.label = tk.Label(self.scatter_dat, text='Alpha:', bg=bg_blue, 
+                              font=('Courier New','10','bold'))
+        self.label.grid(row=2,column=0)
+        
+        self.scat_alpha = tk.Spinbox(self.scatter_dat, textvariable=self.scat_alpha, 
+                                     width='4', from_=0, to=1, increment=0.01)
+        self.scat_alpha.grid(row=2, column=1, padx=2, pady=1)
         
         self.label = tk.Label(self.scatter_dat, text='Color:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
-        self.label.grid(row=2,column=0)
+        self.label.grid(row=3,column=0)
         
         self.scatter_color = tk.OptionMenu(self.scatter_dat, self.scat_color, 
                                     *self.scat_color_list)
@@ -512,11 +539,11 @@ class window(tk.Frame):
         self.scatter_color['relief'] = tk.RAISED
         self.scatter_color['anchor'] = tk.W
         self.scatter_color['highlightthickness'] = '0'
-        self.scatter_color.grid(row=2,column=1, padx=5, pady=2)
+        self.scatter_color.grid(row=3,column=1, columnspan=2, padx=5, pady=2)
         
         self.label = tk.Label(self.scatter_dat, text='Size:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
-        self.label.grid(row=3,column=0)
+        self.label.grid(row=4,column=0)
         
         self.scatter_size = tk.OptionMenu(self.scatter_dat, self.scat_size, 
                                     *self.scat_size_list)
@@ -530,20 +557,20 @@ class window(tk.Frame):
         self.scatter_size['relief'] = tk.RAISED
         self.scatter_size['anchor'] = tk.W
         self.scatter_size['highlightthickness'] = '0'
-        self.scatter_size.grid(row=3,column=1, padx=5, pady=2)
+        self.scatter_size.grid(row=4,column=1, columnspan=2, padx=5, pady=2)
         
         self.label = tk.Label(self.scatter_dat, text='Color Bar?:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
-        self.label.grid(row=4,column=0)
+        self.label.grid(row=5,column=0)
         self.cb_exist_check = tk.Checkbutton(self.scatter_dat, 
                                                variable=self.cb_exist, 
                                                bg=bg_blue, 
                                                activebackground=bg_blue)
-        self.cb_exist_check.grid(row=4,column=1, padx=5, pady=2)
+        self.cb_exist_check.grid(row=5,column=1, padx=5, pady=2)
         
         self.label = tk.Label(self.scatter_dat, text='Color Map:', bg=bg_blue, 
                               font=('Courier New','10','bold'))
-        self.label.grid(row=5,column=0)
+        self.label.grid(row=6,column=0)
         
         self.scatter_size = tk.OptionMenu(self.scatter_dat, self.cmap_pick, 
                                     *self.cmap_list)
@@ -557,7 +584,7 @@ class window(tk.Frame):
         self.scatter_size['relief'] = tk.RAISED
         self.scatter_size['anchor'] = tk.W
         self.scatter_size['highlightthickness'] = '0'
-        self.scatter_size.grid(row=5,column=1, columnspan=2, padx=5, pady=2)
+        self.scatter_size.grid(row=6,column=1, columnspan=2, padx=5, pady=2)
         
         #************************************************************#
         #************************************************************#
@@ -977,6 +1004,9 @@ class window(tk.Frame):
         self.scat_color_list = list(self.data_dict[self.data_list[0]]['scatter']['color_vector_names'])
         self.scat_color.set(self.scat_color_list[0])
         self.cmap_pick.set('viridis')
+        self.scat_edge.set('none')
+        self.scat_alpha.set(0.5)
+        self.cb_exist.set(1)
         
         self.gridrow.set(1)
         self.gridcol.set(1)
@@ -1112,6 +1142,9 @@ class window(tk.Frame):
                 self.data_dict[item]['scatter']['current_size'] =  self.scat_size.get()
                 self.data_dict[item]['scatter']['current_color'] = self.scat_color.get()
                 self.data_dict[item]['scatter']['cmap'] = self.cmap_pick.get()
+                self.data_dict[item]['scatter']['alpha'] = float(self.scat_alpha.get())
+                self.data_dict[item]['scatter']['edge'] = self.scat_edge.get()
+                self.data_dict[item]['scatter']['colorbar'] = self.cb_exist.get()
             self.multi_list.set('')
         pass
         
@@ -1266,6 +1299,9 @@ class window(tk.Frame):
             self.data_dict[self.selected_data_value]['scatter']['current_size'] =  self.scat_size.get()
             self.data_dict[self.selected_data_value]['scatter']['current_color'] = self.scat_color.get()
             self.data_dict[self.selected_data_value]['scatter']['cmap'] = self.cmap_pick.get()
+            self.data_dict[self.selected_data_value]['scatter']['alpha'] = float(self.scat_alpha.get())
+            self.data_dict[self.selected_data_value]['scatter']['edge'] = self.scat_edge.get()
+            self.data_dict[item]['scatter']['colorbar'] = self.cb_exist.get()
         
             self.selected_data_value = event
             self.dat_lab.set(self.data_dict[event]['label'])
@@ -1315,6 +1351,9 @@ class window(tk.Frame):
             self.scat_size.set(self.data_dict[event]['scatter']['current_size'])
             self.scat_color.set(self.data_dict[event]['scatter']['current_color'])
             self.cmap_pick.set(self.data_dict[event]['scatter']['cmap'])
+            self.scat_alpha.set(self.data_dict[self.selected_data_value]['scatter']['alpha'])
+            self.scat_edge.set(self.data_dict[self.selected_data_value]['scatter']['edge'])
+            self.cb_exist.set(self.data_dict[self.selected_data_value]['scatter']['colorbar'])
         
     def add_first_axis(self):
         self.axis_dict['axis1'] = {'plots':[],
@@ -1444,20 +1483,26 @@ class window(tk.Frame):
             if self.axis_dict[self.current_axis.get()]['plots'][0] == '':
                 self.axis_dict[self.current_axis.get()]['plots'] = []
                 self.axis_dict[self.current_axis.get()]['plots_data'] = []
+                max_x = -1e16
+                min_x = 1e16
+                max_y = -1e16
+                min_y = 1e16
+            else:
+                max_x = self.axis_dict[self.current_axis.get()]['x_lim'][1]
+                min_x = self.axis_dict[self.current_axis.get()]['x_lim'][0]
+                max_y = self.axis_dict[self.current_axis.get()]['y_lim'][1]
+                min_y = self.axis_dict[self.current_axis.get()]['y_lim'][0]
             self.axis_dict[self.current_axis.get()]['plots'].append(plot_name)
             self.axis_dict[self.current_axis.get()]['plots_data'].append(self.data_dict[plot_name])
-            max_x = self.axis_dict[self.current_axis.get()]['x_lim'][0]
-            min_x = self.axis_dict[self.current_axis.get()]['x_lim'][1]
-            max_y = self.axis_dict[self.current_axis.get()]['y_lim'][0]
-            min_y = self.axis_dict[self.current_axis.get()]['y_lim'][1]
-            if max(self.data_dict[plot_name]['x'])>max_x:
-                max_x = max(self.data_dict[plot_name]['x'])
-            if max(self.data_dict[plot_name]['y'])>max_y:
-                max_y = max(self.data_dict[plot_name]['y'])   
-            if min(self.data_dict[plot_name]['x'])<min_x:
-                min_x = min(self.data_dict[plot_name]['x'])
-            if min(self.data_dict[plot_name]['y'])<min_y:
-                min_y = min(self.data_dict[plot_name]['y'])
+
+            if np.max(self.data_dict[plot_name]['x'])>max_x:
+                max_x = np.max(self.data_dict[plot_name]['x'])
+            if np.max(self.data_dict[plot_name]['y'])>max_y:
+                max_y = np.max(self.data_dict[plot_name]['y'])   
+            if np.min(self.data_dict[plot_name]['x'])<min_x:
+                min_x = np.min(self.data_dict[plot_name]['x'])
+            if np.min(self.data_dict[plot_name]['y'])<min_y:
+                min_y = np.min(self.data_dict[plot_name]['y'])
             self.axis_dict[self.current_axis.get()]['x_lim'] = [min_x, max_x]
             self.axis_dict[self.current_axis.get()]['y_lim'] = [min_y, max_y]
             
@@ -1487,19 +1532,18 @@ class window(tk.Frame):
         
         for i in range(len(self.axis_dict[self.current_axis.get()]['plots'])):
             if self.axis_dict[self.current_axis.get()]['plots'][i] != plot_name:
+                plot_name_temp = self.axis_dict[self.current_axis.get()]['plots'][i]
                 temp_plots.append(self.axis_dict[self.current_axis.get()]['plots'][i])
                 temp_plots_data.append(self.data_dict[self.axis_dict[self.current_axis.get()]['plots'][i]])
-                if max(self.data_dict[plot_name]['x'])>max_x:
-                    max_x = max(self.data_dict[plot_name]['x'])
-                if max(self.data_dict[plot_name]['y'])>max_y:
-                    max_y = max(self.data_dict[plot_name]['y'])   
-                if min(self.data_dict[plot_name]['x'])<min_x:
-                    min_x = min(self.data_dict[plot_name]['x'])
-                if min(self.data_dict[plot_name]['y'])<min_y:
-                    min_y = min(self.data_dict[plot_name]['y'])
-        
-        
-        
+                if np.max(self.data_dict[plot_name_temp]['x'])>max_x:
+                    max_x = np.max(self.data_dict[plot_name_temp]['x'])
+                if np.max(self.data_dict[plot_name_temp]['y'])>max_y:
+                    max_y = np.max(self.data_dict[plot_name_temp]['y'])   
+                if np.min(self.data_dict[plot_name_temp]['x'])<min_x:
+                    min_x = np.min(self.data_dict[plot_name_temp]['x'])
+                if np.min(self.data_dict[plot_name_temp]['y'])<min_y:
+                    min_y = np.min(self.data_dict[plot_name_temp]['y'])
+
         if temp_plots == []:
             self.axis_dict[self.current_axis.get()]['plots'] = ['']
             self.axis_dict[self.current_axis.get()]['plots_data'] = ['']
@@ -1642,9 +1686,12 @@ class window(tk.Frame):
         
         self.data_dict[self.selected_data_value]['scatter']['exist'] = self.scat_exist.get()
         self.data_dict[self.selected_data_value]['scatter']['type'] = self.scat_type.get()
+        self.data_dict[self.selected_data_value]['scatter']['edge'] = self.scat_edge.get()
         self.data_dict[self.selected_data_value]['scatter']['current_size'] =  self.scat_size.get()
         self.data_dict[self.selected_data_value]['scatter']['current_color'] = self.scat_color.get()
         self.data_dict[self.selected_data_value]['scatter']['cmap'] = self.cmap_pick.get()
+        self.data_dict[self.selected_data_value]['scatter']['alpha'] = float(self.scat_alpha.get())
+        self.data_dict[self.selected_data_value]['scatter']['colorbar'] = self.cb_exist.get()
         
         self.axis_dict[self.selected_axis_value]['position'][0] = self.axrow.get()
         self.axis_dict[self.selected_axis_value]['position'][1] = self.axcol.get()
@@ -1705,15 +1752,20 @@ class plot():
 
     def show_plot(self):
         label_length = ''
+        cbar_map=[]
+        cbar_axis=[]
+        ax = []
+        count = 0
         for axis in self.axis_list:
             data = self.axis_data[axis]
-            ax = self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
-                                              data['position'][1]:data['position'][1]+data['position'][3]])
+            ax.append(self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
+                                              data['position'][1]:data['position'][1]+data['position'][3]]))
+            colorbar = 0
             for plot_num in range(len(data['plots'])):
                 plot = data['plots_data'][plot_num]
                 
                 if plot['fill']['exist'] == 1 and len(plot['dif_top'])>0:
-                    ax.fill_between(np.array(plot['x']),
+                    ax[count].fill_between(np.array(plot['x']),
                                     np.array(plot['y'])+np.array(plot['dif_top']),
                                     np.array(plot['y'])-np.array(plot['dif_bot']),
                                      alpha=plot['fill']['alpha'],
@@ -1725,102 +1777,142 @@ class plot():
                     label_length += 'label'
                 
                 no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
-                if plot['ebar']['exist'] == 1 and not no_err_data:
-                    if len(plot['y_err']) == 0:
-                        #plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                        ax.errorbar(x=plot['x'],y=plot['y'],
-                                xerr=plot['x_err'],
-                                ecolor=plot['ebar']['color'],
-                                elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],
-                                capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],
-                                linestyle=plot['line']['style'],
-                                linewidth=plot['line']['width'],
-                                marker=plot['marker']['type'],
-                                markeredgecolor=plot['marker']['edge_col'],
-                                markeredgewidth=plot['marker']['edge_wid'],
-                                markerfacecolor=plot['marker']['face_col'],
-                                markersize=plot['marker']['size'],
-                                label=plot['label'])
-                    if len(plot['x_err']) == 0:
-                        #plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                        ax.errorbar(x=plot['x'],y=plot['y'],
-                                yerr=plot['y_err'],
-                                ecolor=plot['ebar']['color'],
-                                elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],
-                                capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],
-                                linestyle=plot['line']['style'],
-                                linewidth=plot['line']['width'],
-                                marker=plot['marker']['type'],
-                                markeredgecolor=plot['marker']['edge_col'],
-                                markeredgewidth=plot['marker']['edge_wid'],
-                                markerfacecolor=plot['marker']['face_col'],
-                                markersize=plot['marker']['size'],
-                                label=plot['label'])
-                    if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                        ax.errorbar(x=plot['x'],y=plot['y'],
-                                yerr=plot['y_err'],xerr=plot['x_err'],
-                                ecolor=plot['ebar']['color'],
-                                elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],
-                                capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],
-                                linestyle=plot['line']['style'],
-                                linewidth=plot['line']['width'],
-                                marker=plot['marker']['type'],
-                                markeredgecolor=plot['marker']['edge_col'],
-                                markeredgewidth=plot['marker']['edge_wid'],
-                                markerfacecolor=plot['marker']['face_col'],
-                                markersize=plot['marker']['size'],
-                                label=plot['label'])
-                    label_length += 'label'
+                if plot['scatter']['exist'] == 1:
+                    if plot['scatter']['colorbar'] == 1:
+                        colorbar = 1
+                    # set cmap
+                    color_map = plt.get_cmap(plot['scatter']['cmap'])
+                    # check for color vector
+                    if plot['scatter']['current_color'] == 'None':
+                        color = plot['marker']['face_col']
+                        colorbar = 0
+                        norm=[]
+                    else:
+                        col_index = plot['scatter']['color_vector_names'].index(plot['scatter']['current_color'])
+                        color = np.array(plot['scatter']['color_vectors'][col_index])                        
+                        
+                    # check for size vector
+                    if plot['scatter']['current_size'] == 'None':
+                        size = plot['marker']['size']**2
+                    else:
+                        sz_index = plot['scatter']['size_vector_names'].index(plot['scatter']['current_size'])
+                        size = np.array(plot['scatter']['size_vectors'][sz_index])
+                        size = ((size-size.min())/(size.max()-size.min()))*20*plot['marker']['size']
+
+                    cset = ax[count].scatter(x=plot['x'],y=plot['y'],
+                                s=size,
+                                c=color,
+                                marker=plot['scatter']['type'],
+                                alpha=plot['scatter']['alpha'],
+                                edgecolors=plot['scatter']['edge'],
+                                linewidths=plot['marker']['edge_wid'], 
+                                cmap=color_map)          
+                    if colorbar == 1:
+                        cbar_map.append(cset)
+                        cbar_axis.append(ax[count])
                 else:
-                    ax.plot(plot['x'],plot['y'],
-                            color=plot['line']['color'],
-                            linestyle=plot['line']['style'],
-                            linewidth=plot['line']['width'],
-                            marker=plot['marker']['type'],
-                            markeredgecolor=plot['marker']['edge_col'],
-                            markeredgewidth=plot['marker']['edge_wid'],
-                            markerfacecolor=plot['marker']['face_col'],
-                            markersize=plot['marker']['size'],
-                            label=plot['label'])
-                    label_length += 'label'
+                    if plot['ebar']['exist'] == 1 and not no_err_data:
+                        if len(plot['y_err']) == 0:
+                            #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                            ax[count].errorbar(x=plot['x'],y=plot['y'],
+                                    xerr=plot['x_err'],
+                                    ecolor=plot['ebar']['color'],
+                                    elinewidth=plot['ebar']['linew'],
+                                    capsize=plot['ebar']['capsize'],
+                                    capthick=plot['ebar']['capthick'],
+                                    color=plot['line']['color'],
+                                    linestyle=plot['line']['style'],
+                                    linewidth=plot['line']['width'],
+                                    marker=plot['marker']['type'],
+                                    markeredgecolor=plot['marker']['edge_col'],
+                                    markeredgewidth=plot['marker']['edge_wid'],
+                                    markerfacecolor=plot['marker']['face_col'],
+                                    markersize=plot['marker']['size'],
+                                    label=plot['label'])
+                        if len(plot['x_err']) == 0:
+                            #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                            ax[count].errorbar(x=plot['x'],y=plot['y'],
+                                    yerr=plot['y_err'],
+                                    ecolor=plot['ebar']['color'],
+                                    elinewidth=plot['ebar']['linew'],
+                                    capsize=plot['ebar']['capsize'],
+                                    capthick=plot['ebar']['capthick'],
+                                    color=plot['line']['color'],
+                                    linestyle=plot['line']['style'],
+                                    linewidth=plot['line']['width'],
+                                    marker=plot['marker']['type'],
+                                    markeredgecolor=plot['marker']['edge_col'],
+                                    markeredgewidth=plot['marker']['edge_wid'],
+                                    markerfacecolor=plot['marker']['face_col'],
+                                    markersize=plot['marker']['size'],
+                                    label=plot['label'])
+                        if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                            ax[count].errorbar(x=plot['x'],y=plot['y'],
+                                    yerr=plot['y_err'],xerr=plot['x_err'],
+                                    ecolor=plot['ebar']['color'],
+                                    elinewidth=plot['ebar']['linew'],
+                                    capsize=plot['ebar']['capsize'],
+                                    capthick=plot['ebar']['capthick'],
+                                    color=plot['line']['color'],
+                                    linestyle=plot['line']['style'],
+                                    linewidth=plot['line']['width'],
+                                    marker=plot['marker']['type'],
+                                    markeredgecolor=plot['marker']['edge_col'],
+                                    markeredgewidth=plot['marker']['edge_wid'],
+                                    markerfacecolor=plot['marker']['face_col'],
+                                    markersize=plot['marker']['size'],
+                                    label=plot['label'])
+                        label_length += 'label'
+                    else:
+                        ax[count].plot(plot['x'],plot['y'],
+                                color=plot['line']['color'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
+                                label=plot['label'])
+                        label_length += 'label'
                     
             style = ['normal', 'italic']
             weight = ['normal', 'bold']
             scale = ['linear', 'log']
-            
-            ax.set_xlim(data['x_lim'])
-            ax.set_ylim(data['y_lim']) 
-            ax.set_xscale(scale[data['xscale']])
-            ax.set_yscale(scale[data['yscale']])
+            # if colorbar == 1:
+                # cbar_map.append(cm.ScalarMappable(norm=color, cmap=color_map))
+                # cbar_axis.append(ax[count])
+            ax[count].set_xlim(data['x_lim'])
+            ax[count].set_ylim(data['y_lim']) 
+            ax[count].set_xscale(scale[data['xscale']])
+            ax[count].set_yscale(scale[data['yscale']])
             if data['xticks'] == 0:
-                ax.set_xticks([],[])
+                ax[count].set_xticks([],[])
             if data['yticks'] == 0:
-                ax.set_yticks([],[])
-            ax.set_xlabel(data['x_label'], fontsize=data['axis_text']['size'], 
+                ax[count].set_yticks([],[])
+            ax[count].set_xlabel(data['x_label'], fontsize=data['axis_text']['size'], 
                           fontstyle=style[data['axis_text']['Italic']], 
                           fontweight=weight[data['axis_text']['Bold']])
-            ax.set_ylabel(data['y_label'], fontsize=data['axis_text']['size'], 
+            ax[count].set_ylabel(data['y_label'], fontsize=data['axis_text']['size'], 
                           fontstyle=style[data['axis_text']['Italic']],  
                           fontweight=weight[data['axis_text']['Bold']])
-            ax.set_title(data['title'], fontsize=data['title_text']['size'], 
+            ax[count].set_title(data['title'], fontsize=data['title_text']['size'], 
                           fontstyle=style[data['title_text']['Italic']],
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
-                    ax.legend(loc=data['legend'], 
+                    ax[count].legend(loc=data['legend'], 
                               fontsize=data['legendFontSize'])
+            count += 1
+        if colorbar == 1:
+            for i in range(len(cbar_map)):
+                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
         self.fig.show()
         
     def show_plot2(self):
         label_length = ''
-        
-        
+        cbar_map=[]
+        cbar_axis=[]
         for axis in self.axis_list:
             data = self.axis_data[axis]
             self.axis_names[data['position'][0]][data['position'][1]] = axis
@@ -1834,6 +1926,7 @@ class plot():
         for i in range(self.rows):
             for j in range(self.cols):
                 if self.axis_names[i][j] != '':
+                    label_length = ''
                     data = self.axis_data[self.axis_names[i][j]]
                     try:
                         if self.sharex == 1:
@@ -1931,70 +2024,103 @@ class plot():
                             label_length += 'label'
                         
                         no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
-                        if plot['ebar']['exist'] == 1 and not no_err_data:
-                            if len(plot['y_err']) == 0:
-                                #plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                        xerr=plot['x_err'],
-                                        ecolor=plot['ebar']['color'],
-                                        elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],
-                                        capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],
-                                        linestyle=plot['line']['style'],
-                                        linewidth=plot['line']['width'],
-                                        marker=plot['marker']['type'],
-                                        markeredgecolor=plot['marker']['edge_col'],
-                                        markeredgewidth=plot['marker']['edge_wid'],
-                                        markerfacecolor=plot['marker']['face_col'],
-                                        markersize=plot['marker']['size'],
-                                        label=plot['label'])
-                            if len(plot['x_err']) == 0:
-                                #plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                        yerr=plot['y_err'],
-                                        ecolor=plot['ebar']['color'],
-                                        elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],
-                                        capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],
-                                        linestyle=plot['line']['style'],
-                                        linewidth=plot['line']['width'],
-                                        marker=plot['marker']['type'],
-                                        markeredgecolor=plot['marker']['edge_col'],
-                                        markeredgewidth=plot['marker']['edge_wid'],
-                                        markerfacecolor=plot['marker']['face_col'],
-                                        markersize=plot['marker']['size'],
-                                        label=plot['label'])
-                            if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                        yerr=plot['y_err'],xerr=plot['x_err'],
-                                        ecolor=plot['ebar']['color'],
-                                        elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],
-                                        capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],
-                                        linestyle=plot['line']['style'],
-                                        linewidth=plot['line']['width'],
-                                        marker=plot['marker']['type'],
-                                        markeredgecolor=plot['marker']['edge_col'],
-                                        markeredgewidth=plot['marker']['edge_wid'],
-                                        markerfacecolor=plot['marker']['face_col'],
-                                        markersize=plot['marker']['size'],
-                                        label=plot['label'])
-                            label_length += 'label'
+                        if plot['scatter']['exist'] == 1:
+                            if plot['scatter']['colorbar'] == 1:
+                                colorbar = 1
+                            # set cmap
+                            color_map = plt.get_cmap(plot['scatter']['cmap'])
+                            # check for color vector
+                            if plot['scatter']['current_color'] == 'None':
+                                color = plot['marker']['face_col']
+                                colorbar = 0
+                            else:
+                                col_index = plot['scatter']['color_vector_names'].index(plot['scatter']['current_color'])
+                                color = np.array(plot['scatter']['color_vectors'][col_index])
+                                
+                            # check for size vector
+                            if plot['scatter']['current_size'] == 'None':
+                                size = plot['marker']['size']**2
+                            else:
+                                sz_index = plot['scatter']['size_vector_names'].index(plot['scatter']['current_size'])
+                                size = np.array(plot['scatter']['size_vectors'][sz_index])
+                                size = ((size-size.min())/(size.max()-size.min()))*20*plot['marker']['size']
+                            cset = self.axes[i][j].scatter(x=plot['x'],y=plot['y'],
+                                        s=size,
+                                        c=color,
+                                        marker=plot['scatter']['type'],
+                                        alpha=plot['scatter']['alpha'],
+                                        edgecolors=plot['scatter']['edge'],
+                                        linewidths=plot['marker']['edge_wid'], 
+                                        cmap=color_map)           
+                            if colorbar == 1:
+                                cbar_map.append(cset)
+                                cbar_axis.append(self.axes[i][j])
+                        
                         else:
-                            self.axes[i][j].plot(plot['x'],plot['y'],
-                                                 color=plot['line']['color'],
-                                                 linestyle=plot['line']['style'],
-                                                 linewidth=plot['line']['width'],
-                                                 marker=plot['marker']['type'],
-                                                 markeredgecolor=plot['marker']['edge_col'],
-                                                 markeredgewidth=plot['marker']['edge_wid'],
-                                                 markerfacecolor=plot['marker']['face_col'],
-                                                 markersize=plot['marker']['size'],
-                                                 label=plot['label'])
-                            label_length += 'label'
+                            if plot['ebar']['exist'] == 1 and not no_err_data:
+                                if len(plot['y_err']) == 0:
+                                    #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                                    self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                            xerr=plot['x_err'],
+                                            ecolor=plot['ebar']['color'],
+                                            elinewidth=plot['ebar']['linew'],
+                                            capsize=plot['ebar']['capsize'],
+                                            capthick=plot['ebar']['capthick'],
+                                            color=plot['line']['color'],
+                                            linestyle=plot['line']['style'],
+                                            linewidth=plot['line']['width'],
+                                            marker=plot['marker']['type'],
+                                            markeredgecolor=plot['marker']['edge_col'],
+                                            markeredgewidth=plot['marker']['edge_wid'],
+                                            markerfacecolor=plot['marker']['face_col'],
+                                            markersize=plot['marker']['size'],
+                                            label=plot['label'])
+                                if len(plot['x_err']) == 0:
+                                    #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                                    self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                            yerr=plot['y_err'],
+                                            ecolor=plot['ebar']['color'],
+                                            elinewidth=plot['ebar']['linew'],
+                                            capsize=plot['ebar']['capsize'],
+                                            capthick=plot['ebar']['capthick'],
+                                            color=plot['line']['color'],
+                                            linestyle=plot['line']['style'],
+                                            linewidth=plot['line']['width'],
+                                            marker=plot['marker']['type'],
+                                            markeredgecolor=plot['marker']['edge_col'],
+                                            markeredgewidth=plot['marker']['edge_wid'],
+                                            markerfacecolor=plot['marker']['face_col'],
+                                            markersize=plot['marker']['size'],
+                                            label=plot['label'])
+                                if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                                    self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                            yerr=plot['y_err'],xerr=plot['x_err'],
+                                            ecolor=plot['ebar']['color'],
+                                            elinewidth=plot['ebar']['linew'],
+                                            capsize=plot['ebar']['capsize'],
+                                            capthick=plot['ebar']['capthick'],
+                                            color=plot['line']['color'],
+                                            linestyle=plot['line']['style'],
+                                            linewidth=plot['line']['width'],
+                                            marker=plot['marker']['type'],
+                                            markeredgecolor=plot['marker']['edge_col'],
+                                            markeredgewidth=plot['marker']['edge_wid'],
+                                            markerfacecolor=plot['marker']['face_col'],
+                                            markersize=plot['marker']['size'],
+                                            label=plot['label'])
+                                label_length += 'label'
+                            else:
+                                self.axes[i][j].plot(plot['x'],plot['y'],
+                                                     color=plot['line']['color'],
+                                                     linestyle=plot['line']['style'],
+                                                     linewidth=plot['line']['width'],
+                                                     marker=plot['marker']['type'],
+                                                     markeredgecolor=plot['marker']['edge_col'],
+                                                     markeredgewidth=plot['marker']['edge_wid'],
+                                                     markerfacecolor=plot['marker']['face_col'],
+                                                     markersize=plot['marker']['size'],
+                                                     label=plot['label'])
+                                label_length += 'label'
                             
                     style = ['normal', 'italic']
                     weight = ['normal', 'bold']
@@ -2019,122 +2145,174 @@ class plot():
                                               fontsize=data['title_text']['size'], 
                                               fontstyle=style[data['title_text']['Italic']], 
                                               fontweight=weight[data['title_text']['Bold']])
-                    if label_length != 0:
+                    if label_length != '':
                         if data['legend'] != 'None':
                             self.axes[i][j].legend(loc=data['legend'], 
                                                    fontsize=data['legendFontSize'])
+        if colorbar == 1:
+            for i in range(len(cbar_map)):
+                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
         self.fig.show()
         
         
     def save_plot(self):
         label_length = ''
+        cbar_map=[]
+        cbar_axis=[]
+        ax = []
+        count = 0
         for axis in self.axis_list:
             data = self.axis_data[axis]
-            ax = self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
-                                              data['position'][1]:data['position'][1]+data['position'][3]])
+            ax.append(self.fig.add_subplot(self.gs[data['position'][0]:data['position'][0]+data['position'][2], 
+                                              data['position'][1]:data['position'][1]+data['position'][3]]))
+            colorbar = 0
             for plot_num in range(len(data['plots'])):
                 plot = data['plots_data'][plot_num]
+                
                 if plot['fill']['exist'] == 1 and len(plot['dif_top'])>0:
-                    ax.fill_between(np.array(plot['x']),
+                    ax[count].fill_between(np.array(plot['x']),
                                     np.array(plot['y'])+np.array(plot['dif_top']),
                                     np.array(plot['y'])-np.array(plot['dif_bot']),
-                                    alpha=plot['fill']['alpha'],
-                                    edgecolor=plot['fill']['edge_col'],
-                                    facecolor=plot['fill']['face_col'],
-                                    linewidth=plot['fill']['line_wid'],
-                                    linestyle=plot['fill']['line_sty'],
-                                    label=plot['fill-label'])
+                                     alpha=plot['fill']['alpha'],
+                                     edgecolor=plot['fill']['edge_col'],
+                                     facecolor=plot['fill']['face_col'],
+                                     linewidth=plot['fill']['line_wid'],
+                                     linestyle=plot['fill']['line_sty'],
+                                     label=plot['fill-label'])
                     label_length += 'label'
+                
                 no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
-                if plot['ebar']['exist'] == 1 and not no_err_data:
-                    if len(plot['y_err']) == 0:
-                        #plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                        ax.errorbar(x=plot['x'],y=plot['y'],
-                                xerr=plot['x_err'],
-                                ecolor=plot['ebar']['color'],
-                                elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],
-                                capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],
-                                linestyle=plot['line']['style'],
-                                linewidth=plot['line']['width'],
-                                marker=plot['marker']['type'],
-                                markeredgecolor=plot['marker']['edge_col'],
-                                markeredgewidth=plot['marker']['edge_wid'],
-                                markerfacecolor=plot['marker']['face_col'],
-                                markersize=plot['marker']['size'],
-                                label=plot['label'])
-                    if len(plot['x_err']) == 0:
-                        #plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                        ax.errorbar(x=plot['x'],y=plot['y'],
-                                yerr=plot['y_err'],
-                                ecolor=plot['ebar']['color'],
-                                elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],
-                                capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],
-                                linestyle=plot['line']['style'],
-                                linewidth=plot['line']['width'],
-                                marker=plot['marker']['type'],
-                                markeredgecolor=plot['marker']['edge_col'],
-                                markeredgewidth=plot['marker']['edge_wid'],
-                                markerfacecolor=plot['marker']['face_col'],
-                                markersize=plot['marker']['size'],
-                                label=plot['label'])
-                    if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                        ax.errorbar(x=plot['x'],y=plot['y'],
-                                yerr=plot['y_err'],xerr=plot['x_err'],
-                                ecolor=plot['ebar']['color'],
-                                elinewidth=plot['ebar']['linew'],
-                                capsize=plot['ebar']['capsize'],
-                                capthick=plot['ebar']['capthick'],
-                                color=plot['line']['color'],
-                                linestyle=plot['line']['style'],
-                                linewidth=plot['line']['width'],
-                                marker=plot['marker']['type'],
-                                markeredgecolor=plot['marker']['edge_col'],
-                                markeredgewidth=plot['marker']['edge_wid'],
-                                markerfacecolor=plot['marker']['face_col'],
-                                markersize=plot['marker']['size'],
-                                label=plot['label'])
-                    label_length += 'label'
+                if plot['scatter']['exist'] == 1:
+                    if plot['scatter']['colorbar'] == 1:
+                        colorbar = 1
+                    # set cmap
+                    color_map = plt.get_cmap(plot['scatter']['cmap'])
+                    # check for color vector
+                    if plot['scatter']['current_color'] == 'None':
+                        color = plot['marker']['face_col']
+                        colorbar = 0
+                        norm=[]
+                    else:
+                        col_index = plot['scatter']['color_vector_names'].index(plot['scatter']['current_color'])
+                        color = np.array(plot['scatter']['color_vectors'][col_index])                        
+                        
+                    # check for size vector
+                    if plot['scatter']['current_size'] == 'None':
+                        size = plot['marker']['size']**2
+                    else:
+                        sz_index = plot['scatter']['size_vector_names'].index(plot['scatter']['current_size'])
+                        size = np.array(plot['scatter']['size_vectors'][sz_index])
+                        size = ((size-size.min())/(size.max()-size.min()))*20*plot['marker']['size']
+
+                    cset = ax[count].scatter(x=plot['x'],y=plot['y'],
+                                s=size,
+                                c=color,
+                                marker=plot['scatter']['type'],
+                                alpha=plot['scatter']['alpha'],
+                                edgecolors=plot['scatter']['edge'],
+                                linewidths=plot['marker']['edge_wid'], 
+                                cmap=color_map)          
+                    if colorbar == 1:
+                        cbar_map.append(cset)
+                        cbar_axis.append(ax[count])
                 else:
-                    ax.plot(plot['x'],plot['y'],color=plot['line']['color'],
-                            linestyle=plot['line']['style'],
-                            linewidth=plot['line']['width'],
-                            marker=plot['marker']['type'],
-                            markeredgecolor=plot['marker']['edge_col'],
-                            markeredgewidth=plot['marker']['edge_wid'],
-                            markerfacecolor=plot['marker']['face_col'],
-                            markersize=plot['marker']['size'],
-                            label=plot['label'])
-                    label_length += 'label'
+                    if plot['ebar']['exist'] == 1 and not no_err_data:
+                        if len(plot['y_err']) == 0:
+                            #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                            ax[count].errorbar(x=plot['x'],y=plot['y'],
+                                    xerr=plot['x_err'],
+                                    ecolor=plot['ebar']['color'],
+                                    elinewidth=plot['ebar']['linew'],
+                                    capsize=plot['ebar']['capsize'],
+                                    capthick=plot['ebar']['capthick'],
+                                    color=plot['line']['color'],
+                                    linestyle=plot['line']['style'],
+                                    linewidth=plot['line']['width'],
+                                    marker=plot['marker']['type'],
+                                    markeredgecolor=plot['marker']['edge_col'],
+                                    markeredgewidth=plot['marker']['edge_wid'],
+                                    markerfacecolor=plot['marker']['face_col'],
+                                    markersize=plot['marker']['size'],
+                                    label=plot['label'])
+                        if len(plot['x_err']) == 0:
+                            #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                            ax[count].errorbar(x=plot['x'],y=plot['y'],
+                                    yerr=plot['y_err'],
+                                    ecolor=plot['ebar']['color'],
+                                    elinewidth=plot['ebar']['linew'],
+                                    capsize=plot['ebar']['capsize'],
+                                    capthick=plot['ebar']['capthick'],
+                                    color=plot['line']['color'],
+                                    linestyle=plot['line']['style'],
+                                    linewidth=plot['line']['width'],
+                                    marker=plot['marker']['type'],
+                                    markeredgecolor=plot['marker']['edge_col'],
+                                    markeredgewidth=plot['marker']['edge_wid'],
+                                    markerfacecolor=plot['marker']['face_col'],
+                                    markersize=plot['marker']['size'],
+                                    label=plot['label'])
+                        if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                            ax[count].errorbar(x=plot['x'],y=plot['y'],
+                                    yerr=plot['y_err'],xerr=plot['x_err'],
+                                    ecolor=plot['ebar']['color'],
+                                    elinewidth=plot['ebar']['linew'],
+                                    capsize=plot['ebar']['capsize'],
+                                    capthick=plot['ebar']['capthick'],
+                                    color=plot['line']['color'],
+                                    linestyle=plot['line']['style'],
+                                    linewidth=plot['line']['width'],
+                                    marker=plot['marker']['type'],
+                                    markeredgecolor=plot['marker']['edge_col'],
+                                    markeredgewidth=plot['marker']['edge_wid'],
+                                    markerfacecolor=plot['marker']['face_col'],
+                                    markersize=plot['marker']['size'],
+                                    label=plot['label'])
+                        label_length += 'label'
+                    else:
+                        ax[count].plot(plot['x'],plot['y'],
+                                color=plot['line']['color'],
+                                linestyle=plot['line']['style'],
+                                linewidth=plot['line']['width'],
+                                marker=plot['marker']['type'],
+                                markeredgecolor=plot['marker']['edge_col'],
+                                markeredgewidth=plot['marker']['edge_wid'],
+                                markerfacecolor=plot['marker']['face_col'],
+                                markersize=plot['marker']['size'],
+                                label=plot['label'])
+                        label_length += 'label'
                     
             style = ['normal', 'italic']
             weight = ['normal', 'bold']
             scale = ['linear', 'log']
-            
-            ax.set_xlim(data['x_lim'])
-            ax.set_ylim(data['y_lim']) 
-            ax.set_xscale(scale[data['xscale']])
-            ax.set_yscale(scale[data['yscale']])
+            # if colorbar == 1:
+                # cbar_map.append(cm.ScalarMappable(norm=color, cmap=color_map))
+                # cbar_axis.append(ax[count])
+            ax[count].set_xlim(data['x_lim'])
+            ax[count].set_ylim(data['y_lim']) 
+            ax[count].set_xscale(scale[data['xscale']])
+            ax[count].set_yscale(scale[data['yscale']])
             if data['xticks'] == 0:
-                ax.set_xticks([],[])
+                ax[count].set_xticks([],[])
             if data['yticks'] == 0:
-                ax.set_yticks([],[])
-            ax.set_xlabel(data['x_label'], fontsize=data['axis_text']['size'], 
+                ax[count].set_yticks([],[])
+            ax[count].set_xlabel(data['x_label'], fontsize=data['axis_text']['size'], 
                           fontstyle=style[data['axis_text']['Italic']], 
                           fontweight=weight[data['axis_text']['Bold']])
-            ax.set_ylabel(data['y_label'], fontsize=data['axis_text']['size'], 
+            ax[count].set_ylabel(data['y_label'], fontsize=data['axis_text']['size'], 
                           fontstyle=style[data['axis_text']['Italic']],  
                           fontweight=weight[data['axis_text']['Bold']])
-            ax.set_title(data['title'], fontsize=data['title_text']['size'], 
+            ax[count].set_title(data['title'], fontsize=data['title_text']['size'], 
                           fontstyle=style[data['title_text']['Italic']],
                           fontweight=weight[data['title_text']['Bold']])
             if label_length != 0:
                 if data['legend'] != 'None':
-                    ax.legend(loc=data['legend'], fontsize=data['legendFontSize'])
-        # self.fig.set_dpi(600)
+                    ax[count].legend(loc=data['legend'], 
+                              fontsize=data['legendFontSize'])
+            count += 1
+        if colorbar == 1:
+            for i in range(len(cbar_map)):
+                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+        self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
         save_dir_list = self.save_fname.split('/')
         save_dir = ''
@@ -2145,11 +2323,12 @@ class plot():
         
     def save_plot2(self):
         label_length = ''
-        
-        
+        cbar_map=[]
+        cbar_axis=[]
         for axis in self.axis_list:
             data = self.axis_data[axis]
             self.axis_names[data['position'][0]][data['position'][1]] = axis
+            
         last_row = self.axis_names[len(self.axis_names)-1]
         first_col = []
 
@@ -2159,6 +2338,7 @@ class plot():
         for i in range(self.rows):
             for j in range(self.cols):
                 if self.axis_names[i][j] != '':
+                    label_length = ''
                     data = self.axis_data[self.axis_names[i][j]]
                     try:
                         if self.sharex == 1:
@@ -2256,70 +2436,103 @@ class plot():
                             label_length += 'label'
                         
                         no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
-                        if plot['ebar']['exist'] == 1 and not no_err_data:
-                            if len(plot['y_err']) == 0:
-                                #plot['y_err'] = np.zeros_like(np.array(plot['y']))
-                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                        xerr=plot['x_err'],
-                                        ecolor=plot['ebar']['color'],
-                                        elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],
-                                        capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],
-                                        linestyle=plot['line']['style'],
-                                        linewidth=plot['line']['width'],
-                                        marker=plot['marker']['type'],
-                                        markeredgecolor=plot['marker']['edge_col'],
-                                        markeredgewidth=plot['marker']['edge_wid'],
-                                        markerfacecolor=plot['marker']['face_col'],
-                                        markersize=plot['marker']['size'],
-                                        label=plot['label'])
-                            if len(plot['x_err']) == 0:
-                                #plot['x_err'] = np.zeros_like(np.array(plot['x']))
-                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                        yerr=plot['y_err'],
-                                        ecolor=plot['ebar']['color'],
-                                        elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],
-                                        capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],
-                                        linestyle=plot['line']['style'],
-                                        linewidth=plot['line']['width'],
-                                        marker=plot['marker']['type'],
-                                        markeredgecolor=plot['marker']['edge_col'],
-                                        markeredgewidth=plot['marker']['edge_wid'],
-                                        markerfacecolor=plot['marker']['face_col'],
-                                        markersize=plot['marker']['size'],
-                                        label=plot['label'])
-                            if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                                self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
-                                        yerr=plot['y_err'],xerr=plot['x_err'],
-                                        ecolor=plot['ebar']['color'],
-                                        elinewidth=plot['ebar']['linew'],
-                                        capsize=plot['ebar']['capsize'],
-                                        capthick=plot['ebar']['capthick'],
-                                        color=plot['line']['color'],
-                                        linestyle=plot['line']['style'],
-                                        linewidth=plot['line']['width'],
-                                        marker=plot['marker']['type'],
-                                        markeredgecolor=plot['marker']['edge_col'],
-                                        markeredgewidth=plot['marker']['edge_wid'],
-                                        markerfacecolor=plot['marker']['face_col'],
-                                        markersize=plot['marker']['size'],
-                                        label=plot['label'])
-                            label_length += 'label'
+                        if plot['scatter']['exist'] == 1:
+                            if plot['scatter']['colorbar'] == 1:
+                                colorbar = 1
+                            # set cmap
+                            color_map = plt.get_cmap(plot['scatter']['cmap'])
+                            # check for color vector
+                            if plot['scatter']['current_color'] == 'None':
+                                color = plot['marker']['face_col']
+                                colorbar = 0
+                            else:
+                                col_index = plot['scatter']['color_vector_names'].index(plot['scatter']['current_color'])
+                                color = np.array(plot['scatter']['color_vectors'][col_index])
+                                
+                            # check for size vector
+                            if plot['scatter']['current_size'] == 'None':
+                                size = plot['marker']['size']**2
+                            else:
+                                sz_index = plot['scatter']['size_vector_names'].index(plot['scatter']['current_size'])
+                                size = np.array(plot['scatter']['size_vectors'][sz_index])
+                                size = ((size-size.min())/(size.max()-size.min()))*20*plot['marker']['size']
+                            cset = self.axes[i][j].scatter(x=plot['x'],y=plot['y'],
+                                        s=size,
+                                        c=color,
+                                        marker=plot['scatter']['type'],
+                                        alpha=plot['scatter']['alpha'],
+                                        edgecolors=plot['scatter']['edge'],
+                                        linewidths=plot['marker']['edge_wid'], 
+                                        cmap=color_map)           
+                            if colorbar == 1:
+                                cbar_map.append(cset)
+                                cbar_axis.append(self.axes[i][j])
+                        
                         else:
-                            self.axes[i][j].plot(plot['x'],plot['y'],
-                                                 color=plot['line']['color'],
-                                                 linestyle=plot['line']['style'],
-                                                 linewidth=plot['line']['width'],
-                                                 marker=plot['marker']['type'],
-                                                 markeredgecolor=plot['marker']['edge_col'],
-                                                 markeredgewidth=plot['marker']['edge_wid'],
-                                                 markerfacecolor=plot['marker']['face_col'],
-                                                 markersize=plot['marker']['size'],
-                                                 label=plot['label'])
-                            label_length += 'label'
+                            if plot['ebar']['exist'] == 1 and not no_err_data:
+                                if len(plot['y_err']) == 0:
+                                    #plot['y_err'] = np.zeros_like(np.array(plot['y']))
+                                    self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                            xerr=plot['x_err'],
+                                            ecolor=plot['ebar']['color'],
+                                            elinewidth=plot['ebar']['linew'],
+                                            capsize=plot['ebar']['capsize'],
+                                            capthick=plot['ebar']['capthick'],
+                                            color=plot['line']['color'],
+                                            linestyle=plot['line']['style'],
+                                            linewidth=plot['line']['width'],
+                                            marker=plot['marker']['type'],
+                                            markeredgecolor=plot['marker']['edge_col'],
+                                            markeredgewidth=plot['marker']['edge_wid'],
+                                            markerfacecolor=plot['marker']['face_col'],
+                                            markersize=plot['marker']['size'],
+                                            label=plot['label'])
+                                if len(plot['x_err']) == 0:
+                                    #plot['x_err'] = np.zeros_like(np.array(plot['x']))
+                                    self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                            yerr=plot['y_err'],
+                                            ecolor=plot['ebar']['color'],
+                                            elinewidth=plot['ebar']['linew'],
+                                            capsize=plot['ebar']['capsize'],
+                                            capthick=plot['ebar']['capthick'],
+                                            color=plot['line']['color'],
+                                            linestyle=plot['line']['style'],
+                                            linewidth=plot['line']['width'],
+                                            marker=plot['marker']['type'],
+                                            markeredgecolor=plot['marker']['edge_col'],
+                                            markeredgewidth=plot['marker']['edge_wid'],
+                                            markerfacecolor=plot['marker']['face_col'],
+                                            markersize=plot['marker']['size'],
+                                            label=plot['label'])
+                                if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
+                                    self.axes[i][j].errorbar(x=plot['x'],y=plot['y'],
+                                            yerr=plot['y_err'],xerr=plot['x_err'],
+                                            ecolor=plot['ebar']['color'],
+                                            elinewidth=plot['ebar']['linew'],
+                                            capsize=plot['ebar']['capsize'],
+                                            capthick=plot['ebar']['capthick'],
+                                            color=plot['line']['color'],
+                                            linestyle=plot['line']['style'],
+                                            linewidth=plot['line']['width'],
+                                            marker=plot['marker']['type'],
+                                            markeredgecolor=plot['marker']['edge_col'],
+                                            markeredgewidth=plot['marker']['edge_wid'],
+                                            markerfacecolor=plot['marker']['face_col'],
+                                            markersize=plot['marker']['size'],
+                                            label=plot['label'])
+                                label_length += 'label'
+                            else:
+                                self.axes[i][j].plot(plot['x'],plot['y'],
+                                                     color=plot['line']['color'],
+                                                     linestyle=plot['line']['style'],
+                                                     linewidth=plot['line']['width'],
+                                                     marker=plot['marker']['type'],
+                                                     markeredgecolor=plot['marker']['edge_col'],
+                                                     markeredgewidth=plot['marker']['edge_wid'],
+                                                     markerfacecolor=plot['marker']['face_col'],
+                                                     markersize=plot['marker']['size'],
+                                                     label=plot['label'])
+                                label_length += 'label'
                             
                     style = ['normal', 'italic']
                     weight = ['normal', 'bold']
@@ -2344,10 +2557,13 @@ class plot():
                                               fontsize=data['title_text']['size'], 
                                               fontstyle=style[data['title_text']['Italic']], 
                                               fontweight=weight[data['title_text']['Bold']])
-                    if label_length != 0:
+                    if label_length != '':
                         if data['legend'] != 'None':
                             self.axes[i][j].legend(loc=data['legend'], 
                                                    fontsize=data['legendFontSize'])
+        if colorbar == 1:
+            for i in range(len(cbar_map)):
+                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
         self.fig.set_dpi(600)
         self.fig.savefig(self.save_fname)
         np.save("{}plot_data.npy".format(save_dir), self.axis_dict)
@@ -2392,8 +2608,8 @@ class plotEditor():
         self.same_vector_names = []
         
         for i in range(len(x)):
-            self.same_vectors.append([])
-            self.same_vector_names.append([])
+            self.same_vectors.append([[]])
+            self.same_vector_names.append(['None'])
             for j in range(len(x)):
                 if len(x[i]) == len(x[j]):
                     self.same_vectors[i].append(x[j])
@@ -2478,7 +2694,10 @@ class plotEditor():
                             'size_vector_names':self.same_vector_names[i],
                             'size_vectors':self.same_vectors[i],
                             'current_size':self.same_vector_names[i][0],
-                            'cmap':'viridis'}}
+                            'cmap':'viridis',
+                            'edge':'none',
+                            'alpha':0.5},
+                            'colorbar':1}
             col_count += 1
             if col_count == 10:
                 col_count = 0
@@ -2597,7 +2816,15 @@ if __name__ == "__main__":
     # check_run_test = input("Do you wish to run the test cases (Y/N)?   ")
     check_run_test = 'n'
     
-    x = [[0,1,2,3,4,5,6,7,8,9,10], [0,1,2,3,4,5,6,7,8,9,10]]
+    # x = [[0,1,2,3,4,5,6,7,8,9,10], [0,1,2,3,4,5,6,7,8,9,10]]
+    # y = [[0.00,0.84,0.91,0.14,-0.76,-0.96,-0.28,0.66,0.99,0.41,-0.54],[1.00,0.90,0.82,0.74,0.67,0.61,0.55,0.50,0.45,0.41,0.37]]
+    # x_err = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
+    # y_err = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
+    # fill = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
+    # fill_alt = [[],[0.3,0.3,0.6,0.6,0.9,0.9,0.6,0.6,0.3,0.3,0.15]]
+    # labels = ['Experimental','Computation']
+    
+    x = [[0,10,20,30,40,50,60,70,80,90,100], [0,1,2,3,4,5,6,7,8,9,10]]
     y = [[0.00,0.84,0.91,0.14,-0.76,-0.96,-0.28,0.66,0.99,0.41,-0.54],[1.00,0.90,0.82,0.74,0.67,0.61,0.55,0.50,0.45,0.41,0.37]]
     x_err = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
     y_err = [[],[0.1,0.1,0.2,0.2,0.3,0.3,0.2,0.2,0.1,0.1,0.05]]
