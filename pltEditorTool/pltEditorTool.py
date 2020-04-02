@@ -5,7 +5,7 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
-from plot_code import write_code_file
+from .plot_code import write_code_file
 
 
 # Defined Colours
