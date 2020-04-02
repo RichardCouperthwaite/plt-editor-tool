@@ -44,6 +44,7 @@ class window(tk.Frame):
         self.line_style = tk.StringVar()
         self.line_width = tk.IntVar()
         self.styles = [':', '-.', '--', '-', '']
+        self.line_alpha = tk.DoubleVar()
         self.mark_exist = tk.IntVar()
         self.mark_type = tk.StringVar()
         self.mark_ec = tk.StringVar()
@@ -316,6 +317,14 @@ class window(tk.Frame):
         self.l_wid = tk.Spinbox(self.line_dat, textvariable=self.line_width,
                                 width='5', from_=1, to=100, increment=1)
         self.l_wid.grid(row=3, column=1, padx=5, pady=2)
+        
+        self.label = tk.Label(self.line_dat, text='Alpha:', bg=BG_BLUE,
+                              font=('Courier New', '10', 'bold'))
+        self.label.grid(row=4, column=0)
+
+        self.l_alpha_choice = tk.Spinbox(self.line_dat, textvariable=self.line_alpha,
+                                     width='4', from_=0, to=1, increment=0.01)
+        self.l_alpha_choice.grid(row=4, column=1, padx=2, pady=1)
 
 
 
@@ -980,6 +989,7 @@ class window(tk.Frame):
         self.line_color.set(self.data_dict[self.data_list[0]]['line']['color'])
         self.line_style.set(self.data_dict[self.data_list[0]]['line']['style'])
         self.line_width.set(self.data_dict[self.data_list[0]]['line']['width'])
+        self.line_alpha.set(self.data_dict[self.data_list[0]]['line']['alpha'])
 
         self.mark_exist.set(self.data_dict[self.data_list[0]]['marker']['exist'])
         self.mark_type.set(self.data_dict[self.data_list[0]]['marker']['type'])
@@ -1117,6 +1127,7 @@ class window(tk.Frame):
                 self.data_dict[item]['line']['color'] = self.line_color.get()
                 self.data_dict[item]['line']['style'] = self.line_style.get()
                 self.data_dict[item]['line']['width'] = self.line_width.get()
+                self.data_dict[item]['line']['alpha'] = self.line_alpha.get()
 
                 self.data_dict[item]['marker']['exist'] = self.mark_exist.get()
                 self.data_dict[item]['marker']['type'] = self.mark_type.get()
@@ -1161,6 +1172,7 @@ class window(tk.Frame):
             self.l_col['activebackground'] = self.data_dict[event]['line']['color']
             self.line_style.set(self.data_dict[event]['line']['style'])
             self.line_width.set(self.data_dict[event]['line']['width'])
+            self.line_alpha.set(self.data_dict[event]['line']['alpha'])
 
             self.mark_exist.set(self.data_dict[event]['marker']['exist'])
             self.mark_type.set(self.data_dict[event]['marker']['type'])
@@ -1334,6 +1346,7 @@ class window(tk.Frame):
             self.data_dict[self.selected_data_value]['line']['color'] = self.line_color.get()
             self.data_dict[self.selected_data_value]['line']['style'] = self.line_style.get()
             self.data_dict[self.selected_data_value]['line']['width'] = self.line_width.get()
+            self.data_dict[self.selected_data_value]['line']['alpha'] = self.line_alpha.get()
 
             self.data_dict[self.selected_data_value]['marker']['exist'] = self.mark_exist.get()
             self.data_dict[self.selected_data_value]['marker']['type'] = self.mark_type.get()
@@ -1378,6 +1391,7 @@ class window(tk.Frame):
             self.l_col['activebackground'] = self.data_dict[event]['line']['color']
             self.line_style.set(self.data_dict[event]['line']['style'])
             self.line_width.set(self.data_dict[event]['line']['width'])
+            self.line_alpha.set(self.data_dict[event]['line']['alpha'])
 
             self.mark_exist.set(self.data_dict[event]['marker']['exist'])
             self.mark_type.set(self.data_dict[event]['marker']['type'])
@@ -1729,6 +1743,7 @@ class window(tk.Frame):
         self.data_dict[self.selected_data_value]['line']['color'] = self.line_color.get()
         self.data_dict[self.selected_data_value]['line']['style'] = self.line_style.get()
         self.data_dict[self.selected_data_value]['line']['width'] = self.line_width.get()
+        self.data_dict[self.selected_data_value]['line']['alpha'] = self.line_alpha.get()
 
         self.data_dict[self.selected_data_value]['marker']['exist'] = self.mark_exist.get()
         self.data_dict[self.selected_data_value]['marker']['type'] = self.mark_type.get()
@@ -1898,7 +1913,8 @@ class plot_class():
                                 markeredgewidth=plot['marker']['edge_wid'],
                                 markerfacecolor=plot['marker']['face_col'],
                                 markersize=plot['marker']['size'],
-                                label=plot['label'])
+                                label=plot['label'],
+                                alpha=plot['line']['alpha'])
                         if len(plot['x_err']) == 0:
                             if plot['line']['exist'] == 1:
                                 linestyle = plot['line']['style']
@@ -1923,7 +1939,8 @@ class plot_class():
                                 markeredgewidth=plot['marker']['edge_wid'],
                                 markerfacecolor=plot['marker']['face_col'],
                                 markersize=plot['marker']['size'],
-                                label=plot['label'])
+                                label=plot['label'],
+                                alpha=plot['line']['alpha'])
                         if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                             if plot['line']['exist'] == 1:
                                 linestyle = plot['line']['style']
@@ -1948,7 +1965,8 @@ class plot_class():
                                 markeredgewidth=plot['marker']['edge_wid'],
                                 markerfacecolor=plot['marker']['face_col'],
                                 markersize=plot['marker']['size'],
-                                label=plot['label'])
+                                label=plot['label'],
+                                alpha=plot['line']['alpha'])
                         label_length += 'label'
                     else:
                         if plot['line']['exist'] == 1:
@@ -1969,7 +1987,8 @@ class plot_class():
                             markeredgewidth=plot['marker']['edge_wid'],
                             markerfacecolor=plot['marker']['face_col'],
                             markersize=plot['marker']['size'],
-                            label=plot['label'])
+                            label=plot['label'],
+                            alpha=plot['line']['alpha'])
                         label_length += 'label'
 
             style = ['normal', 'italic']
@@ -2186,7 +2205,8 @@ class plot_class():
                                         markeredgewidth=plot['marker']['edge_wid'],
                                         markerfacecolor=plot['marker']['face_col'],
                                         markersize=plot['marker']['size'],
-                                        label=plot['label'])
+                                        label=plot['label'],
+                                        alpha=plot['line']['alpha'])
                                 if len(plot['x_err']) == 0:
                                     #plot['x_err'] = np.zeros_like(np.array(plot['x']))
                                     self.axes[i][j].errorbar(
@@ -2204,7 +2224,8 @@ class plot_class():
                                         markeredgewidth=plot['marker']['edge_wid'],
                                         markerfacecolor=plot['marker']['face_col'],
                                         markersize=plot['marker']['size'],
-                                        label=plot['label'])
+                                        label=plot['label'],
+                                        alpha=plot['line']['alpha'])
                                 if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                                     self.axes[i][j].errorbar(
                                         x=plot['x'], y=plot['y'],
@@ -2221,7 +2242,8 @@ class plot_class():
                                         markeredgewidth=plot['marker']['edge_wid'],
                                         markerfacecolor=plot['marker']['face_col'],
                                         markersize=plot['marker']['size'],
-                                        label=plot['label'])
+                                        label=plot['label'],
+                                        alpha=plot['line']['alpha'])
                                 label_length += 'label'
                             else:
                                 if plot['line']['exist'] == 1:
@@ -2242,7 +2264,8 @@ class plot_class():
                                     markeredgewidth=plot['marker']['edge_wid'],
                                     markerfacecolor=plot['marker']['face_col'],
                                     markersize=plot['marker']['size'],
-                                    label=plot['label'])
+                                    label=plot['label'],
+                                    alpha=plot['line']['alpha'])
                                 label_length += 'label'
 
                     style = ['normal', 'italic']
@@ -2371,7 +2394,8 @@ class plot_class():
                                 markeredgewidth=plot['marker']['edge_wid'],
                                 markerfacecolor=plot['marker']['face_col'],
                                 markersize=plot['marker']['size'],
-                                label=plot['label'])
+                                label=plot['label'],
+                                alpha=plot['line']['alpha'])
                         if len(plot['x_err']) == 0:
                             #plot['x_err'] = np.zeros_like(np.array(plot['x']))
                             ax[count].errorbar(
@@ -2389,7 +2413,8 @@ class plot_class():
                                 markeredgewidth=plot['marker']['edge_wid'],
                                 markerfacecolor=plot['marker']['face_col'],
                                 markersize=plot['marker']['size'],
-                                label=plot['label'])
+                                label=plot['label'],
+                                alpha=plot['line']['alpha'])
                         if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                             ax[count].errorbar(
                                 x=plot['x'], y=plot['y'],
@@ -2406,7 +2431,8 @@ class plot_class():
                                 markeredgewidth=plot['marker']['edge_wid'],
                                 markerfacecolor=plot['marker']['face_col'],
                                 markersize=plot['marker']['size'],
-                                label=plot['label'])
+                                label=plot['label'],
+                                alpha=plot['line']['alpha'])
                         label_length += 'label'
                     else:
                         if plot['line']['exist'] == 1:
@@ -2427,7 +2453,8 @@ class plot_class():
                             markeredgewidth=plot['marker']['edge_wid'],
                             markerfacecolor=plot['marker']['face_col'],
                             markersize=plot['marker']['size'],
-                            label=plot['label'])
+                            label=plot['label'],
+                            alpha=plot['line']['alpha'])
                         label_length += 'label'
 
             style = ['normal', 'italic']
@@ -2651,7 +2678,8 @@ class plot_class():
                                         markeredgewidth=plot['marker']['edge_wid'],
                                         markerfacecolor=plot['marker']['face_col'],
                                         markersize=plot['marker']['size'],
-                                        label=plot['label'])
+                                        label=plot['label'],
+                                        alpha=plot['line']['alpha'])
                                 if len(plot['x_err']) == 0:
                                     #plot['x_err'] = np.zeros_like(np.array(plot['x']))
                                     self.axes[i][j].errorbar(
@@ -2669,7 +2697,8 @@ class plot_class():
                                         markeredgewidth=plot['marker']['edge_wid'],
                                         markerfacecolor=plot['marker']['face_col'],
                                         markersize=plot['marker']['size'],
-                                        label=plot['label'])
+                                        label=plot['label'],
+                                        alpha=plot['line']['alpha'])
                                 if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
                                     self.axes[i][j].errorbar(
                                         x=plot['x'], y=plot['y'],
@@ -2686,7 +2715,8 @@ class plot_class():
                                         markeredgewidth=plot['marker']['edge_wid'],
                                         markerfacecolor=plot['marker']['face_col'],
                                         markersize=plot['marker']['size'],
-                                        label=plot['label'])
+                                        label=plot['label'],
+                                        alpha=plot['line']['alpha'])
                                 label_length += 'label'
                             else:
                                 if plot['line']['exist'] == 1:
@@ -2707,7 +2737,8 @@ class plot_class():
                                     markeredgewidth=plot['marker']['edge_wid'],
                                     markerfacecolor=plot['marker']['face_col'],
                                     markersize=plot['marker']['size'],
-                                    label=plot['label'])
+                                    label=plot['label'],
+                                    alpha=plot['line']['alpha'])
                                 label_length += 'label'
 
                     style = ['normal', 'italic']
@@ -2864,7 +2895,8 @@ class plotEditor():
                 'line':{'exist':1,
                         'color':line_col[col_count],
                         'style':'-',
-                        'width':2},
+                        'width':2,
+                        'alpha':1.0},
                 'marker':{'exist':1,
                           'type':'.',
                           'edge_col':line_col[col_count],
