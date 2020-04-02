@@ -5,7 +5,7 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
-from plot_code import write_code_file
+from .plot_code import write_code_file
 
 
 # Defined Colours
@@ -1111,6 +1111,8 @@ class window(tk.Frame):
 
     def multi_select_finish(self):
         if self.multi_select.get() == 0:
+            if self.multi_list.get() == '':
+                return
             options = self.multi_list.get()[1:-1].split(', ')
             multi_list = []
             for i in range(len(options)):
