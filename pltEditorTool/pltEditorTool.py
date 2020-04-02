@@ -5,7 +5,7 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
-from .plot_code import write_code_file
+from plot_code import write_code_file
 
 
 # Defined Colours
@@ -1442,9 +1442,9 @@ class window(tk.Frame):
                                    'x_label':'x',
                                    'y_label':'y',
                                    'title':'Plot',
-                                   'axis_text':{'size':8, 'Bold':0,
+                                   'axis_text':{'size':12, 'Bold':0,
                                                 'Italic':0, 'Underline':0},
-                                   'title_text':{'size':8, 'Bold':1,
+                                   'title_text':{'size':12, 'Bold':1,
                                                  'Italic':0, 'Underline':0},
                                    'position':[0, 0, 1, 1],
                                    'legend':'best',
@@ -1478,9 +1478,9 @@ class window(tk.Frame):
             'x_label':'x',
             'y_label':'y',
             'title':'Plot',
-            'axis_text':{'size':8, 'Bold':0,
+            'axis_text':{'size':12, 'Bold':0,
                          'Italic':0, 'Underline':0},
-            'title_text':{'size':8, 'Bold':1,
+            'title_text':{'size':12, 'Bold':1,
                           'Italic':0, 'Underline':0},
             'position':[0, 0, 1, 1],
             'legend':'best',
@@ -2001,6 +2001,7 @@ class plot_class():
             ax[count].set_ylim(data['y_lim'])
             ax[count].set_xscale(scale[data['xscale']])
             ax[count].set_yscale(scale[data['yscale']])
+            ax[count].tick_params(labelsize=data['axis_text']['size']-3)
             if data['xticks'] == 0:
                 ax[count].set_xticks([], [])
             if data['yticks'] == 0:
@@ -2275,6 +2276,7 @@ class plot_class():
                     self.axes[i][j].set_ylim(y_lim)
                     self.axes[i][j].set_xscale(scale[x_scale])
                     self.axes[i][j].set_yscale(scale[y_scale])
+                    self.axes[i][j].tick_params(labelsize=data['axis_text']['size']-3)
                     if data['xticks'] == 0:
                         self.axes[i][j].set_xticks([], [])
                     if data['yticks'] == 0:
@@ -2467,6 +2469,7 @@ class plot_class():
             ax[count].set_ylim(data['y_lim'])
             ax[count].set_xscale(scale[data['xscale']])
             ax[count].set_yscale(scale[data['yscale']])
+            ax[count].tick_params(labelsize=data['axis_text']['size']-3)
             if data['xticks'] == 0:
                 ax[count].set_xticks([], [])
             if data['yticks'] == 0:
@@ -2748,6 +2751,7 @@ class plot_class():
                     self.axes[i][j].set_ylim(y_lim)
                     self.axes[i][j].set_xscale(scale[x_scale])
                     self.axes[i][j].set_yscale(scale[y_scale])
+                    self.axes[i][j].tick_params(labelsize=data['axis_text']['size']-3)
                     if data['xticks'] == 0:
                         self.axes[i][j].set_xticks([], [])
                     if data['yticks'] == 0:
