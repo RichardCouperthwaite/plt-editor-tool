@@ -58,6 +58,7 @@ When the plotEditor function is called a GUI will be generated. This GUI will be
  - Line: These features will change the appearance of the line plot
  - Markers: These features will change the appearance of the markers on the line plot
  - Fill: These features change the fill
+ - Scatter: Select these features for a scatter plot (note: to modify the size of the scatter plot markers, use the marker size option)
  
 For all feature changes, to change the color, click on the colored button and a separate dialog box for choosing the color will appear.
  
@@ -85,16 +86,4 @@ A few final notes:
  - currently no option for changing the size of the legend text
  - Several of the most common errors that could occur will provide a pop-up warning detailing what went wrong
  
-### Development
 
-Want to contribute? Great!
-
-The code is maintained in the Github repository. Create pull requests to contribute code.
-
-
-### Todos
-
- - Add scatter plots with color sequence and size sequence options
-
-### License
-GNU GPLv3
