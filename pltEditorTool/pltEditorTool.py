@@ -1692,6 +1692,7 @@ class window(tk.Frame):
             plot_obj.show_plot2()
 
     def save_plot(self):
+        plt.close(1)
         self.collect_current_data()
         file = filedialog.asksaveasfile(defaultextension='.png',
                                         title='Save Matplotlib Figure',
@@ -2028,6 +2029,7 @@ class plot_class():
         if len(cbar_map) > 0:
             for i in range(len(cbar_map)):
                 self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+        self.fig.set_dpi(150)
         self.fig.show()
 
     def show_plot2(self):
@@ -2305,6 +2307,7 @@ class plot_class():
         if len(cbar_map) > 0:
             for i in range(len(cbar_map)):
                 self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+        self.fig.set_dpi(150)
         self.fig.show()
 
 

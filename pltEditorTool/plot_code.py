@@ -1,4 +1,9 @@
-save_plot_list = ["class plot_class():\n",
+save_plot_list = [
+"import numpy as np\n",
+"import matplotlib.pyplot as plt\n",
+"from matplotlib.gridspec import GridSpec\n",
+"\n",
+"class plot_class():\n",
 "    def __init__(self, axis_dict, fname):\n",
 "        self.axis_dict = axis_dict\n",
 "        self.axis_list = axis_dict['axes']\n",
@@ -225,12 +230,17 @@ save_plot_list = ["class plot_class():\n",
 "        \n",
 "if __name__ == '__main__':\n",
 "    data_dict = np.load('plot_data.npy',allow_pickle='TRUE').item()\n",
-"    plot_obj = plot(data_dict, '')\n",
+"    plot_obj = plot_class(data_dict, '')\n",
 "    plot_obj.show_plot()\n"]
 
 
 
-save_plot2_list = ["class plot_class():\n",
+save_plot2_list = [
+"import numpy as np\n",
+"import matplotlib.pyplot as plt\n",
+"from matplotlib.gridspec import GridSpec\n",
+"\n",
+"class plot_class():\n",
 "    def __init__(self, axis_dict, fname):\n",
 "        self.axis_dict = axis_dict\n",
 "        self.axis_list = axis_dict['axes']\n",
@@ -346,10 +356,8 @@ save_plot2_list = ["class plot_class():\n",
 "                                y_lim = self.axis_data[self.axis_names[i][j]]['y_lim']\n",
 "                                x_scale = self.axis_data[self.axis_names[i][j]]['xscale']\n",
 "                                y_scale = self.axis_data[self.axis_names[i][j]]['yscale']\n",
-"                    except:\n",
-"                        # print(e.args)\n",
-"                        messagebox.showerror(title='Plot error',\n",
-"                                             message='Error encountered plotting figure. Ensure plots with shared x or shared y have matching columns or rows.')\n",
+"                    except Exception as e:\n",
+"                        print(e.args)\n",
 "                        return\n",
 "\n",
 "                    self.axes[i][j] = self.fig.add_subplot(\n",
@@ -533,7 +541,7 @@ save_plot2_list = ["class plot_class():\n",
 "        \n",
 "if __name__ == '__main__':\n",
 "    data_dict = np.load('plot_data.npy',allow_pickle='TRUE').item()\n",
-"    plot_obj = plot(data_dict, '')\n",
+"    plot_obj = plot_class(data_dict, '')\n",
 "    plot_obj.show_plot()\n"]      
 
 
