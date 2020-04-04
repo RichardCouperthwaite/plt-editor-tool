@@ -189,7 +189,7 @@ def plot_addlegend_labels(ax, data, label_length):
     ax.set_title(
         data['title'], fontsize=data['title_text']['size'],
         fontstyle=style[data['title_text']['Italic']],
-        fontweight=weight[data['title_text']['Bold']])
+        fontweight=weight[data['title_text']['Bold']],wrap=True)
     if label_length != '':
         if data['legend'] != 'None':
             ax.legend(loc=data['legend'],
