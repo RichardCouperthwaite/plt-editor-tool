@@ -85,5 +85,6 @@ A few final notes:
  - Labels can include latex commands for symbols, e.g. ($\sigma$)
  - currently no option for changing the size of the legend text
  - Several of the most common errors that could occur will provide a pop-up warning detailing what went wrong
+ - Please see the usage guide for a more complete guide to the functions of the tool
  
 
