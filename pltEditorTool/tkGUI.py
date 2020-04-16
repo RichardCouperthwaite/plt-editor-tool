@@ -122,6 +122,7 @@ def create_GUI(window):
     window.grid()
     # populate the window with the widgets
     __create_widgets(window)
+    set_plot_data(window, window.data_list[0])
 
 def __create_widgets(window):
     #************************************************************#
