@@ -9,6 +9,7 @@ from tkinter import messagebox
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
+from matplotlib.ticker import AutoMinorLocator
 try:
     from .plot_code import write_code_file
 except ImportError:
@@ -176,8 +177,18 @@ def plot_addlegend_labels(ax, data, label_length):
     ax.tick_params(labelsize=data['axis_text']['size']-3)
     if data['xticks'] == 0:
         ax.set_xticks([], [])
+    else:
+        if scale[data['xscale']] == 'linear':
+            ax.xaxis.set_minor_locator(AutoMinorLocator())
+            ax.tick_params(which='major', length=7)
+            ax.tick_params(which='minor', length=4)
     if data['yticks'] == 0:
         ax.set_yticks([], [])
+    else:
+        if scale[data['yscale']] == 'linear':
+            ax.yaxis.set_minor_locator(AutoMinorLocator())
+            ax.tick_params(which='major', length=7)
+            ax.tick_params(which='minor', length=4)
     ax.set_xlabel(
         data['x_label'], fontsize=data['axis_text']['size'],
         fontstyle=style[data['axis_text']['Italic']],
@@ -316,7 +327,7 @@ class plot_class():
                 save_dir += save_dir_list[i] + '/'
             fname = save_dir_list[-1].split(".")[0]
             np.save("{}/{}_plot_data.npy".format(save_dir,fname), self.axis_dict)
-            write_code_file(save_dir, fname, 'share_xy')
+            write_code_file(save_dir, fname, 'normal')
         else:
             self.fig.set_dpi(150)
             self.fig.show()

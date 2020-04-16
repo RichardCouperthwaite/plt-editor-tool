@@ -2,7 +2,9 @@ file_data = ["import tkinter as tk\n",
 "from tkinter import messagebox\n",
 "import numpy as np\n",
 "import matplotlib.pyplot as plt\n",
+"plt.rcParams['font.family'] = 'Times New Roman'\n",
 "from matplotlib.gridspec import GridSpec  \n",
+"from matplotlib.ticker import AutoMinorLocator\n",
 "\n",
 "def plot_fillbetween(ax, plot) :\n",
 "    ax.fill_between(np.array(plot['x']),\n",
@@ -165,8 +167,18 @@ file_data = ["import tkinter as tk\n",
 "    ax.tick_params(labelsize=data['axis_text']['size']-3)\n",
 "    if data['xticks'] == 0:\n",
 "        ax.set_xticks([], [])\n",
+"    else:\n",
+"        if scale[data['xscale']] == 'linear':\n",
+"            ax.xaxis.set_minor_locator(AutoMinorLocator())\n",
+"            ax.tick_params(which='major', length=7)\n",
+"            ax.tick_params(which='minor', length=4)\n",
 "    if data['yticks'] == 0:\n",
 "        ax.set_yticks([], [])\n",
+"    else:\n",
+"        if scale[data['yscale']] == 'linear':\n",
+"            ax.yaxis.set_minor_locator(AutoMinorLocator())\n",
+"            ax.tick_params(which='major', length=7)\n",
+"            ax.tick_params(which='minor', length=4)\n",
 "    ax.set_xlabel(\n",
 "        data['x_label'], fontsize=data['axis_text']['size'],\n",
 "        fontstyle=style[data['axis_text']['Italic']],\n",
@@ -381,7 +393,7 @@ def write_code_file(save_dir, fname, choice):
     with open(save_dir+'{}_figure_plot_code.py'.format(fname),'w') as f:
         f.writelines(file_data)
         f.write("    data_dict = np.load('{}_plot_data.npy',allow_pickle='TRUE').item()\n".format(fname))
-        f.write("    plot_obj = plot_class(data_dict, '')\n")
+        f.write("    plot_obj = plot_class(data_dict, '{}.png')\n".format(fname))
         if choice == 'normal':
             f.write("    plot_obj.show_plot(False)\n")
         elif choice == 'share_xy':

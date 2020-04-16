@@ -5,6 +5,7 @@ from tkinter import messagebox
 from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
+plt.rcParams["font.family"] = "Times New Roman"
 
 from matplotlib import get_backend
 
@@ -172,13 +173,13 @@ class window(tk.Frame):
                                    'x_label':'x',
                                    'y_label':'y',
                                    'title':'Plot',
-                                   'axis_text':{'size':12, 'Bold':0,
+                                   'axis_text':{'size':16, 'Bold':0,
                                                 'Italic':0, 'Underline':0},
-                                   'title_text':{'size':12, 'Bold':1,
+                                   'title_text':{'size':16, 'Bold':1,
                                                  'Italic':0, 'Underline':0},
                                    'position':[0, 0, 1, 1],
                                    'legend':'best',
-                                   'legendFontSize':8,
+                                   'legendFontSize':12,
                                    'xticks': 1, 'yticks':1,
                                    'xscale':0, 'yscale':0}
         max_x = -1e16
@@ -208,13 +209,13 @@ class window(tk.Frame):
             'x_label':'x',
             'y_label':'y',
             'title':'Plot',
-            'axis_text':{'size':12, 'Bold':0,
+            'axis_text':{'size':16, 'Bold':0,
                          'Italic':0, 'Underline':0},
-            'title_text':{'size':12, 'Bold':1,
+            'title_text':{'size':16, 'Bold':1,
                           'Italic':0, 'Underline':0},
             'position':[0, 0, 1, 1],
             'legend':'best',
-            'legendFontSize':8,
+            'legendFontSize':12,
             'xticks': 1, 'yticks':1,
             'xscale':0, 'yscale':0}
         self.axis_list.append('axis{}'.format(self.axis_count+1))
@@ -421,55 +422,67 @@ class window(tk.Frame):
         save_plot_data(self, self.selected_data_value)
         save_axis_data(self, self.current_axis.get())
 
-
-
-
-
-
-
-
 class plotEditor():
     def __init__(self, x=[], y=[], x_err=[], y_err=[], fill=[], fill_alt=[], labels=[]):
-        self.x = x
-        self.y = y
-        if x_err == []:
-            self.x_err = []
-            for i in range(len(x)):
-                self.x_err.append([])
+        if str(type(x)) == "<class 'numpy.ndarray'>":
+            try:
+                self.__numpy_input(x, y, x_err, y_err, fill, fill_alt, labels)
+            except Exception as e:
+                root = tk.Tk()
+                messagebox.showerror("Startup",
+                                     "Failed to Initialize tool:\n{}".format(e))
+                root.destroy()
+                raise ValueError("Inputs not fully specified")
+        elif str(type(x)) == "<class 'pandas.core.frame.DataFrame'>":
+            try:
+                self.__pandas_input(x, labels)
+            except Exception as e:
+                root = tk.Tk()
+                messagebox.showerror("Startup",
+                                     "Failed to Initialize tool:\n{}".format(e))
+                root.destroy()
+                raise ValueError("Inputs not fully specified")
         else:
-            self.x_err = x_err
-        if y_err == []:
-            self.y_err = []
-            for i in range(len(x)):
-                self.y_err.append([])
-        else:
-            self.y_err = y_err
-        if fill == []:
-            self.dif_top = []
-            for i in range(len(x)):
-                self.dif_top.append([])
-        else:
-            self.dif_top = fill
-        if fill_alt == []:
-            self.dif_bot = self.dif_top
-        else:
-            self.dif_bot = fill_alt
-        if labels == []:
-            self.labels = []
-            for i in range(len(x)):
-                self.labels.append('')
-        else:
-            self.labels = []
-            for i in range(len(x)):
-                self.labels.append(labels[i].replace(' ', '-'))
+            self.x = x
+            self.y = y
+            if x_err == []:
+                self.x_err = []
+                for i in range(len(x)):
+                    self.x_err.append([])
+            else:
+                self.x_err = x_err
+            if y_err == []:
+                self.y_err = []
+                for i in range(len(x)):
+                    self.y_err.append([])
+            else:
+                self.y_err = y_err
+            if fill == []:
+                self.dif_top = []
+                for i in range(len(x)):
+                    self.dif_top.append([])
+            else:
+                self.dif_top = fill
+            if fill_alt == []:
+                self.dif_bot = self.dif_top
+            else:
+                self.dif_bot = fill_alt
+            if labels == []:
+                self.labels = []
+                for i in range(len(x)):
+                    self.labels.append('')
+            else:
+                self.labels = []
+                for i in range(len(x)):
+                    self.labels.append(labels[i].replace(' ', '-'))
 
         self.same_vectors = []
         self.same_vector_names = []
 
-        for i in range(len(x)):
+        for i in range(len(self.x)):
             self.same_vectors.append([[]])
             self.same_vector_names.append(['None'])
-            for j in range(len(x)):
+            for j in range(len(self.x)):
                 if len(self.x[i]) == len(self.x[j]):
                     self.same_vectors[i].append(self.x[j])
                     self.same_vector_names[i].append("{}-{}".format('x',
@@ -505,6 +518,174 @@ class plotEditor():
             root.destroy()
             raise ValueError("Inputs not fully specified")
         self.__initialize_plot()
+        
+    def __add_input_np(self, var, val, index):
+        if str(type(val)) == "<class 'numpy.ndarray'>":
+            if val.shape == self.x[index].shape:
+                var.append(val)
+            else:
+                raise ValueError("All inputs must have same shape")
+        elif val == []:
+            var.append([])
+            raise ValueError("Empty Input")
+        else:
+            try:
+                if np.array(val).shape == self.x[index].shape:
+                    var.append(np.array(val))
+                else:
+                    raise ValueError("All inputs must have same shape")
+            except:
+                raise ValueError("Mismatched inputs. Please ensure all inputs are of same type and size")
+    
+    def __add_input_str(self, var, val, index):
+        if str(type(val)) == "<class 'str'>":
+            var.append(val.replace(' ','-'))
+        else:
+            var.append("Dataset-{}".format(index))
+    
+    def __numpy_input(self, x, y, x_err, y_err, fill, fill_alt, labels):
+        self.x = []
+        self.y = []
+        self.x_err = []
+        self.y_err = []
+        self.dif_top = []
+        self.dif_bot = []
+        self.labels = []
+        
+        if len(x.shape) == 1:
+            self.x.append(x)
+            self.__add_input_np(self.y, y, 0)
+            self.__add_input_np(self.x_err, x_err, 0)
+            self.__add_input_np(self.y_err, y_err, 0)
+            self.__add_input_np(self.dif_top, fill, 0)
+            self.__add_input_np(self.dif_bot, fill_alt, 0)
+            self.__add_input_str(self.labels, labels, 0)
+        elif len(x.shape) == 2:
+            for i in range(x.shape[1]):
+                self.x.append(x[:,i])
+                try:
+                
+                    try:
+                        self.__add_input_np(self.y, y[:,i], i)
+                    except ValueError:
+                        raise ValueError("All datasets must have y values")
+                    try:
+                        try:
+                            self.__add_input_np(self.x_err, x_err[:,i], i)
+                        except IndexError:
+                            self.x_err.append([])
+                    except ValueError:
+                        pass
+                    try:
+                        try:
+                            self.__add_input_np(self.y_err, y_err[:,i], i)
+                        except IndexError:
+                            self.y_err.append([])
+                    except ValueError:
+                        pass
+                    try:
+                        try:
+                            self.__add_input_np(self.dif_top, fill[:,i], i)
+                        except IndexError:
+                            self.dif_top.append([])
+                    except ValueError:
+                        pass
+                    try:
+                        try:
+                            self.__add_input_np(self.dif_bot, fill_alt[:,i], i)
+                        except IndexError:
+                            try:
+                                self.__add_input_np(self.dif_bot, fill[:,i], i)
+                            except IndexError:
+                                self.dif_bot.append([])
+                    except ValueError:
+                        pass
+                except TypeError:
+                    raise TypeError("All data inputs must have same type and shape")
+                self.__add_input_str(self.labels, labels[i], i)
+        elif len(x.shape) == 3:
+            if x.shape[2] != 6:
+                raise ValueError("X-input must have size 6 in last dimension")
+            for i in range(x.shape[0]):
+                self.x.append(x[i,:,0])
+                try:
+                    try:
+                        self.__add_input_np(self.y, x[i,:,1], i)
+                    except ValueError:
+                        raise ValueError("All datasets must have y values")
+                except IndexError:
+                    raise IndexError("All datasets must have x and y values")
+                try:
+                    self.__add_input_np(self.x_err, x[i,:,2], i)
+                except IndexError:
+                    self.x_err.append([])
+                try:
+                    self.__add_input_np(self.y_err, x[i,:,3], i)
+                except IndexError:
+                    self.y_err.append([])
+                try:
+                    self.__add_input_np(self.dif_top, x[i,:,4], i)
+                except IndexError:
+                    self.dif_top.append([])
+                try:
+                    self.__add_input_np(self.dif_bot, x[i,:,5], i)
+                except IndexError:
+                    self.dif_bot.append([])
+                self.__add_input_str(self.labels, labels[i], i)
+        else:
+            raise ValueError("X-input shape cannot have more than 3 dimensions")
+            
+    def __pandas_input(self, x, labels):
+        self.x = []
+        self.y = []
+        self.x_err = []
+        self.y_err = []
+        self.dif_top = []
+        self.dif_bot = []
+        self.labels = []
+        count = 0
+        for label in x.columns:
+            if label.split('.')[0] == 'x':
+                self.x.append(np.array(x.loc[:,label]))
+                try:
+                    self.labels.append(labels[count].replace(' ','.'))
+                except IndexError:
+                    try:
+                        self.labels.append(label.split('.')[1].replace(' ','-'))
+                    except IndexError:
+                        self.labels.append("Dataset-{}".format(count+1))
+                count += 1
+            if label.split('.')[0] == 'y':
+                self.y.append(np.array(x.loc[:,label]))
+            if label.split('.')[0] == 'x_err':
+                self.x_err.append(np.array(x.loc[:,label]))
+            if label.split('.')[0] == 'y_err':
+                self.y_err.append(np.array(x.loc[:,label]))
+            if label.split('.')[0] == 'fill':
+                self.dif_top.append(np.array(x.loc[:,label]))
+            if label.split('.')[0] == 'fill_alt':
+                self.dif_bot.append(np.array(x.loc[:,label]))
+            
+        if self.x_err == []:
+            for i in range(len(self.x)):
+                self.x_err.append([])
+        if self.y_err == []:
+            for i in range(len(self.x)):
+                self.y_err.append([])
+        if self.dif_top == []:
+            for i in range(len(self.x)):
+                self.dif_top.append([])
+        if self.dif_bot == []:
+            self.dif_bot = self.dif_top
+                
+        a = len(self.x) != len(self.y)
+        b = len(self.x) != len(self.x_err)
+        c = len(self.x) != len(self.y_err)
+        d = len(self.x) != len(self.dif_top)
+        e = len(self.x) != len(self.dif_bot)
+        
+        if a or b or c or d or e:
+            raise ValueError("Insufficient data provided. [x-err, y-err, fill, fill_alt] must be provided for all datasets or no datasets")
 
     def __initialize_plot(self):
         line_col = ['#000000', '#0000FF', '#00FF00', '#FF0000', '#FF00FF',
@@ -625,10 +806,62 @@ class plotEditor():
             self.root.destroy()
 
 if __name__ == "__main__":
-    x_data = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]]
-    y_data = [[0.00, 0.84, 0.91, 0.14, -0.76, -0.96, -0.28, 0.66, 0.99, 0.41, -0.54],
-              [1.00, 0.90, 0.82, 0.74, 0.67, 0.61, 0.55, 0.50, 0.45, 0.41, 0.37]]
-    y_err_data = [[], [0.1, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.2, 0.1, 0.1, 0.05]]
+    import pandas as pd
+    
+    data = pd.read_excel("test_plot_data.xlsx", header=0)
+    
+    x_data = [np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]
+    y_data = [np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]
+    x_err_data = [np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]
+    y_err_data = [np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]
+    fill_data = [np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]
+    fill_alt_data = [np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]
     labels_data = ['Experimental', 'Computation']
-
-    plotEditor(x=x_data, y=y_data, y_err=y_err_data, labels=labels_data)
+    
+    print("Case 1: Ordinary List Style Input")
+    
+    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+                fill=fill_data, fill_alt=fill_alt_data, labels=labels_data)
+    
+    x_data = np.array(data.loc[:,'x.1'])
+    y_data = np.array(data.loc[:,'y.1'])
+    x_err_data = np.array(data.loc[:,'x_err.1'])
+    y_err_data = np.array(data.loc[:,'y_err.1'])
+    fill_data = np.array(data.loc[:,'fill.1'])
+    fill_alt_data = np.array(data.loc[:,'fill_alt.1'])
+    labels_data = 'Computation'
+    
+    print("Case 2: Single Numpy Array Input")
+    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+                fill=fill_data, fill_alt=fill_alt_data, labels=labels_data)
+    
+    x_data = np.array([np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]).transpose()
+    y_data = np.array([np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]).transpose()
+    x_err_data = np.array([np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]).transpose()
+    y_err_data = np.array([np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]).transpose()
+    fill_data = np.array([np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]).transpose()
+    fill_alt_data = np.array([np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]).transpose()
+    labels_data = ['Experimental', 'Computation']
+    
+    print("Case 3: 2D Numpy Array Input")
+    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+                fill=fill_data, fill_alt=fill_alt_data, labels=labels_data)
+    
+    input_data = np.zeros((2,101,6))
+    input_data[0,:,0] = x_data[:,0]
+    input_data[1,:,0] = x_data[:,1]
+    input_data[0,:,1] = y_data[:,0]
+    input_data[1,:,1] = y_data[:,1]
+    input_data[0,:,2] = x_err_data[:,0]
+    input_data[1,:,2] = x_err_data[:,1]
+    input_data[0,:,3] = y_err_data[:,0]
+    input_data[1,:,3] = y_err_data[:,1]
+    input_data[0,:,4] = fill_data[:,0]
+    input_data[1,:,4] = fill_data[:,1]
+    input_data[0,:,5] = fill_alt_data[:,0]
+    input_data[1,:,5] = fill_alt_data[:,1]
+    print("Case 4: 3D Numpy Array Input")
+    plotEditor(x=input_data, labels=labels_data)
+    
+    print("Case 5: Pandas DataFrame Input")
+    plotEditor(x=data, labels=labels_data)    
