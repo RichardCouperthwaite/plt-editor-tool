@@ -330,7 +330,8 @@ class plot_class():
             write_code_file(save_dir, fname, 'normal')
         else:
             self.fig.set_dpi(150)
-            self.fig.show()
+            #self.fig.show()
+            plt.show()
 
     def show_plot_sharexy(self, save):
         label_length = ''
@@ -406,4 +407,6 @@ class plot_class():
             write_code_file(save_dir, fname, 'share_xy')
         else:
             self.fig.set_dpi(150)
-            self.fig.show()
+            #self.fig.show()
+            plt.show()
+            

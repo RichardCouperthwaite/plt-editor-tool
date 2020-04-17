@@ -1,9 +1,9 @@
-file_data = ["import tkinter as tk\n",
+file_data1 = ["import tkinter as tk\n",
 "from tkinter import messagebox\n",
 "import numpy as np\n",
-"import matplotlib.pyplot as plt\n",
-"plt.rcParams['font.family'] = 'Times New Roman'\n",
-"from matplotlib.gridspec import GridSpec  \n",
+"import matplotlib.pyplot as plt\n"]
+
+file_data2 = ["from matplotlib.gridspec import GridSpec  \n",
 "from matplotlib.ticker import AutoMinorLocator\n",
 "\n",
 "def plot_fillbetween(ax, plot) :\n",
@@ -389,9 +389,17 @@ file_data = ["import tkinter as tk\n",
 "\n",
 "if __name__ == '__main__':\n"]
 
-def write_code_file(save_dir, fname, choice):      
+def write_code_file(save_dir, fname, choice):  
+    import platform    
     with open(save_dir+'{}_figure_plot_code.py'.format(fname),'w') as f:
-        f.writelines(file_data)
+        f.writelines(file_data1)
+        if platform.system() == "Linux":
+            f.write("plt.rcParams['font.family'] = 'DeJaVu Serif'\n")
+        elif platform.system() == "Darwin":
+            f.write("plt.rcParams['font.family'] = 'URW Bookman L'\n")
+        else:
+            f.write("plt.rcParams['font.family'] = 'Times New Roman'\n")
+        f.writelines(file_data2)
         f.write("    data_dict = np.load('{}_plot_data.npy',allow_pickle='TRUE').item()\n".format(fname))
         f.write("    plot_obj = plot_class(data_dict, '{}.png')\n".format(fname))
         if choice == 'normal':
