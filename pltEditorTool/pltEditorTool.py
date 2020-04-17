@@ -7,13 +7,14 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matplotlib import get_backend
+# from matplotlib import get_backend
 
-if get_backend() == "module://ipykernel.pylab.backend_inline":
-    root = tk.Tk()
-    messagebox.showerror(title="Inline Plotting",
-                         message="Plots may not display with inline backend. \nPlots should still be able to be saved. \nPlease consider running code from command line in order to ensure full functionality.")
-    root.destroy()
+# if get_backend() == "module://ipykernel.pylab.backend_inline":
+#     root = tk.Tk()
+#     root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
+#     messagebox.showerror(title="Inline Plotting",
+#                          message="Plots may not display with inline backend. \nPlots should still be able to be saved. \nPlease consider running code from command line in order to ensure full functionality.")
+#     root.destroy()
 
 try:
     from .util import save_axis_data, save_plot_data, set_axis_data, set_plot_data
@@ -445,6 +446,7 @@ class plotEditor():
                 self.__numpy_input(x, y, x_err, y_err, fill, fill_alt, labels)
             except Exception as e:
                 root = tk.Tk()
+                root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
                 messagebox.showerror("Startup",
                                      "Failed to Initialize tool:\n{}".format(e))
                 root.destroy()
@@ -454,6 +456,7 @@ class plotEditor():
                 self.__pandas_input(x, labels)
             except Exception as e:
                 root = tk.Tk()
+                root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
                 messagebox.showerror("Startup",
                                      "Failed to Initialize tool:\n{}".format(e))
                 root.destroy()
@@ -529,6 +532,7 @@ class plotEditor():
             self.__check_input()
         except Exception as e:
             root = tk.Tk()
+            root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
             messagebox.showerror("Startup",
                                  "Failed to Initialize tool:\n{}".format(e))
             root.destroy()
@@ -765,6 +769,7 @@ class plotEditor():
             if col_count == 10:
                 col_count = 0
         self.root = tk.Tk()
+        self.root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
         self.root.title('Matplotlib Post Processor')
         #root.iconbitmap(bitmap='Main.ico')
         self.root.resizable(0, 0)
