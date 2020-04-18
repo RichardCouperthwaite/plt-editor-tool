@@ -799,9 +799,6 @@ class plotEditor():
                 col_count = 0
         self.root = tk.Tk()
         self.root.title('Matplotlib Post Processor')
-        ico_file_dir = __file__.replace("pltEditorTool.py", "icon2.png")
-        self.root.iconphoto(False, tk.PhotoImage(file=ico_file_dir))
-        #root.iconbitmap(bitmap='Main.ico')
         self.root.resizable(0, 0)
         self.root.protocol("WM_DELETE_WINDOW", self.callback)
         app = window(plot_data_Dict, master=self.root)
