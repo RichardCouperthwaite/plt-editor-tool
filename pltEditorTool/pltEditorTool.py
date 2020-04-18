@@ -799,7 +799,7 @@ class plotEditor():
                 col_count = 0
         self.root = tk.Tk()
         self.root.title('Matplotlib Post Processor')
-        self.root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
+        self.root.iconphoto(False, tk.PhotoImage(file='icon2.png'))
         #root.iconbitmap(bitmap='Main.ico')
         self.root.resizable(0, 0)
         self.root.protocol("WM_DELETE_WINDOW", self.callback)
