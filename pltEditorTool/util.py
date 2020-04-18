@@ -59,6 +59,7 @@ def set_plot_data(window, index):
     try:
         window.eb_col['bg'] = window.data_dict[index]['ebar']['color']
         window.eb_col['activebackground'] = window.data_dict[index]['ebar']['color']
+        window.eb_col['fg'] = window.data_dict[index]['ebar']['color']
     except AttributeError:
         pass
     window.ebar_linew.set(window.data_dict[index]['ebar']['linew'])
@@ -70,6 +71,7 @@ def set_plot_data(window, index):
     try:
         window.l_col['bg'] = window.data_dict[index]['line']['color']
         window.l_col['activebackground'] = window.data_dict[index]['line']['color']
+        window.l_col['fg'] = window.data_dict[index]['line']['color']
     except AttributeError:
         pass
     window.line_style.set(window.data_dict[index]['line']['style'])
@@ -82,6 +84,7 @@ def set_plot_data(window, index):
     try:
         window.m_ecol['bg'] = window.data_dict[index]['marker']['edge_col']
         window.m_ecol['activebackground'] = window.data_dict[index]['marker']['edge_col']
+        window.m_ecol['fg'] = window.data_dict[index]['marker']['edge_col']
     except AttributeError:
         pass
     window.mark_ew .set(window.data_dict[index]['marker']['edge_wid'])
@@ -89,6 +92,7 @@ def set_plot_data(window, index):
     try:
         window.m_fcol['bg'] = window.data_dict[index]['marker']['face_col']
         window.m_fcol['activebackground'] = window.data_dict[index]['marker']['face_col']
+        window.m_fcol['fg'] = window.data_dict[index]['marker']['face_col']
     except AttributeError:
         pass
     window.mark_sz.set(window.data_dict[index]['marker']['size'])
@@ -100,12 +104,14 @@ def set_plot_data(window, index):
     try:
         window.f_ecol['bg'] = window.data_dict[index]['fill']['edge_col']
         window.f_ecol['activebackground'] = window.data_dict[index]['fill']['edge_col']
+        window.f_ecol['fg'] = window.data_dict[index]['fill']['edge_col']
     except AttributeError:
         pass
     window.fill_fc.set(window.data_dict[index]['fill']['face_col'])
     try:
         window.f_fcol['bg'] = window.data_dict[index]['fill']['face_col']
         window.f_fcol['activebackground'] = window.data_dict[index]['fill']['face_col']
+        window.f_fcol['fg'] = window.data_dict[index]['fill']['face_col']
     except AttributeError:
         pass
     window.fill_linew.set(window.data_dict[index]['fill']['line_wid'])

@@ -7,9 +7,11 @@ Created on Fri Apr  3 05:44:53 2020
 
 from tkinter import messagebox
 import numpy as np
+import platform
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import AutoMinorLocator
+from matplotlib import get_backend
 try:
     from .plot_code import write_code_file
 except ImportError:
@@ -329,9 +331,15 @@ class plot_class():
             np.save("{}/{}_plot_data.npy".format(save_dir,fname), self.axis_dict)
             write_code_file(save_dir, fname, 'normal')
         else:
-            self.fig.set_dpi(150)
-            #self.fig.show()
-            plt.show()
+            if platform.system() != "Darwin":
+                self.fig.set_dpi(150)
+            if platform.system() != "Linux":
+                if get_backend() != "module://ipykernel.pylab.backend_inline":
+                    self.fig.show()
+                else:
+                    plt.show()
+            else:
+                plt.show()
 
     def show_plot_sharexy(self, save):
         label_length = ''
@@ -406,7 +414,13 @@ class plot_class():
             np.save("{}/{}_plot_data.npy".format(save_dir,fname), self.axis_dict)
             write_code_file(save_dir, fname, 'share_xy')
         else:
-            self.fig.set_dpi(150)
-            #self.fig.show()
-            plt.show()
+            if platform.system() != "Darwin":
+                self.fig.set_dpi(150)
+            if platform.system() != "Linux":
+                if get_backend() != "module://ipykernel.pylab.backend_inline":
+                    self.fig.show()
+                else:
+                    plt.show()
+            else:
+                plt.show()
             

@@ -7,14 +7,15 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 
-# from matplotlib import get_backend
+from matplotlib import get_backend
+
+PLATFORM = platform.system()
 
 # if get_backend() == "module://ipykernel.pylab.backend_inline":
-#     root = tk.Tk()
-#     root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
-#     messagebox.showerror(title="Inline Plotting",
-#                          message="Plots may not display with inline backend. \nPlots should still be able to be saved. \nPlease consider running code from command line in order to ensure full functionality.")
-#     root.destroy()
+    # root = tk.Tk()
+    # messagebox.showerror(title="Inline Plotting",
+                         # message="Plots may not display with inline backend. \nPlots should still be able to be saved. \nPlease consider running code from command line in order to ensure full functionality.")
+    # root.destroy()
 
 try:
     from .util import save_axis_data, save_plot_data, set_axis_data, set_plot_data
@@ -25,20 +26,20 @@ try:
 except ImportError:
     from plot_functions import plot_class
 try:
-    if platform.system() == "Linux":
+    if PLATFORM == "Linux":
         from .tkGUI_linux import create_GUI
         plt.rcParams["font.family"] = 'DeJaVu Serif'
-    elif platform.system() == "Darwin":
+    elif PLATFORM == "Darwin":
         from .tkGUI_Mac import create_GUI
         plt.rcParams["font.family"] = 'DeJaVu Serif'
     else:
         from .tkGUI import create_GUI
         plt.rcParams["font.family"] = "Times New Roman"
 except ImportError:
-    if platform.system() == "Linux":
+    if PLATFORM == "Linux":
         from tkGUI_linux import create_GUI
         plt.rcParams["font.family"] = 'DeJaVu Serif'
-    elif platform.system() == "Darwin":
+    elif PLATFORM == "Darwin":
         from tkGUI_Mac import create_GUI
         plt.rcParams["font.family"] = 'DeJaVu Serif'
     else:
@@ -65,44 +66,65 @@ class window(tk.Frame):
         
     def ebar_col_h(self):
         col = askcolor(self.ebar_color.get())[1]
-        self.ebar_color.set(col)
-        self.eb_col['bg'] = col
-        self.eb_col['activebackground'] = col
+        if col != None:
+            self.ebar_color.set(col)
+            if PLATFORM == "Darwin":
+                self.eb_col['fg'] = col
+            else:
+                self.eb_col['bg'] = col
+                self.eb_col['activebackground'] = col
+            
 
     def line_col_h(self):
         col = askcolor(self.line_color.get())[1]
         if col != None:
             self.line_color.set(col)
-            self.l_col['bg'] = col
-            self.l_col['activebackground'] = col
+            if PLATFORM == "Darwin":
+                self.l_col['fg'] = col
+            else:
+                self.l_col['bg'] = col
+                self.l_col['activebackground'] = col
 
     def me_col_h(self):
         col = askcolor(self.mark_ec.get())[1]
         if col != None:
             self.mark_ec.set(col)
-            self.m_ecol['bg'] = col
-            self.m_ecol['activebackground'] = col
+            if PLATFORM == "Darwin":
+                self.m_ecol['fg'] = col
+            else:
+                self.m_ecol['bg'] = col
+                self.m_ecol['activebackground'] = col
 
     def mf_col_h(self):
         col = askcolor(self.mark_fc.get())[1]
         if col != None:
             self.mark_fc.set(col)
-            self.m_fcol['bg'] = col
-            self.m_fcol['activebackground'] = col
+            if PLATFORM == "Darwin":
+                self.m_fcol['fg'] = col
+            else:
+                self.m_fcol['bg'] = col
+                self.m_fcol['activebackground'] = col
 
     def fe_col_h(self):
         col = askcolor(self.fill_ec.get())[1]
         if col != None:
             self.fill_ec.set(col)
-            self.f_ecol['bg'] = col
-            self.f_ecol['activebackground'] = col
+            if PLATFORM == "Darwin":
+                self.f_ecol['fg'] = col
+            else:
+                self.f_ecol['bg'] = col
+                self.f_ecol['activebackground'] = col
+            
 
     def ff_col_h(self):
         col = askcolor(self.fill_fc.get())[1]
         if col != None:
             self.fill_fc.set(col)
-            self.f_fcol['bg'] = col
-            self.f_fcol['activebackground'] = col
+            if PLATFORM == "Darwin":
+                self.f_fcol['fg'] = col
+            else:
+                self.f_fcol['bg'] = col
+                self.f_fcol['activebackground'] = col
 
     def clear_multi_choice(self):
         selected = self.selection_list.curselection()
@@ -446,7 +468,6 @@ class plotEditor():
                 self.__numpy_input(x, y, x_err, y_err, fill, fill_alt, labels)
             except Exception as e:
                 root = tk.Tk()
-                root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
                 messagebox.showerror("Startup",
                                      "Failed to Initialize tool:\n{}".format(e))
                 root.destroy()
@@ -456,7 +477,6 @@ class plotEditor():
                 self.__pandas_input(x, labels)
             except Exception as e:
                 root = tk.Tk()
-                root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
                 messagebox.showerror("Startup",
                                      "Failed to Initialize tool:\n{}".format(e))
                 root.destroy()
@@ -489,11 +509,12 @@ class plotEditor():
             if labels == []:
                 self.labels = []
                 for i in range(len(x)):
-                    self.labels.append('')
+                    self.labels.append("Dataset-{}".format(i))
             else:
                 self.labels = []
                 for i in range(len(x)):
                     self.labels.append(labels[i].replace(' ', '-'))
+
 
         self.same_vectors = []
         self.same_vector_names = []
@@ -532,7 +553,6 @@ class plotEditor():
             self.__check_input()
         except Exception as e:
             root = tk.Tk()
-            root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
             messagebox.showerror("Startup",
                                  "Failed to Initialize tool:\n{}".format(e))
             root.destroy()
@@ -559,7 +579,10 @@ class plotEditor():
     
     def __add_input_str(self, var, val, index):
         if str(type(val)) == "<class 'str'>":
-            var.append(val.replace(' ','-'))
+            if val == '':
+                var.append("Dataset-{}".format(index))
+            else:
+                var.append(val.replace(' ','-'))
         else:
             var.append("Dataset-{}".format(index))
     
@@ -622,7 +645,10 @@ class plotEditor():
                         pass
                 except TypeError:
                     raise TypeError("All data inputs must have same type and shape")
-                self.__add_input_str(self.labels, labels[i], i)
+                try:
+                    self.__add_input_str(self.labels, labels[i], i)
+                except IndexError:
+                    self.__add_input_str(self.labels, '', i)
         elif len(x.shape) == 3:
             if x.shape[2] != 6:
                 raise ValueError("X-input must have size 6 in last dimension")
@@ -651,7 +677,10 @@ class plotEditor():
                     self.__add_input_np(self.dif_bot, x[i,:,5], i)
                 except IndexError:
                     self.dif_bot.append([])
-                self.__add_input_str(self.labels, labels[i], i)
+                try:
+                    self.__add_input_str(self.labels, labels[i], i)
+                except IndexError:
+                    self.__add_input_str(self.labels, '', i)
         else:
             raise ValueError("X-input shape cannot have more than 3 dimensions")
             
@@ -769,13 +798,14 @@ class plotEditor():
             if col_count == 10:
                 col_count = 0
         self.root = tk.Tk()
-        self.root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
         self.root.title('Matplotlib Post Processor')
+        self.root.iconphoto(False, tk.PhotoImage(file='./icon2.png'))
         #root.iconbitmap(bitmap='Main.ico')
         self.root.resizable(0, 0)
         self.root.protocol("WM_DELETE_WINDOW", self.callback)
         app = window(plot_data_Dict, master=self.root)
-        app['bg'] = BG_BLUE
+        if PLATFORM != "Darwin":
+            app['bg'] = BG_BLUE
         app.mainloop()
 
     def __check_input(self):
@@ -831,58 +861,58 @@ if __name__ == "__main__":
     
     data = pd.read_excel("test_plot_data.xlsx", header=0)
     
-    #x_data = [np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]
-    #y_data = [np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]
-    #x_err_data = [np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]
-    #y_err_data = [np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]
-    #fill_data = [np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]
-    #fill_alt_data = [np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]
+    x_data = [np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]
+    y_data = [np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]
+    x_err_data = [np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]
+    y_err_data = [np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]
+    fill_data = [np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]
+    fill_alt_data = [np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]
     labels_data = ['Experimental', 'Computation']
     
-    #print("Case 1: Ordinary List Style Input")
+    print("Case 1: Ordinary List Style Input")
     
-    #plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
-    #            fill=fill_data, fill_alt=fill_alt_data, labels=labels_data)
+    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+                fill=fill_data, fill_alt=fill_alt_data)
     
-    #x_data = np.array(data.loc[:,'x.1'])
-    #y_data = np.array(data.loc[:,'y.1'])
-    #x_err_data = np.array(data.loc[:,'x_err.1'])
-    #y_err_data = np.array(data.loc[:,'y_err.1'])
-    #fill_data = np.array(data.loc[:,'fill.1'])
-    #fill_alt_data = np.array(data.loc[:,'fill_alt.1'])
-    #labels_data = 'Computation'
-   # 
-    #print("Case 2: Single Numpy Array Input")
-    #plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
-    #            fill=fill_data, fill_alt=fill_alt_data, labels=labels_data)
+    x_data = np.array(data.loc[:,'x.1'])
+    y_data = np.array(data.loc[:,'y.1'])
+    x_err_data = np.array(data.loc[:,'x_err.1'])
+    y_err_data = np.array(data.loc[:,'y_err.1'])
+    fill_data = np.array(data.loc[:,'fill.1'])
+    fill_alt_data = np.array(data.loc[:,'fill_alt.1'])
+    labels_data = 'Computation'
     
-    #x_data = np.array([np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]).transpose()
-    #y_data = np.array([np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]).transpose()
-    #x_err_data = np.array([np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]).transpose()
-    #y_err_data = np.array([np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]).transpose()
-    #fill_data = np.array([np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]).transpose()
-    #fill_alt_data = np.array([np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]).transpose()
-    #labels_data = ['Experimental', 'Computation']
+    print("Case 2: Single Numpy Array Input")
+    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+                fill=fill_data, fill_alt=fill_alt_data)
     
-    #print("Case 3: 2D Numpy Array Input")
-    #plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
-    #            fill=fill_data, fill_alt=fill_alt_data, labels=labels_data)
+    x_data = np.array([np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]).transpose()
+    y_data = np.array([np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]).transpose()
+    x_err_data = np.array([np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]).transpose()
+    y_err_data = np.array([np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]).transpose()
+    fill_data = np.array([np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]).transpose()
+    fill_alt_data = np.array([np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]).transpose()
+    labels_data = ['Experimental', 'Computation']
     
-    #input_data = np.zeros((2,101,6))
-    #input_data[0,:,0] = x_data[:,0]
-    #input_data[1,:,0] = x_data[:,1]
-    #input_data[0,:,1] = y_data[:,0]
-    #input_data[1,:,1] = y_data[:,1]
-    #input_data[0,:,2] = x_err_data[:,0]
-    #input_data[1,:,2] = x_err_data[:,1]
-    #input_data[0,:,3] = y_err_data[:,0]
-    #input_data[1,:,3] = y_err_data[:,1]
-    #input_data[0,:,4] = fill_data[:,0]
-    #input_data[1,:,4] = fill_data[:,1]
-    #input_data[0,:,5] = fill_alt_data[:,0]
-    #input_data[1,:,5] = fill_alt_data[:,1]
-    #print("Case 4: 3D Numpy Array Input")
-    #plotEditor(x=input_data, labels=labels_data)
+    print("Case 3: 2D Numpy Array Input")
+    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+                fill=fill_data, fill_alt=fill_alt_data)
+    
+    input_data = np.zeros((2,101,6))
+    input_data[0,:,0] = x_data[:,0]
+    input_data[1,:,0] = x_data[:,1]
+    input_data[0,:,1] = y_data[:,0]
+    input_data[1,:,1] = y_data[:,1]
+    input_data[0,:,2] = x_err_data[:,0]
+    input_data[1,:,2] = x_err_data[:,1]
+    input_data[0,:,3] = y_err_data[:,0]
+    input_data[1,:,3] = y_err_data[:,1]
+    input_data[0,:,4] = fill_data[:,0]
+    input_data[1,:,4] = fill_data[:,1]
+    input_data[0,:,5] = fill_alt_data[:,0]
+    input_data[1,:,5] = fill_alt_data[:,1]
+    print("Case 4: 3D Numpy Array Input")
+    plotEditor(x=input_data)
     
     print("Case 5: Pandas DataFrame Input")
-    plotEditor(x=data, labels=labels_data)    
+    plotEditor(x=data)    
