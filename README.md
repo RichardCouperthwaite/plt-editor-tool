@@ -11,9 +11,6 @@ The plt-editor-tool provides some of the functionality of the Matlab figure edit
   - Modify the properties of a fill_between plot
   - and more...
 
-The plt-editor-tool is open source with a [public repository](https://github.com/RichardCouperthwaite/plt-editor-tool)
- on GitHub.
-
 ### Installation
 
 The plt-editor-tool can be installed using PyPI.
@@ -54,7 +51,7 @@ Other methods that can be used to load data are:
 * 3D Numpy Arrays for multiple data sets
 * Pandas DataFrame
 
-To see more on how to implement these input options, please read the Usage Guide pdf in the Github [repository](https://github.com/RichardCouperthwaite/plt-editor-tool)
+To see more on how to implement these input options, please read the Usage Guide pdf.
 
 ## Graphical User Interface Guide
 
