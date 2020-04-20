@@ -16,7 +16,7 @@ The plt-editor-tool is open source with a [public repository](https://github.com
 
 ### Installation
 
-The plt-editor-tool can be installed using PYPI.
+The plt-editor-tool can be installed using PyPI.
 
 ```sh
 $ pip install pltEditorTool
@@ -46,7 +46,15 @@ plotEditor(X, Y, x_err, y_err, fill, fill_alt, labels)
  - fill_alt: the distance below the y-value to fill with color (use this if the area required to be filled is different above and below the y-value)
  - labels: the legend labels for each pair of x and y values
  
-The data is provided to the tool in a series of lists to prevent problems with data of different sizes, for example one dataset has 10 values on x while a second has 100. Providing labels is not required but highly recommended to aid in determining which plot data is being manipulated in the tool. These can be added and modified later if so desired.
+The standard method for loading data is to provide the data in a set of lists to prevent problems with data of different sizes, for example one dataset has 10 values on x while a second has 100. Providing labels is not required but highly recommended to aid in determining which plot data is being manipulated in the tool. These can be added and modified later if so desired.
+
+Other methods that can be used to load data are:
+* 1D Numpy Array for single data set
+* 2D Numpy Arrays for multiple data sets
+* 3D Numpy Arrays for multiple data sets
+* Pandas DataFrame
+
+To see more on how to implement these input options, please read the Usage Guide pdf in the Github [repository](https://github.com/RichardCouperthwaite/plt-editor-tool)
 
 ## Graphical User Interface Guide
 
@@ -83,7 +91,6 @@ The second section determines which sets of data will appear on which plot axes 
  
 A few final notes:
  - Labels can include latex commands for symbols, e.g. ($\sigma$)
- - currently no option for changing the size of the legend text
  - Several of the most common errors that could occur will provide a pop-up warning detailing what went wrong
  - Please see the usage guide for a more complete guide to the functions of the tool
  
