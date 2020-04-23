@@ -500,14 +500,14 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>201</width>
+       <width>210</width>
        <height>241</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>8</pointsize>
+       <pointsize>13</pointsize>
       </font>
      </property>
      <layout class="QFormLayout" name="formLayout_2">
@@ -519,7 +519,7 @@
         <property name="font">
          <font>
           <family>Arial</family>
-          <pointsize>10</pointsize>
+          <pointsize>13</pointsize>
           <weight>50</weight>
           <bold>false</bold>
          </font>
@@ -562,7 +562,7 @@
         <property name="font">
          <font>
           <family>Arial</family>
-          <pointsize>8</pointsize>
+          <pointsize>13</pointsize>
           <stylestrategy>PreferDefault</stylestrategy>
          </font>
         </property>
@@ -606,7 +606,7 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -636,6 +636,8 @@
          <font>
           <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
        </widget>
@@ -661,6 +663,8 @@
          <font>
           <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
          </font>
         </property>
        </widget>
@@ -699,6 +703,11 @@
        <width>271</width>
        <height>61</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
      </property>
      <layout class="QGridLayout" name="gridLayout_7" columnstretch="2,1,2,1">
       <item row="0" column="1">
@@ -823,13 +832,13 @@
        <x>10</x>
        <y>30</y>
        <width>171</width>
-       <height>70</height>
+       <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -1363,7 +1372,7 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -1517,14 +1526,14 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>271</width>
+       <width>273</width>
        <height>61</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <bold>true</bold>
       </font>
@@ -1679,6 +1688,11 @@
        <height>161</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>13</pointsize>
+      </font>
+     </property>
      <layout class="QGridLayout" name="gridLayout_8" columnstretch="2,0,0,0,0,0">
       <item row="4" column="4">
        <widget class="QCheckBox" name="chbAxFontBold">
@@ -1744,7 +1758,7 @@
        </widget>
       </item>
       <item row="3" column="3">
-       <widget class="QLineEdit" name="lineEdit_2">
+       <widget class="QLineEdit" name="eYAxisHigh">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -1780,7 +1794,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QLineEdit" name="lineEdit_3">
+       <widget class="QLineEdit" name="eXAxisLow">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -1840,7 +1854,7 @@
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QLineEdit" name="lineEdit_4">
+       <widget class="QLineEdit" name="eYAxisLow">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -1924,7 +1938,7 @@
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QLineEdit" name="lineEdit">
+       <widget class="QLineEdit" name="eAxisHigh">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -2043,7 +2057,7 @@
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>75</weight>
        <italic>false</italic>
        <bold>true</bold>
@@ -2052,6 +2066,11 @@
      <layout class="QGridLayout" name="gridLayout_6" columnstretch="1,0,0,0,0,0,0,0">
       <item row="1" column="4">
        <spacer name="horizontalSpacer">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -2100,6 +2119,11 @@
       </item>
       <item row="1" column="5">
        <spacer name="horizontalSpacer_2">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -2174,6 +2198,11 @@
       </item>
       <item row="1" column="6">
        <spacer name="horizontalSpacer_3">
+        <property name="font">
+         <font>
+          <pointsize>13</pointsize>
+         </font>
+        </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -2200,7 +2229,7 @@
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>12</pointsize>
+      <pointsize>16</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -2217,13 +2246,13 @@
        <x>10</x>
        <y>30</y>
        <width>241</width>
-       <height>51</height>
+       <height>52</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
@@ -2316,7 +2345,7 @@
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>16</pointsize>
+      <pointsize>13</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -2347,7 +2376,7 @@ Plot</string>
     <property name="font">
      <font>
       <family>Arial</family>
-      <pointsize>16</pointsize>
+      <pointsize>13</pointsize>
       <weight>75</weight>
       <bold>true</bold>
      </font>
@@ -2391,7 +2420,7 @@ Plot</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -2813,7 +2842,7 @@ Plot</string>
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QSpinBox" name="spinBox_2">
+        <widget class="QSpinBox" name="sbMEvery">
          <property name="maximum">
           <number>99999</number>
          </property>
@@ -3007,6 +3036,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
@@ -3019,6 +3049,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
@@ -3027,10 +3058,11 @@ Plot</string>
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btnScatFCol">
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -3045,6 +3077,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
@@ -3053,10 +3086,11 @@ Plot</string>
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btnScatECol">
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>13</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -3098,13 +3132,25 @@ Plot</string>
        </item>
        <item row="3" column="0">
         <widget class="QLabel" name="label_43">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Alpha:</string>
          </property>
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox">
+        <widget class="QDoubleSpinBox" name="sbScatAlpha">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
          <property name="maximum">
           <double>1.000000000000000</double>
          </property>
@@ -3118,6 +3164,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>13</pointsize>
           </font>
          </property>
          <property name="text">
@@ -3126,17 +3173,36 @@ Plot</string>
         </widget>
        </item>
        <item row="4" column="1">
-        <widget class="QComboBox" name="comboBox"/>
+        <widget class="QComboBox" name="cbScatCmap">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+        </widget>
        </item>
        <item row="4" column="0">
         <widget class="QLabel" name="label_44">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
          <property name="text">
           <string>Colormap:</string>
          </property>
         </widget>
        </item>
        <item row="2" column="1">
-        <widget class="QDoubleSpinBox" name="doubleSpinBox">
+        <widget class="QDoubleSpinBox" name="sbScatSz">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
          <property name="decimals">
           <number>1</number>
          </property>
@@ -3181,13 +3247,13 @@ Plot</string>
        <x>10</x>
        <y>30</y>
        <width>171</width>
-       <height>131</height>
+       <height>141</height>
       </rect>
      </property>
      <property name="font">
       <font>
        <family>Arial</family>
-       <pointsize>12</pointsize>
+       <pointsize>13</pointsize>
        <weight>50</weight>
        <bold>false</bold>
       </font>
@@ -3297,9 +3363,15 @@ Plot</string>
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>361</width>
-       <height>141</height>
+       <width>382</width>
+       <height>139</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Arial</family>
+       <pointsize>13</pointsize>
+      </font>
      </property>
      <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,1,1,1,0">
       <item row="3" column="1">
@@ -3319,9 +3391,10 @@ Plot</string>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_4">
+       <widget class="QDoubleSpinBox" name="sbFigTitSz">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3334,9 +3407,10 @@ Plot</string>
        </widget>
       </item>
       <item row="4" column="1">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_2">
+       <widget class="QDoubleSpinBox" name="sbFigLegFontSz">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3394,9 +3468,10 @@ Plot</string>
        </widget>
       </item>
       <item row="4" column="0">
-       <widget class="QComboBox" name="comboBox_2">
+       <widget class="QComboBox" name="cbFigLegPos">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3419,9 +3494,10 @@ Plot</string>
        </widget>
       </item>
       <item row="4" column="2">
-       <widget class="QDoubleSpinBox" name="doubleSpinBox_3">
+       <widget class="QDoubleSpinBox" name="sbFigPlotCor">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3431,7 +3507,7 @@ Plot</string>
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="cbFigTitBold">
         <property name="font">
          <font>
           <family>Arial</family>
@@ -3444,9 +3520,10 @@ Plot</string>
        </widget>
       </item>
       <item row="4" column="3">
-       <widget class="QSpinBox" name="spinBox_3">
+       <widget class="QSpinBox" name="sbFigLegNcol">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3469,16 +3546,17 @@ Plot</string>
        </widget>
       </item>
       <item row="0" column="1" colspan="3">
-       <widget class="QLineEdit" name="lineEdit_5">
+       <widget class="QLineEdit" name="eFigTitle">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QCheckBox" name="checkBox_2">
+       <widget class="QCheckBox" name="cbFigTitIt">
         <property name="font">
          <font>
           <family>Arial</family>
@@ -3494,7 +3572,6 @@ Plot</string>
        <widget class="QLabel" name="label_55">
         <property name="font">
          <font>
-          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3530,20 +3607,20 @@ Plot</string>
   <tabstop>sbMEW</tabstop>
   <tabstop>btnMFC</tabstop>
   <tabstop>sbMS</tabstop>
-  <tabstop>spinBox_2</tabstop>
+  <tabstop>sbMEvery</tabstop>
   <tabstop>sbFA</tabstop>
   <tabstop>btnFFC</tabstop>
   <tabstop>btnFEC</tabstop>
   <tabstop>sbFEW</tabstop>
   <tabstop>cbFES</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>btnScatECol</tabstop>
   <tabstop>cbSMT</tabstop>
-  <tabstop>pushButton_2</tabstop>
+  <tabstop>btnScatFCol</tabstop>
   <tabstop>cbSCV</tabstop>
-  <tabstop>doubleSpinBox</tabstop>
+  <tabstop>sbScatAlpha</tabstop>
   <tabstop>cbSSV</tabstop>
-  <tabstop>doubleSpinBox</tabstop>
-  <tabstop>comboBox</tabstop>
+  <tabstop>sbScatAlpha</tabstop>
+  <tabstop>cbScatCmap</tabstop>
   <tabstop>chbSCB</tabstop>
   <tabstop>ePlotTitle</tabstop>
   <tabstop>eFillTitle</tabstop>
@@ -3552,14 +3629,14 @@ Plot</string>
   <tabstop>chbM</tabstop>
   <tabstop>chbF</tabstop>
   <tabstop>chbS</tabstop>
-  <tabstop>lineEdit_5</tabstop>
-  <tabstop>doubleSpinBox_4</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>checkBox_2</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>doubleSpinBox_2</tabstop>
-  <tabstop>doubleSpinBox_3</tabstop>
-  <tabstop>spinBox_3</tabstop>
+  <tabstop>eFigTitle</tabstop>
+  <tabstop>sbFigTitSz</tabstop>
+  <tabstop>cbFigTitBold</tabstop>
+  <tabstop>cbFigTitIt</tabstop>
+  <tabstop>cbFigLegPos</tabstop>
+  <tabstop>sbFigLegFontSz</tabstop>
+  <tabstop>sbFigPlotCor</tabstop>
+  <tabstop>sbFigLegNcol</tabstop>
   <tabstop>sbRowNum</tabstop>
   <tabstop>sbColNum</tabstop>
   <tabstop>chbShareX</tabstop>
@@ -3576,13 +3653,13 @@ Plot</string>
   <tabstop>sbAxisRowSpan</tabstop>
   <tabstop>sbAxisColSpan</tabstop>
   <tabstop>eXAxLab</tabstop>
-  <tabstop>lineEdit_3</tabstop>
-  <tabstop>lineEdit</tabstop>
+  <tabstop>eXAxisLow</tabstop>
+  <tabstop>eAxisHigh</tabstop>
   <tabstop>chbXTick</tabstop>
   <tabstop>chbXScale</tabstop>
   <tabstop>eYAxLab</tabstop>
-  <tabstop>lineEdit_4</tabstop>
-  <tabstop>lineEdit_2</tabstop>
+  <tabstop>eYAxisLow</tabstop>
+  <tabstop>eYAxisHigh</tabstop>
   <tabstop>chbYTick</tabstop>
   <tabstop>chbYScale</tabstop>
   <tabstop>sbAxFontSize</tabstop>
