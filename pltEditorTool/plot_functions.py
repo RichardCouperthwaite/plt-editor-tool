@@ -145,7 +145,8 @@ def plot_scatter(ax, plot):
     color_map = plt.get_cmap(plot['scatter']['cmap'])
     # check for color vector
     if plot['scatter']['current_color'] == 'None':
-        color = plot['marker']['face_col']
+        color = np.array(plot['scatter']['face_col'])
+        color = np.expand_dims(color, axis=0)
         colorbar = 0
     else:
         col_index = plot['scatter']['color_vector_names'].index(plot['scatter']['current_color'])
@@ -153,18 +154,18 @@ def plot_scatter(ax, plot):
 
     # check for size vector
     if plot['scatter']['current_size'] == 'None':
-        size = plot['marker']['size']**2
+        size = plot['scatter']['size']**2
     else:
         sz_index = plot['scatter']['size_vector_names'].index(plot['scatter']['current_size'])
         size = np.array(plot['scatter']['size_vectors'][sz_index])
-        size = ((size-size.min())/(size.max()-size.min()))*20*plot['marker']['size']
+        size = ((size-size.min())/(size.max()-size.min()))*20*plot['scatter']['size']
     cset = ax.scatter(x=plot['x'], 
                       y=plot['y'],
                       s=size, 
                       c=color, 
                       marker=plot['scatter']['type'],
                       alpha=plot['scatter']['alpha'], 
-                      edgecolors=plot['scatter']['edge'],
+                      edgecolors=np.expand_dims(np.array(plot['scatter']['edge']), axis=0),
                       linewidths=plot['marker']['edge_wid'], 
                       cmap=color_map)
     return colorbar, cset
@@ -208,6 +209,7 @@ def plot_addlegend_labels(ax, data, label_length):
         if data['legend'] != 'None':
             ax.legend(loc=data['legend'],
                              fontsize=data['legendFontSize'])
+    
             
             
 def sharexy_axisdata(window, last_row, first_col, i, j):
@@ -289,7 +291,6 @@ class plot_class():
             ax.append(self.fig.add_subplot(
                 self.gs[data['position'][0]:data['position'][0]+data['position'][2],
                         data['position'][1]:data['position'][1]+data['position'][3]]))
-            
             for plot_num in range(len(data['plots'])):
                 plot = data['plots_data'][plot_num]
 
@@ -318,6 +319,14 @@ class plot_class():
 
             plot_addlegend_labels(ax[count], data, label_length)
             count += 1
+        if self.axis_dict['Fig_title']['title'] != '':
+            weights = ['normal','bold']
+            style = ['normal','italic']
+            self.fig.suptitle(self.axis_dict['Fig_title']['title'], 
+                              fontstyle=style[self.axis_dict['Fig_title']['italic']],
+                              fontweight=weights[self.axis_dict['Fig_title']['bold']],
+                              fontsize=self.axis_dict['Fig_title']['size'],
+                              wrap=True)
         if len(cbar_map) > 0:
             for i in range(len(cbar_map)):
                 self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
@@ -334,13 +343,7 @@ class plot_class():
         else:
             if platform.system() != "Darwin":
                 self.fig.set_dpi(150)
-            if platform.system() != "Linux":
-                if get_backend() != "module://ipykernel.pylab.backend_inline":
-                    self.fig.show()
-                else:
-                    plt.show()
-            else:
-                plt.show()
+            plt.show()
 
     def show_plot_sharexy(self, save):
         label_length = ''

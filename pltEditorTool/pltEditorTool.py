@@ -7,8 +7,6 @@ from tkcolorpicker import askcolor
 import numpy as np
 import matplotlib.pyplot as plt
 
-from matplotlib import get_backend
-
 PLATFORM = platform.system()
 
 # if get_backend() == "module://ipykernel.pylab.backend_inline":

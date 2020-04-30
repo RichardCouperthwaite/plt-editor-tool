@@ -500,7 +500,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>210</width>
+       <width>201</width>
        <height>241</height>
       </rect>
      </property>
@@ -508,6 +508,8 @@
       <font>
        <family>Arial</family>
        <pointsize>13</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <layout class="QFormLayout" name="formLayout_2">
@@ -533,9 +535,13 @@
           <family>Arial</family>
           <pointsize>13</pointsize>
           <weight>50</weight>
+          <italic>false</italic>
           <bold>false</bold>
           <stylestrategy>PreferDefault</stylestrategy>
          </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>Select Multiple</string>
@@ -563,9 +569,41 @@
          <font>
           <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>50</weight>
+          <italic>false</italic>
+          <bold>false</bold>
           <stylestrategy>PreferDefault</stylestrategy>
          </font>
         </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="selectionMode">
+         <enum>QAbstractItemView::MultiSelection</enum>
+        </property>
+        <item>
+         <property name="text">
+          <string>test</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>another test</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>another test1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>one last test</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -579,6 +617,448 @@
       <width>581</width>
       <height>101</height>
      </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>213</red>
+          <green>234</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>149</red>
+          <green>202</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Dark">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Mid">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>56</red>
+          <green>113</green>
+          <blue>170</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="BrightText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Shadow">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="AlternateBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>170</red>
+          <green>212</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>220</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="PlaceholderText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="128">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>213</red>
+          <green>234</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>149</red>
+          <green>202</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Dark">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Mid">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>56</red>
+          <green>113</green>
+          <blue>170</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="BrightText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Shadow">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="AlternateBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>170</red>
+          <green>212</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>220</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="PlaceholderText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="128">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>213</red>
+          <green>234</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>149</red>
+          <green>202</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Dark">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Mid">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>56</red>
+          <green>113</green>
+          <blue>170</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="BrightText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Shadow">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="AlternateBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>220</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="PlaceholderText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="128">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
     </property>
     <property name="font">
      <font>
@@ -636,8 +1116,8 @@
          <font>
           <family>Arial</family>
           <pointsize>13</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
        </widget>
@@ -663,8 +1143,8 @@
          <font>
           <family>Arial</family>
           <pointsize>13</pointsize>
-          <weight>75</weight>
-          <bold>true</bold>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
        </widget>
@@ -706,7 +1186,10 @@
      </property>
      <property name="font">
       <font>
+       <family>Arial</family>
        <pointsize>13</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <layout class="QGridLayout" name="gridLayout_7" columnstretch="2,1,2,1">
@@ -1436,7 +1919,7 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QPushButton" name="pushButton_10">
+       <widget class="QPushButton" name="btnAddPlot">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -1466,7 +1949,7 @@
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QPushButton" name="pushButton_11">
+       <widget class="QPushButton" name="btnRemPlot">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
           <horstretch>0</horstretch>
@@ -1526,7 +2009,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>273</width>
+       <width>271</width>
        <height>61</height>
       </rect>
      </property>
@@ -1690,7 +2173,10 @@
      </property>
      <property name="font">
       <font>
+       <family>Arial</family>
        <pointsize>13</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <layout class="QGridLayout" name="gridLayout_8" columnstretch="2,0,0,0,0,0">
@@ -1767,7 +2253,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -1803,7 +2292,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -1863,7 +2355,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -1938,7 +2433,7 @@
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QLineEdit" name="eAxisHigh">
+       <widget class="QLineEdit" name="eXAxisHigh">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -1947,7 +2442,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -2068,7 +2566,11 @@
        <spacer name="horizontalSpacer">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="orientation">
@@ -2200,7 +2702,11 @@
        <spacer name="horizontalSpacer_3">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
          </font>
         </property>
         <property name="orientation">
@@ -2246,7 +2752,7 @@
        <x>10</x>
        <y>30</y>
        <width>241</width>
-       <height>52</height>
+       <height>54</height>
       </rect>
      </property>
      <property name="font">
@@ -2322,6 +2828,61 @@
           <bold>false</bold>
          </font>
         </property>
+        <item>
+         <property name="text">
+          <string>best</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>upper left</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>upper center</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>upper right</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>center left</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>center</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>center right</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lower left</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lower center</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lower right</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>
@@ -2404,6 +2965,448 @@ Plot</string>
       <verstretch>0</verstretch>
      </sizepolicy>
     </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>213</red>
+          <green>234</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>149</red>
+          <green>202</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Dark">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Mid">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>56</red>
+          <green>113</green>
+          <blue>170</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="BrightText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Shadow">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="AlternateBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>170</red>
+          <green>212</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>220</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="PlaceholderText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="128">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>213</red>
+          <green>234</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>149</red>
+          <green>202</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Dark">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Mid">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>56</red>
+          <green>113</green>
+          <blue>170</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="BrightText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Shadow">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="AlternateBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>170</red>
+          <green>212</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>220</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="PlaceholderText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="128">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="WindowText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Button">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Light">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>213</red>
+          <green>234</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Midlight">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>149</red>
+          <green>202</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Dark">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Mid">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>56</red>
+          <green>113</green>
+          <blue>170</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Text">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="BrightText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ButtonText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>42</red>
+          <green>85</green>
+          <blue>127</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Shadow">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="AlternateBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>85</red>
+          <green>170</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipBase">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>220</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="ToolTipText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="PlaceholderText">
+        <brush brushstyle="SolidPattern">
+         <color alpha="128">
+          <red>0</red>
+          <green>0</green>
+          <blue>0</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
     <property name="font">
      <font>
       <family>Arial</family>
@@ -2411,7 +3414,7 @@ Plot</string>
      </font>
     </property>
     <property name="autoFillBackground">
-     <bool>true</bool>
+     <bool>false</bool>
     </property>
     <property name="tabPosition">
      <enum>QTabWidget::North</enum>
@@ -2420,7 +3423,7 @@ Plot</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -2460,6 +3463,9 @@ Plot</string>
            <weight>75</weight>
            <bold>true</bold>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: rgb(85, 170, 255);</string>
          </property>
          <property name="text">
           <string>COLOR</string>
@@ -2658,6 +3664,31 @@ Plot</string>
            <pointsize>13</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string>:</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>-.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>--</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>-</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string/>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="3" column="0">
@@ -2770,6 +3801,136 @@ Plot</string>
            <pointsize>13</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string>.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>,</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>o</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>v</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>^</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>8</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>s</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>p</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>P</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>*</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>h</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>H</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>+</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>x</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>X</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>d</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>D</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>|</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>_</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="4" column="1">
@@ -2860,34 +4021,26 @@ Plot</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>301</width>
-        <height>211</height>
+        <width>291</width>
+        <height>220</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_11">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_15">
+       <item row="1" column="1">
+        <widget class="QPushButton" name="btnFFC">
          <property name="font">
           <font>
            <family>Arial</family>
            <pointsize>13</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
           </font>
          </property>
-         <property name="text">
-          <string>Fill Alpha:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_17">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>13</pointsize>
-          </font>
+         <property name="styleSheet">
+          <string notr="true">background-color: #ff5500;</string>
          </property>
          <property name="text">
-          <string>Edge Color:</string>
+          <string>COLOR</string>
          </property>
         </widget>
        </item>
@@ -2904,21 +4057,6 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="btnFFC">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>13</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>COLOR</string>
-         </property>
-        </widget>
-       </item>
        <item row="2" column="1">
         <widget class="QPushButton" name="btnFEC">
          <property name="font">
@@ -2932,6 +4070,83 @@ Plot</string>
          <property name="text">
           <string>COLOR</string>
          </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QDoubleSpinBox" name="sbFEW">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="decimals">
+          <number>1</number>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Fill Alpha:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Edge Style:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QComboBox" name="cbFES">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>13</pointsize>
+          </font>
+         </property>
+         <item>
+          <property name="text">
+           <string>:</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>-.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>--</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>-</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string/>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="0" column="1">
@@ -2966,24 +4181,8 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QDoubleSpinBox" name="sbFEW">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>13</pointsize>
-          </font>
-         </property>
-         <property name="decimals">
-          <number>1</number>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_19">
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_17">
          <property name="font">
           <font>
            <family>Arial</family>
@@ -2991,17 +4190,7 @@ Plot</string>
           </font>
          </property>
          <property name="text">
-          <string>Edge Style:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QComboBox" name="cbFES">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>13</pointsize>
-          </font>
+          <string>Edge Color:</string>
          </property>
         </widget>
        </item>
@@ -3108,6 +4297,11 @@ Plot</string>
            <pointsize>13</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="1" column="2">
@@ -3118,6 +4312,11 @@ Plot</string>
            <pointsize>13</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="0" column="2">
@@ -3128,6 +4327,136 @@ Plot</string>
            <pointsize>13</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string>.</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>,</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>o</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>v</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>^</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>&lt;</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>&gt;</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>1</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>3</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>4</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>8</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>s</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>p</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>P</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>*</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>h</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>H</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>+</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>x</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>X</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>d</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>D</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>|</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>_</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="3" column="0">
@@ -3180,6 +4509,271 @@ Plot</string>
            <pointsize>13</pointsize>
           </font>
          </property>
+         <item>
+          <property name="text">
+           <string>viridis</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>plasma</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>inferno</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>magma</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>ocean</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_earth</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>terrain</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_stern</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gnuplot</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gnuplot2</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>CMRmap</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>cubehelix</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>brg</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>hsv</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_rainbow</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>rainbow</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>jet</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>nipy_spectral</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_ncar</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Greys</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Purples</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Blues</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Greens</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Oranges</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Reds</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>YlOrBr</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>YlOrRd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>OrRd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PuRd</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>RdPu</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>BuPu</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>GnBu</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PuBu</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>YlGnBu</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>PuBuGn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>BuGn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>YlGn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>binary</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_yarg</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_gray</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gray</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>bone</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>pink</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>spring</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>summer</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>autumn</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>winter</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>cool</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Wistia</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>hot</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>afmhot</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>gist_heat</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>copper</string>
+          </property>
+         </item>
         </widget>
        </item>
        <item row="4" column="0">
@@ -3241,13 +4835,16 @@ Plot</string>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
     </property>
+    <property name="flat">
+     <bool>false</bool>
+    </property>
     <widget class="QWidget" name="verticalLayoutWidget">
      <property name="geometry">
       <rect>
        <x>10</x>
        <y>30</y>
        <width>171</width>
-       <height>141</height>
+       <height>131</height>
       </rect>
      </property>
      <property name="font">
@@ -3363,8 +4960,8 @@ Plot</string>
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>382</width>
-       <height>139</height>
+       <width>361</width>
+       <height>131</height>
       </rect>
      </property>
      <property name="font">
@@ -3410,7 +5007,6 @@ Plot</string>
        <widget class="QDoubleSpinBox" name="sbFigLegFontSz">
         <property name="font">
          <font>
-          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3475,6 +5071,61 @@ Plot</string>
           <pointsize>13</pointsize>
          </font>
         </property>
+        <item>
+         <property name="text">
+          <string>best</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>None</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>upper left</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>upper center</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>upper right</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>center left</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>center</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>center right</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lower left</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lower center</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>lower right</string>
+         </property>
+        </item>
        </widget>
       </item>
       <item row="3" column="0">
@@ -3507,7 +5158,7 @@ Plot</string>
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QCheckBox" name="cbFigTitBold">
+       <widget class="QCheckBox" name="chbFigTitBold">
         <property name="font">
          <font>
           <family>Arial</family>
@@ -3556,7 +5207,7 @@ Plot</string>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QCheckBox" name="cbFigTitIt">
+       <widget class="QCheckBox" name="chbFigTitIt">
         <property name="font">
          <font>
           <family>Arial</family>
@@ -3572,6 +5223,7 @@ Plot</string>
        <widget class="QLabel" name="label_55">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>13</pointsize>
          </font>
         </property>
@@ -3631,8 +5283,8 @@ Plot</string>
   <tabstop>chbS</tabstop>
   <tabstop>eFigTitle</tabstop>
   <tabstop>sbFigTitSz</tabstop>
-  <tabstop>cbFigTitBold</tabstop>
-  <tabstop>cbFigTitIt</tabstop>
+  <tabstop>chbFigTitBold</tabstop>
+  <tabstop>chbFigTitIt</tabstop>
   <tabstop>cbFigLegPos</tabstop>
   <tabstop>sbFigLegFontSz</tabstop>
   <tabstop>sbFigPlotCor</tabstop>
@@ -3645,16 +5297,16 @@ Plot</string>
   <tabstop>btnAddAxis</tabstop>
   <tabstop>btnRemAxis</tabstop>
   <tabstop>cbAllData</tabstop>
-  <tabstop>pushButton_10</tabstop>
+  <tabstop>btnAddPlot</tabstop>
   <tabstop>cbSelData</tabstop>
-  <tabstop>pushButton_11</tabstop>
+  <tabstop>btnRemPlot</tabstop>
   <tabstop>sbAxisRow</tabstop>
   <tabstop>sbAxisCol</tabstop>
   <tabstop>sbAxisRowSpan</tabstop>
   <tabstop>sbAxisColSpan</tabstop>
   <tabstop>eXAxLab</tabstop>
   <tabstop>eXAxisLow</tabstop>
-  <tabstop>eAxisHigh</tabstop>
+  <tabstop>eXAxisHigh</tabstop>
   <tabstop>chbXTick</tabstop>
   <tabstop>chbXScale</tabstop>
   <tabstop>eYAxLab</tabstop>
