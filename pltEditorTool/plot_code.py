@@ -10,7 +10,8 @@ file_data1 = ["# -*- coding: utf-8 -*-\n",
 "from tkinter import messagebox\n",
 "import numpy as np\n",
 "import platform\n",
-"import matplotlib.pyplot as plt\n"]
+"import matplotlib.pyplot as plt\n",
+"plt.rcParams['mathtext.fontset'] = 'stix'"]
 
 file_data2 = ["from matplotlib.gridspec import GridSpec\n",
 "from matplotlib.ticker import AutoMinorLocator\n",

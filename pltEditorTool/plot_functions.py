@@ -9,6 +9,7 @@ from tkinter import messagebox
 import numpy as np
 import platform
 import matplotlib.pyplot as plt
+plt.rcParams['mathtext.fontset'] = 'stix'
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import AutoMinorLocator
 from matplotlib import get_backend
