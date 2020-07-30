@@ -1079,48 +1079,48 @@ if __name__ == "__main__":
     plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
                 fill=fill_data, fill_alt=fill_alt_data)
     
-    x_data = np.array(data.loc[:,'x.1'])
-    y_data = np.array(data.loc[:,'y.1'])
-    x_err_data = np.array(data.loc[:,'x_err.1'])
-    y_err_data = np.array(data.loc[:,'y_err.1'])
-    fill_data = np.array(data.loc[:,'fill.1'])
-    fill_alt_data = np.array(data.loc[:,'fill_alt.1'])
-    labels_data = 'Computation'
+    # x_data = np.array(data.loc[:,'x.1'])
+    # y_data = np.array(data.loc[:,'y.1'])
+    # x_err_data = np.array(data.loc[:,'x_err.1'])
+    # y_err_data = np.array(data.loc[:,'y_err.1'])
+    # fill_data = np.array(data.loc[:,'fill.1'])
+    # fill_alt_data = np.array(data.loc[:,'fill_alt.1'])
+    # labels_data = 'Computation'
     
-    print("Case 2: Single Numpy Array Input")
-    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
-                fill=fill_data, fill_alt=fill_alt_data)
+    # print("Case 2: Single Numpy Array Input")
+    # plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+    #             fill=fill_data, fill_alt=fill_alt_data)
     
-    x_data = np.array([np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]).transpose()
-    y_data = np.array([np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]).transpose()
-    x_err_data = np.array([np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]).transpose()
-    y_err_data = np.array([np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]).transpose()
-    fill_data = np.array([np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]).transpose()
-    fill_alt_data = np.array([np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]).transpose()
-    labels_data = ['Experimental', 'Computation']
+    # x_data = np.array([np.array(data.loc[:,'x']), np.array(data.loc[:,'x.1'])]).transpose()
+    # y_data = np.array([np.array(data.loc[:,'y']), np.array(data.loc[:,'y.1'])]).transpose()
+    # x_err_data = np.array([np.array(data.loc[:,'x_err']), np.array(data.loc[:,'x_err.1'])]).transpose()
+    # y_err_data = np.array([np.array(data.loc[:,'y_err']), np.array(data.loc[:,'y_err.1'])]).transpose()
+    # fill_data = np.array([np.array(data.loc[:,'fill']), np.array(data.loc[:,'fill.1'])]).transpose()
+    # fill_alt_data = np.array([np.array(data.loc[:,'fill_alt']), np.array(data.loc[:,'fill_alt.1'])]).transpose()
+    # labels_data = ['Experimental', 'Computation']
     
-    print("Case 3: 2D Numpy Array Input")
-    plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
-                fill=fill_data, fill_alt=fill_alt_data)
+    # print("Case 3: 2D Numpy Array Input")
+    # plotEditor(x=x_data, y=y_data, x_err=x_err_data, y_err=y_err_data, 
+    #             fill=fill_data, fill_alt=fill_alt_data)
     
-    input_data = np.zeros((2,101,6))
-    input_data[0,:,0] = x_data[:,0]
-    input_data[1,:,0] = x_data[:,1]
-    input_data[0,:,1] = y_data[:,0]
-    input_data[1,:,1] = y_data[:,1]
-    input_data[0,:,2] = x_err_data[:,0]
-    input_data[1,:,2] = x_err_data[:,1]
-    input_data[0,:,3] = y_err_data[:,0]
-    input_data[1,:,3] = y_err_data[:,1]
-    input_data[0,:,4] = fill_data[:,0]
-    input_data[1,:,4] = fill_data[:,1]
-    input_data[0,:,5] = fill_alt_data[:,0]
-    input_data[1,:,5] = fill_alt_data[:,1]
-    print("Case 4: 3D Numpy Array Input")
-    plotEditor(x=input_data)
+    # input_data = np.zeros((2,101,6))
+    # input_data[0,:,0] = x_data[:,0]
+    # input_data[1,:,0] = x_data[:,1]
+    # input_data[0,:,1] = y_data[:,0]
+    # input_data[1,:,1] = y_data[:,1]
+    # input_data[0,:,2] = x_err_data[:,0]
+    # input_data[1,:,2] = x_err_data[:,1]
+    # input_data[0,:,3] = y_err_data[:,0]
+    # input_data[1,:,3] = y_err_data[:,1]
+    # input_data[0,:,4] = fill_data[:,0]
+    # input_data[1,:,4] = fill_data[:,1]
+    # input_data[0,:,5] = fill_alt_data[:,0]
+    # input_data[1,:,5] = fill_alt_data[:,1]
+    # print("Case 4: 3D Numpy Array Input")
+    # plotEditor(x=input_data)
     
-    print("Case 5: Pandas DataFrame Input")
-    plotEditor(x=data)
+    # print("Case 5: Pandas DataFrame Input")
+    # plotEditor(x=data)
 
 
 

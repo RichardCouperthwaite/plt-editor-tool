@@ -2253,6 +2253,9 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
         <property name="decimals">
          <number>1</number>
         </property>
@@ -2572,6 +2575,9 @@
           <bold>false</bold>
          </font>
         </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
         <property name="decimals">
          <number>1</number>
         </property>
@@ -2720,6 +2726,9 @@
           <weight>50</weight>
           <bold>false</bold>
          </font>
+        </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
         </property>
         <property name="decimals">
          <number>1</number>
@@ -3370,7 +3379,7 @@ Plot</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -3429,6 +3438,9 @@ Plot</string>
            <bold>false</bold>
           </font>
          </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="decimals">
           <number>1</number>
          </property>
@@ -3475,6 +3487,9 @@ Plot</string>
            <bold>false</bold>
           </font>
          </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="decimals">
           <number>1</number>
          </property>
@@ -3507,6 +3522,9 @@ Plot</string>
            <weight>50</weight>
            <bold>false</bold>
           </font>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="decimals">
           <number>1</number>
@@ -3568,6 +3586,9 @@ Plot</string>
            <family>Arial</family>
            <pointsize>10</pointsize>
           </font>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="decimals">
           <number>1</number>
@@ -3647,6 +3668,9 @@ Plot</string>
        </item>
        <item row="3" column="1">
         <widget class="QDoubleSpinBox" name="sbLAlpha">
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="maximum">
           <double>1.000000000000000</double>
          </property>
@@ -3731,6 +3755,9 @@ Plot</string>
            <family>Arial</family>
            <pointsize>10</pointsize>
           </font>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="decimals">
           <number>1</number>
@@ -3887,6 +3914,9 @@ Plot</string>
            <family>Arial</family>
            <pointsize>10</pointsize>
           </font>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="decimals">
           <number>1</number>
@@ -4053,6 +4083,9 @@ Plot</string>
            <pointsize>10</pointsize>
           </font>
          </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="decimals">
           <number>2</number>
          </property>
@@ -4084,6 +4117,9 @@ Plot</string>
            <family>Arial</family>
            <pointsize>10</pointsize>
           </font>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
          </property>
          <property name="decimals">
           <number>1</number>
@@ -4407,6 +4443,9 @@ Plot</string>
        </item>
        <item row="3" column="1">
         <widget class="QDoubleSpinBox" name="sbScatAlpha">
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="maximum">
           <double>1.000000000000000</double>
          </property>
@@ -4705,6 +4744,9 @@ Plot</string>
        </item>
        <item row="2" column="1">
         <widget class="QDoubleSpinBox" name="sbScatSz">
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
          <property name="decimals">
           <number>1</number>
          </property>
@@ -4895,11 +4937,17 @@ Plot</string>
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
         <property name="decimals">
          <number>1</number>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
+        </property>
+        <property name="value">
+         <double>10.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -4910,11 +4958,23 @@ Plot</string>
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::UpDownArrows</enum>
+        </property>
         <property name="decimals">
          <number>1</number>
         </property>
         <property name="singleStep">
          <double>0.100000000000000</double>
+        </property>
+        <property name="stepType">
+         <enum>QAbstractSpinBox::DefaultStepType</enum>
+        </property>
+        <property name="value">
+         <double>10.000000000000000</double>
         </property>
        </widget>
       </item>
@@ -4969,17 +5029,7 @@ Plot</string>
         </property>
         <item>
          <property name="text">
-          <string>best</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string>None</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>upper left</string>
          </property>
         </item>
         <item>
@@ -4989,37 +5039,12 @@ Plot</string>
         </item>
         <item>
          <property name="text">
-          <string>upper right</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>center left</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>center</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string>center right</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>lower left</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
           <string>lower center</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>lower right</string>
          </property>
         </item>
        </widget>
@@ -5046,8 +5071,14 @@ Plot</string>
           <pointsize>10</pointsize>
          </font>
         </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
         <property name="singleStep">
          <double>0.010000000000000</double>
+        </property>
+        <property name="value">
+         <double>1.000000000000000</double>
         </property>
        </widget>
       </item>
