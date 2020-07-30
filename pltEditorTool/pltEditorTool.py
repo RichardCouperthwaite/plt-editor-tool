@@ -34,7 +34,7 @@ else:
     plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['mathtext.fontset'] = 'stix'
 
-form_class = uic.loadUiType("pltEditorGUI-1.ui")[0]
+form_class = uic.loadUiType("./pltEditorGUI-1.ui")[0]
 
 class MyWindowClass(QtWidgets.QMainWindow, form_class):
     def __init__(self, parent, data_dict):
