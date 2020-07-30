@@ -9,6 +9,7 @@ from tkinter import messagebox
 import numpy as np
 import platform
 import matplotlib.pyplot as plt
+plt.rcParams['mathtext.fontset'] = 'stix'
 from matplotlib.gridspec import GridSpec
 from matplotlib.ticker import AutoMinorLocator
 from matplotlib import get_backend
@@ -20,7 +21,7 @@ except ImportError:
     
 
 def plot_fillbetween(ax, plot) :
-    ax.fill_between(np.array(plot['x']),
+    return ax.fill_between(np.array(plot['x']),
                     np.array(plot['y'])+np.array(plot['dif_top']),
                     np.array(plot['y'])-np.array(plot['dif_bot']),
                     alpha=plot['fill']['alpha'],
@@ -39,7 +40,7 @@ def plot_errorbar_x(ax, plot):
         marker_type = plot['marker']['type']
     else: 
         marker_type = 'None'
-    ax.errorbar(x=plot['x'], y=plot['y'],
+    return ax.errorbar(x=plot['x'], y=plot['y'],
                 yerr=plot['y_err'],
                 ecolor=plot['ebar']['color'],
                 elinewidth=plot['ebar']['linew'],
@@ -67,7 +68,7 @@ def plot_errorbar_y(ax, plot):
         marker_type = plot['marker']['type']
     else: 
         marker_type = 'None'
-    ax.errorbar(x=plot['x'], y=plot['y'],
+    return ax.errorbar(x=plot['x'], y=plot['y'],
                 xerr=plot['x_err'],
                 ecolor=plot['ebar']['color'],
                 elinewidth=plot['ebar']['linew'],
@@ -95,7 +96,7 @@ def plot_errorbar_xy(ax, plot):
         marker_type = plot['marker']['type']
     else: 
         marker_type = 'None'
-    ax.errorbar(x=plot['x'], y=plot['y'],
+    return ax.errorbar(x=plot['x'], y=plot['y'],
                 yerr=plot['y_err'], xerr=plot['x_err'],
                 ecolor=plot['ebar']['color'],
                 elinewidth=plot['ebar']['linew'],
@@ -123,7 +124,7 @@ def plot_plot(ax, plot):
         marker_type = plot['marker']['type']
     else: 
         marker_type = 'None'
-    ax.plot(plot['x'], plot['y'],
+    return ax.plot(plot['x'], plot['y'],
             color=plot['line']['color'],
             linestyle=linestyle,
             linewidth=plot['line']['width'],
@@ -145,7 +146,8 @@ def plot_scatter(ax, plot):
     color_map = plt.get_cmap(plot['scatter']['cmap'])
     # check for color vector
     if plot['scatter']['current_color'] == 'None':
-        color = plot['marker']['face_col']
+        color = np.array(plot['scatter']['face_col'])
+        color = np.expand_dims(color, axis=0)
         colorbar = 0
     else:
         col_index = plot['scatter']['color_vector_names'].index(plot['scatter']['current_color'])
@@ -153,18 +155,18 @@ def plot_scatter(ax, plot):
 
     # check for size vector
     if plot['scatter']['current_size'] == 'None':
-        size = plot['marker']['size']**2
+        size = plot['scatter']['size']**2
     else:
         sz_index = plot['scatter']['size_vector_names'].index(plot['scatter']['current_size'])
         size = np.array(plot['scatter']['size_vectors'][sz_index])
-        size = ((size-size.min())/(size.max()-size.min()))*20*plot['marker']['size']
+        size = ((size-size.min())/(size.max()-size.min()))*20*plot['scatter']['size']
     cset = ax.scatter(x=plot['x'], 
                       y=plot['y'],
                       s=size, 
                       c=color, 
                       marker=plot['scatter']['type'],
                       alpha=plot['scatter']['alpha'], 
-                      edgecolors=plot['scatter']['edge'],
+                      edgecolors=np.expand_dims(np.array(plot['scatter']['edge']), axis=0),
                       linewidths=plot['marker']['edge_wid'], 
                       cmap=color_map)
     return colorbar, cset
@@ -208,6 +210,7 @@ def plot_addlegend_labels(ax, data, label_length):
         if data['legend'] != 'None':
             ax.legend(loc=data['legend'],
                              fontsize=data['legendFontSize'])
+    
             
             
 def sharexy_axisdata(window, last_row, first_col, i, j):
@@ -284,17 +287,27 @@ class plot_class():
         ax = []
         colorbar = 0
         count = 0
+        
+        plots_for_legend = []
+        labels_for_legend = []
+        
+        axis_font_size = 0
+        
         for axis in self.axis_list:
             data = self.axis_data[axis]
+            axis_font_size = data['axis_text']['size']
             ax.append(self.fig.add_subplot(
                 self.gs[data['position'][0]:data['position'][0]+data['position'][2],
                         data['position'][1]:data['position'][1]+data['position'][3]]))
-            
             for plot_num in range(len(data['plots'])):
                 plot = data['plots_data'][plot_num]
 
                 if plot['fill']['exist'] == 1 and len(plot['dif_top']) > 0:
-                    plot_fillbetween(ax[count], plot)
+                    if (plot['fill-label'] not in labels_for_legend) and (plot['fill-label'] != ''):
+                        plots_for_legend.append(plot_fillbetween(ax[count], plot))
+                        labels_for_legend.append(plot['fill-label'])
+                    else:
+                        plot_fillbetween(ax[count], plot)
                     label_length += 'label'
 
                 no_err_data = (plot['y_err'].size == 0 and plot['x_err'].size == 0)
@@ -306,24 +319,63 @@ class plot_class():
                 else:
                     if plot['ebar']['exist'] == 1 and not no_err_data:
                         if len(plot['y_err']) == 0:
-                            plot_errorbar_y(ax[count], plot)
+                            if (plot['label'] not in labels_for_legend) and (plot['label'] != ''):
+                                plots_for_legend.append(plot_errorbar_y(ax[count], plot))
+                                labels_for_legend.append(plot['label'])
+                            else:
+                                plot_errorbar_y(ax[count], plot)
                         if len(plot['x_err']) == 0:
-                            plot_errorbar_x(ax[count], plot)
+                            if (plot['label'] not in labels_for_legend) and (plot['label'] != ''):
+                                plots_for_legend.append(plot_errorbar_x(ax[count], plot))
+                                labels_for_legend.append(plot['label'])
+                            else:
+                                plot_errorbar_x(ax[count], plot)
                         if (len(plot['x_err']) != 0) and (len(plot['y_err']) != 0):
-                            plot_errorbar_xy(ax[count], plot)
+                            if (plot['label'] not in labels_for_legend) and (plot['label'] != ''):
+                                plots_for_legend.append(plot_errorbar_xy(ax[count], plot))
+                                labels_for_legend.append(plot['label'])
+                            else:
+                                plot_errorbar_xy(ax[count], plot)
                         label_length += 'label'
                     else:
-                        plot_plot(ax[count], plot)
+                        if (plot['label'] not in labels_for_legend) and (plot['label'] != ''):
+                            if (plot['label'] not in labels_for_legend) and (plot['label'] != ''):
+                                plots_for_legend.append(plot_plot(ax[count], plot))
+                                labels_for_legend.append(plot['label'])
+                            else:
+                                plot_plot(ax[count], plot)
                         label_length += 'label'
 
             plot_addlegend_labels(ax[count], data, label_length)
             count += 1
+        if self.axis_dict['Fig_title']['title'] != '':
+            weights = ['normal','bold']
+            style = ['normal','italic']
+            self.fig.suptitle(self.axis_dict['Fig_title']['title'], 
+                              fontstyle=style[self.axis_dict['Fig_title']['italic']],
+                              fontweight=weights[self.axis_dict['Fig_title']['bold']],
+                              fontsize=self.axis_dict['Fig_title']['size'],
+                              wrap=True)
+        if self.axis_dict['Fig_legend']['position'] != 'None':
+            self.fig.legend(plots_for_legend, labels_for_legend,
+                            loc=self.axis_dict['Fig_legend']['position'], 
+                            ncol=self.axis_dict['Fig_legend']['ncol'],
+                            fontsize=self.axis_dict['Fig_legend']['size'])
+            if self.axis_dict['Fig_legend']['position'] == 'center right':
+                plt.subplots_adjust(right=self.axis_dict['Fig_legend']['correction'])
+                plt.tight_layout()
+            elif self.axis_dict['Fig_legend']['position'] == 'upper center':
+                plt.subplots_adjust(top=self.axis_dict['Fig_legend']['correction'],
+                                    bottom=axis_font_size/100-0.01, left=axis_font_size/100-0.05,wspace=(axis_font_size/100)*2+0.01, hspace=0.3)#axis_font_size/100-0.01
+            elif self.axis_dict['Fig_legend']['position'] == 'lower center':
+                plt.subplots_adjust(bottom=self.axis_dict['Fig_legend']['correction'],
+                                    left=axis_font_size/100-0.01,wspace=0.1, hspace=0.1)
         if len(cbar_map) > 0:
             for i in range(len(cbar_map)):
                 self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
         if save:
             self.fig.set_dpi(600)
-            self.fig.savefig(self.save_fname)
+            self.fig.savefig(self.save_fname, bbox_inches='tight')
             save_dir_list = self.save_fname.split('/')
             save_dir = ''
             for i in range(len(save_dir_list)-1):
@@ -334,13 +386,7 @@ class plot_class():
         else:
             if platform.system() != "Darwin":
                 self.fig.set_dpi(150)
-            if platform.system() != "Linux":
-                if get_backend() != "module://ipykernel.pylab.backend_inline":
-                    self.fig.show()
-                else:
-                    plt.show()
-            else:
-                plt.show()
+            plt.show()
 
     def show_plot_sharexy(self, save):
         label_length = ''
