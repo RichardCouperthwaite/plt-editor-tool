@@ -24,7 +24,7 @@ try:
     from .plot_functions import plot_class
 except ImportError:
     from plot_functions import plot_class
-try:
+
 
 if PLATFORM == "Linux":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
