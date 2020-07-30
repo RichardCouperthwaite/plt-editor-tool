@@ -25,26 +25,13 @@ try:
 except ImportError:
     from plot_functions import plot_class
 try:
-    if PLATFORM == "Linux":
-        from .tkGUI_linux import create_GUI
-        plt.rcParams["font.family"] = 'DeJaVu Serif'
-    elif PLATFORM == "Darwin":
-        from .tkGUI_Mac import create_GUI
-        plt.rcParams["font.family"] = 'DeJaVu Serif'
-    else:
-        from .tkGUI import create_GUI
-        plt.rcParams["font.family"] = "Times New Roman"
-except ImportError:
-    if PLATFORM == "Linux":
-        from tkGUI_linux import create_GUI
-        plt.rcParams["font.family"] = 'DeJaVu Serif'
-    elif PLATFORM == "Darwin":
-        from tkGUI_Mac import create_GUI
-        plt.rcParams["font.family"] = 'DeJaVu Serif'
-    else:
-        from tkGUI import create_GUI
-        plt.rcParams["font.family"] = "Times New Roman"
 
+if PLATFORM == "Linux":
+    plt.rcParams["font.family"] = 'DeJaVu Serif'
+elif PLATFORM == "Darwin":
+    plt.rcParams["font.family"] = 'DeJaVu Serif'
+else:
+    plt.rcParams["font.family"] = "Times New Roman"
 plt.rcParams['mathtext.fontset'] = 'stix'
 
 form_class = uic.loadUiType("pltEditorGUI-1.ui")[0]
