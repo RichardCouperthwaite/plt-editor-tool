@@ -13,6 +13,8 @@ import numpy as np
 import platform
 import tkinter as tk
 from tkinter import messagebox
+import importlib.resources
+
 
 PLATFORM = platform.system()
 
@@ -28,13 +30,19 @@ except ImportError:
 
 if PLATFORM == "Linux":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
+    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+        form_class = uic.loadUiType(ui_path)[0]
 elif PLATFORM == "Darwin":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
+    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+        form_class = uic.loadUiType(ui_path)[0]
 else:
     plt.rcParams["font.family"] = "Times New Roman"
+    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+        form_class = uic.loadUiType(ui_path)[0]
 plt.rcParams['mathtext.fontset'] = 'stix'
 
-form_class = uic.loadUiType("./pltEditorGUI-1.ui")[0]
+
 
 class MyWindowClass(QtWidgets.QMainWindow, form_class):
     def __init__(self, parent, data_dict):
