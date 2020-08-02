@@ -221,35 +221,40 @@ def sharexy_axisdata(window, last_row, first_col, i, j):
                     pass
                 else:
                     window.axis_data[window.axis_names[i][j]]['y_label'] = ''
-                    window.axis_data[window.axis_names[i][j]]['y_lim'] = deepcopy(window.axis_data[window.axis_names[i][0]]['y_lim'])
-                    window.axis_data[window.axis_names[i][j]]['yscale'] = deepcopy(window.axis_data[window.axis_names[i][0]]['yscale'])
+                    window.axis_data[window.axis_names[i][j]]['y_lim'] = window.axis_data[window.axis_names[i][0]]['y_lim']
+                    window.axis_data[window.axis_names[i][j]]['yscale'] = window.axis_data[window.axis_names[i][0]]['yscale']
             else:
                 if window.axis_names[i][j] in first_col:
                     window.axis_data[window.axis_names[i][j]]['x_label'] = ''
-                    window.axis_data[window.axis_names[i][j]]['x_lim'] = deepcopy(window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['x_lim'])
-                    window.axis_data[window.axis_names[i][j]]['xscale'] = deepcopy(window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['xscale'])
+                    window.axis_data[window.axis_names[i][j]]['xticks'] = False
+                    window.axis_data[window.axis_names[i][j]]['x_lim'] = window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['x_lim']
+                    window.axis_data[window.axis_names[i][j]]['xscale'] = window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['xscale']
                 else:
                     window.axis_data[window.axis_names[i][j]]['x_label'] = ''
                     window.axis_data[window.axis_names[i][j]]['y_label'] = ''
-                    window.axis_data[window.axis_names[i][j]]['x_lim'] = deepcopy(window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['x_lim'])
-                    window.axis_data[window.axis_names[i][j]]['xscale'] = deepcopy(window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['xscale'])
-                    window.axis_data[window.axis_names[i][j]]['y_lim'] = deepcopy(window.axis_data[window.axis_names[i][0]]['y_lim'])
-                    window.axis_data[window.axis_names[i][j]]['yscale'] = deepcopy(window.axis_data[window.axis_names[i][0]]['yscale'])
+                    window.axis_data[window.axis_names[i][j]]['xticks'] = False
+                    window.axis_data[window.axis_names[i][j]]['yticks'] = False
+                    window.axis_data[window.axis_names[i][j]]['x_lim'] = window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['x_lim']
+                    window.axis_data[window.axis_names[i][j]]['xscale'] = window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['xscale']
+                    window.axis_data[window.axis_names[i][j]]['y_lim'] = window.axis_data[window.axis_names[i][0]]['y_lim']
+                    window.axis_data[window.axis_names[i][j]]['yscale'] = window.axis_data[window.axis_names[i][0]]['yscale']
         else:
             if window.axis_names[i][j] in last_row:
                 pass
             else:
                 window.axis_data[window.axis_names[i][j]]['x_label'] = ''
-                window.axis_data[window.axis_names[i][j]]['x_lim'] = deepcopy(window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['x_lim'])
-                window.axis_data[window.axis_names[i][j]]['xscale'] = deepcopy(window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['xscale'])
+                window.axis_data[window.axis_names[i][j]]['xticks'] = False
+                window.axis_data[window.axis_names[i][j]]['x_lim'] = window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['x_lim']
+                window.axis_data[window.axis_names[i][j]]['xscale'] = window.axis_data[window.axis_names[len(window.axis_names)-1][j]]['xscale']
     else:
         if window.sharey == 1:
             if window.axis_names[i][j] in first_col:
                 pass
             else:
                 window.axis_data[window.axis_names[i][j]]['y_label'] = ''
-                window.axis_data[window.axis_names[i][j]]['y_lim'] = deepcopy(window.axis_data[window.axis_names[i][0]]['y_lim'])
-                window.axis_data[window.axis_names[i][j]]['yscale'] = deepcopy(window.axis_data[window.axis_names[i][0]]['yscale'])
+                window.axis_data[window.axis_names[i][j]]['yticks'] = False
+                window.axis_data[window.axis_names[i][j]]['y_lim'] = window.axis_data[window.axis_names[i][0]]['y_lim']
+                window.axis_data[window.axis_names[i][j]]['yscale'] = window.axis_data[window.axis_names[i][0]]['yscale']
         else:
             pass
 

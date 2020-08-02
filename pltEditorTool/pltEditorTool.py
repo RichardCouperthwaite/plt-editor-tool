@@ -39,11 +39,11 @@ elif PLATFORM == "Darwin":
         form_class = uic.loadUiType(ui_path)[0]
 else:
     plt.rcParams["font.family"] = "Times New Roman"
-    try:
-        with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-            form_class = uic.loadUiType(ui_path)[0]
-    except AttributeError:
-        form_class = uic.loadUiType("pltEditorGUI-1.ui")[0]
+    # try:
+    #     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+    #         form_class = uic.loadUiType(ui_path)[0]
+    # except AttributeError:
+    form_class = uic.loadUiType("pltEditorGUI-1.ui")[0]
 plt.rcParams['mathtext.fontset'] = 'stix'
 
 
@@ -270,10 +270,8 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
 
         if (self.chbShareX.isChecked() == 0) and (self.chbShareY.isChecked() == 0):
             plot_obj.show_plot(False)
-            # print(plot_dict)
         else:
-            # plot_obj.show_plot_sharexy(False)
-            pass
+            plot_obj.show_plot_sharexy(False)
         
     def save_plot(self):
         plt.close(1)
@@ -284,6 +282,8 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
                                         #title='Save Matplotlib Figure',
                                         #filetypes=[('png files (*.png)',
                                                     #'*.png')])
+        if file[0] == '':
+            return                                            
         test_grid = np.zeros((self.sbRowNum.value(), self.sbColNum.value()))
 
         plot_dict = {}
@@ -303,7 +303,7 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
                                    'ncol':self.sbFigLegNcol.value(),
                                    'correction':self.sbFigPlotCor.value()}
         
-        plot_obj = plot_class(plot_dict, '')
+        plot_obj = plot_class(plot_dict, file[0])
 
         try:
             for axis in plot_dict['axes']:
@@ -318,7 +318,7 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
             QtWidgets.QMessageBox.warning(self, 'Grid Error', "Grid index of plot exceeds Grid Bounds!")
             return
 
-        if (self.sharex.get() == 0) and (self.sharey.get() == 0):
+        if (self.chbShareX.isChecked() == 0) and (self.chbShareY.isChecked() == 0):
             plot_obj.show_plot(True)
         else:
             plot_obj.show_plot_sharexy(True)
