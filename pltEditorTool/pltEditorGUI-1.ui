@@ -582,26 +582,6 @@
         <property name="selectionMode">
          <enum>QAbstractItemView::MultiSelection</enum>
         </property>
-        <item>
-         <property name="text">
-          <string>test</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>another test</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>another test1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>one last test</string>
-         </property>
-        </item>
        </widget>
       </item>
      </layout>
@@ -4908,30 +4888,33 @@ Plot</string>
     <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>0</x>
        <y>30</y>
-       <width>361</width>
-       <height>131</height>
+       <width>371</width>
+       <height>132</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,1,1,1,0">
-      <item row="3" column="1">
-       <widget class="QLabel" name="label_49">
+     <layout class="QGridLayout" name="gridLayout_2" rowstretch="1,0,0,0,0">
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_48">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Font Size:</string>
+         <string>Position:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="1" column="1">
-       <widget class="QDoubleSpinBox" name="sbFigTitSz">
+      <item row="4" column="2">
+       <widget class="QDoubleSpinBox" name="sbFigPlotCor">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
@@ -4940,53 +4923,56 @@ Plot</string>
         <property name="locale">
          <locale language="English" country="UnitedStates"/>
         </property>
-        <property name="decimals">
-         <number>1</number>
-        </property>
         <property name="singleStep">
-         <double>0.100000000000000</double>
+         <double>0.010000000000000</double>
         </property>
         <property name="value">
-         <double>10.000000000000000</double>
+         <double>1.000000000000000</double>
         </property>
        </widget>
       </item>
-      <item row="4" column="1">
-       <widget class="QDoubleSpinBox" name="sbFigLegFontSz">
+      <item row="4" column="3">
+       <widget class="QSpinBox" name="sbFigLegNcol">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
-        </property>
-        <property name="buttonSymbols">
-         <enum>QAbstractSpinBox::UpDownArrows</enum>
-        </property>
-        <property name="decimals">
+        <property name="minimum">
          <number>1</number>
-        </property>
-        <property name="singleStep">
-         <double>0.100000000000000</double>
-        </property>
-        <property name="stepType">
-         <enum>QAbstractSpinBox::DefaultStepType</enum>
-        </property>
-        <property name="value">
-         <double>10.000000000000000</double>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="label_47">
+      <item row="1" column="2">
+       <widget class="QCheckBox" name="chbFigTitBold">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Font Size</string>
+         <string>Bold</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="4">
+       <widget class="QLabel" name="label_55">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Figure Legend:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -5020,8 +5006,62 @@ Plot</string>
         </property>
        </widget>
       </item>
+      <item row="4" column="1">
+       <widget class="QDoubleSpinBox" name="sbFigLegFontSz">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
+        </property>
+        <property name="buttonSymbols">
+         <enum>QAbstractSpinBox::UpDownArrows</enum>
+        </property>
+        <property name="decimals">
+         <number>1</number>
+        </property>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
+        </property>
+        <property name="stepType">
+         <enum>QAbstractSpinBox::DefaultStepType</enum>
+        </property>
+        <property name="value">
+         <double>10.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="3">
+       <widget class="QLineEdit" name="eFigTitle">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QCheckBox" name="chbFigTitIt">
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>Italic</string>
+        </property>
+       </widget>
+      </item>
       <item row="4" column="0">
        <widget class="QComboBox" name="cbFigLegPos">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <pointsize>10</pointsize>
@@ -5049,60 +5089,30 @@ Plot</string>
         </item>
        </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_48">
+      <item row="3" column="1">
+       <widget class="QLabel" name="label_49">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Position:</string>
+         <string>Font Size:</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
-      <item row="4" column="2">
-       <widget class="QDoubleSpinBox" name="sbFigPlotCor">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
-        </property>
-        <property name="singleStep">
-         <double>0.010000000000000</double>
-        </property>
-        <property name="value">
-         <double>1.000000000000000</double>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2">
-       <widget class="QCheckBox" name="chbFigTitBold">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_47">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Bold</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="3">
-       <widget class="QSpinBox" name="sbFigLegNcol">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
-        </property>
-        <property name="minimum">
-         <number>1</number>
+         <string>Font Size</string>
         </property>
        </widget>
       </item>
@@ -5118,39 +5128,24 @@ Plot</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QLineEdit" name="eFigTitle">
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="sbFigTitSz">
         <property name="font">
          <font>
           <pointsize>10</pointsize>
          </font>
         </property>
-       </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QCheckBox" name="chbFigTitIt">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
+        <property name="locale">
+         <locale language="English" country="UnitedStates"/>
         </property>
-        <property name="text">
-         <string>Italic</string>
+        <property name="decimals">
+         <number>1</number>
         </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="4">
-       <widget class="QLabel" name="label_55">
-        <property name="font">
-         <font>
-          <pointsize>10</pointsize>
-         </font>
+        <property name="singleStep">
+         <double>0.100000000000000</double>
         </property>
-        <property name="text">
-         <string>Figure Legend:</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
+        <property name="value">
+         <double>16.000000000000000</double>
         </property>
        </widget>
       </item>

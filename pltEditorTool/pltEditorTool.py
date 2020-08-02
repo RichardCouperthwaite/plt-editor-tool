@@ -8,6 +8,7 @@ from sys import argv
 from os import getcwd
 from PyQt5 import uic, QtWidgets, QtGui
 from tkcolorpicker import askcolor
+from tkinter import filedialog
 import matplotlib.pyplot as plt
 import numpy as np
 import platform
@@ -38,8 +39,11 @@ elif PLATFORM == "Darwin":
         form_class = uic.loadUiType(ui_path)[0]
 else:
     plt.rcParams["font.family"] = "Times New Roman"
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
+    try:
+        with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+            form_class = uic.loadUiType(ui_path)[0]
+    except AttributeError:
+        form_class = uic.loadUiType("pltEditorGUI-1.ui")[0]
 plt.rcParams['mathtext.fontset'] = 'stix'
 
 
@@ -272,10 +276,52 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
             pass
         
     def save_plot(self):
-        x = [1,2,3,4,5]
-        y = [2,3,4,5,6]
-        plt.plot(x,y)
-        plt.show()
+        plt.close(1)
+        self.collect_current_data()
+
+        file = QtWidgets.QFileDialog.getSaveFileName(self, 'Save Matplotlib Figure', 'figure1', "Images (*.png)")
+        #filedialog.asksaveasfile(defaultextension='.png',
+                                        #title='Save Matplotlib Figure',
+                                        #filetypes=[('png files (*.png)',
+                                                    #'*.png')])
+        test_grid = np.zeros((self.sbRowNum.value(), self.sbColNum.value()))
+
+        plot_dict = {}
+        plot_dict['axes'] = list(self.axis_dict.keys())
+        plot_dict['axis data'] = self.axis_dict
+        plot_dict['fig_size'] = [2+2*self.sbRowNum.value(), 2.5+2.5*self.sbColNum.value()]
+        plot_dict['gsr'] = self.sbRowNum.value()
+        plot_dict['gsc'] = self.sbColNum.value()
+        plot_dict['sharex'] = self.chbShareX.isChecked()
+        plot_dict['sharey'] = self.chbShareY.isChecked()
+        plot_dict['Fig_title'] = {'title':self.eFigTitle.text(),
+                                  'size':self.sbFigTitSz.value(),
+                                  'bold':self.chbFigTitBold.isChecked(),
+                                  'italic':self.chbFigTitIt.isChecked()}
+        plot_dict['Fig_legend'] = {'position':self.cbFigLegPos.currentText(),
+                                   'size':self.sbFigLegFontSz.value(),
+                                   'ncol':self.sbFigLegNcol.value(),
+                                   'correction':self.sbFigPlotCor.value()}
+        
+        plot_obj = plot_class(plot_dict, '')
+
+        try:
+            for axis in plot_dict['axes']:
+                data = plot_dict['axis data'][axis]
+                for i in range(data['position'][2]):
+                    for j in range(data['position'][3]):
+                        test_grid[data['position'][0]+i, data['position'][1]+j] = 1
+            if np.sum(test_grid) != plot_dict['gsr']*plot_dict['gsc']:
+                QtWidgets.QMessageBox.warning(self, 'Grid Error', "All Grid Spaces must be filled!")
+                return
+        except IndexError:
+            QtWidgets.QMessageBox.warning(self, 'Grid Error', "Grid index of plot exceeds Grid Bounds!")
+            return
+
+        if (self.sharex.get() == 0) and (self.sharey.get() == 0):
+            plot_obj.show_plot(True)
+        else:
+            plot_obj.show_plot_sharexy(True)
         
     def collect_current_data(self):
         save_plot_data(self, self.current_plot)

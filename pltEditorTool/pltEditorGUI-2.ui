@@ -500,7 +500,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>201</width>
+       <width>210</width>
        <height>241</height>
       </rect>
      </property>
@@ -2009,7 +2009,7 @@
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>271</width>
+       <width>273</width>
        <height>61</height>
       </rect>
      </property>
@@ -4206,7 +4206,7 @@ Plot</string>
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>291</width>
+        <width>298</width>
         <height>221</height>
        </rect>
       </property>
@@ -4844,7 +4844,7 @@ Plot</string>
        <x>10</x>
        <y>30</y>
        <width>171</width>
-       <height>131</height>
+       <height>141</height>
       </rect>
      </property>
      <property name="font">
@@ -4960,8 +4960,8 @@ Plot</string>
       <rect>
        <x>10</x>
        <y>30</y>
-       <width>361</width>
-       <height>131</height>
+       <width>426</width>
+       <height>139</height>
       </rect>
      </property>
      <property name="font">
@@ -5005,6 +5005,9 @@ Plot</string>
       </item>
       <item row="4" column="1">
        <widget class="QDoubleSpinBox" name="sbFigLegFontSz">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <pointsize>13</pointsize>
@@ -5065,6 +5068,9 @@ Plot</string>
       </item>
       <item row="4" column="0">
        <widget class="QComboBox" name="cbFigLegPos">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <family>Arial</family>
@@ -5146,6 +5152,9 @@ Plot</string>
       </item>
       <item row="4" column="2">
        <widget class="QDoubleSpinBox" name="sbFigPlotCor">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <family>Arial</family>
@@ -5172,6 +5181,9 @@ Plot</string>
       </item>
       <item row="4" column="3">
        <widget class="QSpinBox" name="sbFigLegNcol">
+        <property name="enabled">
+         <bool>false</bool>
+        </property>
         <property name="font">
          <font>
           <family>Arial</family>
