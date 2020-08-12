@@ -346,9 +346,7 @@ def get_color(color):
     return (col.getRgb()[0]/255, col.getRgb()[1]/255, col.getRgb()[2]/255)
 
 def set_plot_data(window, index):
-    
     currentData = window.data_dict[index]
-    print(currentData['scatter'])
     window.colors = {'MarkerEdge': currentData['marker']['edge_col'],
                    'MarkerFace': currentData['marker']['face_col'],
                    'Errorbar': currentData['ebar']['color'],
