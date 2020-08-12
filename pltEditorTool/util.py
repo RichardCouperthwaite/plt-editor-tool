@@ -117,6 +117,7 @@ def set_plot_data(window, index):
     window.fill_linew.set(window.data_dict[index]['fill']['line_wid'])
     window.fill_lines.set(window.data_dict[index]['fill']['line_sty'])
 
+    print(window.data_dict[index]['scatter']['exist'])
     window.scat_exist.set(window.data_dict[index]['scatter']['exist'])
     window.scat_type.set(window.data_dict[index]['scatter']['type'])
     window.cmap_pick.set(window.data_dict[index]['scatter']['cmap'])

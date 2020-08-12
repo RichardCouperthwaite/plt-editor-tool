@@ -29,21 +29,32 @@ except ImportError:
     from plot_functions import plot_class
 
 
+# if PLATFORM == "Linux":
+#     plt.rcParams["font.family"] = 'DeJaVu Serif'
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
+# elif PLATFORM == "Darwin":
+#     plt.rcParams["font.family"] = 'DeJaVu Serif'
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
+# else:
+#     plt.rcParams["font.family"] = "Times New Roman"
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
+# plt.rcParams['mathtext.fontset'] = 'stix'
+
 if PLATFORM == "Linux":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
 elif PLATFORM == "Darwin":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
 else:
     plt.rcParams["font.family"] = "Times New Roman"
-    # try:
-    #     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-    #         form_class = uic.loadUiType(ui_path)[0]
-    # except AttributeError:
-    form_class = uic.loadUiType("pltEditorGUI-1.ui")[0]
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
 plt.rcParams['mathtext.fontset'] = 'stix'
 
 
@@ -335,7 +346,9 @@ def get_color(color):
     return (col.getRgb()[0]/255, col.getRgb()[1]/255, col.getRgb()[2]/255)
 
 def set_plot_data(window, index):
+    
     currentData = window.data_dict[index]
+    print(currentData['scatter'])
     window.colors = {'MarkerEdge': currentData['marker']['edge_col'],
                    'MarkerFace': currentData['marker']['face_col'],
                    'Errorbar': currentData['ebar']['color'],
@@ -371,11 +384,11 @@ def set_plot_data(window, index):
     styleSheet = 'background-color: rgb({}, {}, {});'.format(window.colors['ScatterFace'][0]*255,
                                                              window.colors['ScatterFace'][1]*255,
                                                              window.colors['ScatterFace'][2]*255)
-    window.btnScatECol.setStyleSheet(styleSheet)
+    window.btnScatFCol.setStyleSheet(styleSheet)
     styleSheet = 'background-color: rgb({}, {}, {});'.format(window.colors['ScatterEdge'][0]*255,
                                                              window.colors['ScatterEdge'][1]*255,
                                                              window.colors['ScatterEdge'][2]*255)
-    window.btnScatFCol.setStyleSheet(styleSheet)
+    window.btnScatECol.setStyleSheet(styleSheet)
     
     window.chbEB.setChecked(currentData['ebar']['exist'])
     window.sbEBLW.setValue(currentData['ebar']['linew'])
@@ -398,7 +411,7 @@ def set_plot_data(window, index):
     window.sbFEW.setValue(currentData['fill']['line_wid'])
     window.cbFES.setCurrentText(currentData['fill']['line_sty'])
     
-    window.chbS.setChecked(0)
+    window.chbS.setChecked(currentData['scatter']['exist'])
     window.cbSMT.setCurrentText(currentData['scatter']['type'])
     window.cbSCV.addItems(currentData['scatter']['color_vector_names']) 
     window.cbSCV.setCurrentText(currentData['scatter']['current_color'])
@@ -422,9 +435,8 @@ def save_plot_data(window, index, multi=False):
     currentData['fill']['face_col'] = window.colors['FillFace']
     currentData['fill']['edge_col'] = window.colors['FillEdge']
     currentData['scatter']['face_col'] = window.colors['ScatterFace']
-    currentData['scatter']['edge'] = window.colors['ScatterEdge']
+    currentData['scatter']['edge_col'] = window.colors['ScatterEdge']
 
-    
     currentData['ebar']['exist'] = window.chbEB.isChecked()
     currentData['ebar']['linew'] = window.sbEBLW.value()
     currentData['ebar']['capsize'] = window.sbEBCS.value()
