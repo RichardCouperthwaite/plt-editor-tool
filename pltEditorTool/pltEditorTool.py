@@ -29,33 +29,33 @@ except ImportError:
     from plot_functions import plot_class
 
 
-if PLATFORM == "Linux":
-    plt.rcParams["font.family"] = 'DeJaVu Serif'
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
-elif PLATFORM == "Darwin":
-    plt.rcParams["font.family"] = 'DeJaVu Serif'
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
-else:
-    plt.rcParams["font.family"] = "Times New Roman"
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
-plt.rcParams['mathtext.fontset'] = 'stix'
-
 # if PLATFORM == "Linux":
 #     plt.rcParams["font.family"] = 'DeJaVu Serif'
-#     ui_path = "pltEditorGUI-1.ui"
-#     form_class = uic.loadUiType(ui_path)[0]
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
 # elif PLATFORM == "Darwin":
 #     plt.rcParams["font.family"] = 'DeJaVu Serif'
-#     ui_path = "pltEditorGUI-1.ui"
-#     form_class = uic.loadUiType(ui_path)[0]
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
 # else:
 #     plt.rcParams["font.family"] = "Times New Roman"
-#     ui_path = "pltEditorGUI-1.ui"
-#     form_class = uic.loadUiType(ui_path)[0]
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
 # plt.rcParams['mathtext.fontset'] = 'stix'
+
+if PLATFORM == "Linux":
+    plt.rcParams["font.family"] = 'DeJaVu Serif'
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
+elif PLATFORM == "Darwin":
+    plt.rcParams["font.family"] = 'DeJaVu Serif'
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
+else:
+    plt.rcParams["font.family"] = "Times New Roman"
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
+plt.rcParams['mathtext.fontset'] = 'stix'
 
 
 
@@ -637,14 +637,14 @@ def add_plot_to_axis(window):
         window.axis_dict[window.selected_axis_value]['plots'].append(plot_name)
         window.axis_dict[window.selected_axis_value]['plots_data'].append(window.data_dict[plot_name])
 
-        if np.max(window.data_dict[plot_name]['x']) > max_x:
-            max_x = np.max(window.data_dict[plot_name]['x'])
-        if np.max(window.data_dict[plot_name]['y']) > max_y:
-            max_y = np.max(window.data_dict[plot_name]['y'])
-        if np.min(window.data_dict[plot_name]['x']) < min_x:
-            min_x = np.min(window.data_dict[plot_name]['x'])
-        if np.min(window.data_dict[plot_name]['y']) < min_y:
-            min_y = np.min(window.data_dict[plot_name]['y'])
+        if np.max(window.data_dict[plot_name]['x'][np.where(np.isfinite(window.data_dict[plot_name]['x']))]) > max_x:
+            max_x = np.max(window.data_dict[plot_name]['x'][np.where(np.isfinite(window.data_dict[plot_name]['x']))])
+        if np.max(window.data_dict[plot_name]['y'][np.where(np.isfinite(window.data_dict[plot_name]['y']))]) > max_y:
+            max_y = np.max(window.data_dict[plot_name]['y'][np.where(np.isfinite(window.data_dict[plot_name]['y']))])
+        if np.min(window.data_dict[plot_name]['x'][np.where(np.isfinite(window.data_dict[plot_name]['x']))]) < min_x:
+            min_x = np.min(window.data_dict[plot_name]['x'][np.where(np.isfinite(window.data_dict[plot_name]['x']))])
+        if np.min(window.data_dict[plot_name]['y'][np.where(np.isfinite(window.data_dict[plot_name]['y']))]) < min_y:
+            min_y = np.min(window.data_dict[plot_name]['y'][np.where(np.isfinite(window.data_dict[plot_name]['y']))])
         window.axis_dict[window.selected_axis_value]['x_lim'] = [min_x, max_x]
         window.axis_dict[window.selected_axis_value]['y_lim'] = [min_y, max_y]
 
@@ -663,24 +663,24 @@ def remove_plot_from_axis(window):
     temp_plots = []
     temp_plots_data = []
     window.cbSelData.clear()
-    max_x = -1e16
-    min_x = 1e16
-    max_y = -1e16
-    min_y = 1e16
+    max_x = window.axis_dict[window.selected_axis_value]['x_lim'][1]
+    min_x = window.axis_dict[window.selected_axis_value]['x_lim'][0]
+    max_y = window.axis_dict[window.selected_axis_value]['y_lim'][1]
+    min_y = window.axis_dict[window.selected_axis_value]['x_lim'][0]
 
     for i in range(len(window.axis_dict[window.selected_axis_value]['plots'])):
         if window.axis_dict[window.selected_axis_value]['plots'][i] != plot_name:
             plot_name_temp = window.axis_dict[window.selected_axis_value]['plots'][i]
             temp_plots.append(window.axis_dict[window.selected_axis_value]['plots'][i])
             temp_plots_data.append(window.data_dict[window.axis_dict[window.selected_axis_value]['plots'][i]])
-            if np.max(window.data_dict[plot_name_temp]['x']) > max_x:
-                max_x = np.max(window.data_dict[plot_name_temp]['x'])
-            if np.max(window.data_dict[plot_name_temp]['y']) > max_y:
-                max_y = np.max(window.data_dict[plot_name_temp]['y'])
-            if np.min(window.data_dict[plot_name_temp]['x']) < min_x:
-                min_x = np.min(window.data_dict[plot_name_temp]['x'])
-            if np.min(window.data_dict[plot_name_temp]['y']) < min_y:
-                min_y = np.min(window.data_dict[plot_name_temp]['y'])
+            if np.max(window.data_dict[plot_name_temp]['x'][np.where(np.isfinite(window.data_dict[plot_name_temp]['x']))]) > max_x:
+                max_x = np.max(window.data_dict[plot_name_temp]['x'][np.where(np.isfinite(window.data_dict[plot_name_temp]['x']))])
+            if np.max(window.data_dict[plot_name_temp]['y'][np.where(np.isfinite(window.data_dict[plot_name_temp]['y']))]) > max_y:
+                max_y = np.max(window.data_dict[plot_name_temp]['y'][np.where(np.isfinite(window.data_dict[plot_name_temp]['y']))])
+            if np.min(window.data_dict[plot_name_temp]['x'][np.where(np.isfinite(window.data_dict[plot_name_temp]['x']))]) < min_x:
+                min_x = np.min(window.data_dict[plot_name_temp]['x'][np.where(np.isfinite(window.data_dict[plot_name_temp]['x']))])
+            if np.min(window.data_dict[plot_name_temp]['y'][np.where(np.isfinite(window.data_dict[plot_name_temp]['y']))]) < min_y:
+                min_y = np.min(window.data_dict[plot_name_temp]['y'][np.where(np.isfinite(window.data_dict[plot_name_temp]['y']))])
 
     if temp_plots == []:
         window.axis_dict[window.selected_axis_value]['plots'] = ['']

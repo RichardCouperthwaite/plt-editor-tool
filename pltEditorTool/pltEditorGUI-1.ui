@@ -508,6 +508,8 @@
       <font>
        <family>Arial</family>
        <pointsize>8</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <layout class="QFormLayout" name="formLayout_2">
@@ -2215,7 +2217,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -2254,7 +2259,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -2314,7 +2322,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -2398,7 +2409,10 @@
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
          </font>
         </property>
         <property name="maxLength">
@@ -4176,6 +4190,7 @@ Plot</string>
       <property name="font">
        <font>
         <family>Arial</family>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <layout class="QGridLayout" name="gridLayout_12">
@@ -4187,6 +4202,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4199,6 +4215,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4211,6 +4228,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
            <weight>75</weight>
            <bold>true</bold>
           </font>
@@ -4225,6 +4243,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4252,6 +4271,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <item>
@@ -4266,6 +4286,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <item>
@@ -4280,6 +4301,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <item>
@@ -4439,6 +4461,7 @@ Plot</string>
          <property name="font">
           <font>
            <family>Arial</family>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
@@ -4888,9 +4911,9 @@ Plot</string>
     <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>0</x>
+       <x>10</x>
        <y>30</y>
-       <width>371</width>
+       <width>361</width>
        <height>132</height>
       </rect>
      </property>
@@ -4899,6 +4922,7 @@ Plot</string>
        <widget class="QLabel" name="label_48">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -4917,6 +4941,7 @@ Plot</string>
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -4938,6 +4963,7 @@ Plot</string>
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -4950,6 +4976,7 @@ Plot</string>
        <widget class="QCheckBox" name="chbFigTitBold">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -4965,6 +4992,7 @@ Plot</string>
        <widget class="QLabel" name="label_55">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -4980,6 +5008,7 @@ Plot</string>
        <widget class="QLabel" name="label_50">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -4995,6 +5024,7 @@ Plot</string>
        <widget class="QLabel" name="label_51">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5013,6 +5043,7 @@ Plot</string>
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5040,6 +5071,7 @@ Plot</string>
        <widget class="QLineEdit" name="eFigTitle">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5049,6 +5081,7 @@ Plot</string>
        <widget class="QCheckBox" name="chbFigTitIt">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5064,6 +5097,7 @@ Plot</string>
         </property>
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5093,6 +5127,7 @@ Plot</string>
        <widget class="QLabel" name="label_49">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5108,6 +5143,7 @@ Plot</string>
        <widget class="QLabel" name="label_47">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5120,6 +5156,7 @@ Plot</string>
        <widget class="QLabel" name="label_45">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
@@ -5132,6 +5169,7 @@ Plot</string>
        <widget class="QDoubleSpinBox" name="sbFigTitSz">
         <property name="font">
          <font>
+          <family>Arial</family>
           <pointsize>10</pointsize>
          </font>
         </property>
