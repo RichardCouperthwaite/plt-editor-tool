@@ -29,33 +29,33 @@ except ImportError:
     from plot_functions import plot_class
 
 
-# if PLATFORM == "Linux":
-#     plt.rcParams["font.family"] = 'DeJaVu Serif'
-#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-#         form_class = uic.loadUiType(ui_path)[0]
-# elif PLATFORM == "Darwin":
-#     plt.rcParams["font.family"] = 'DeJaVu Serif'
-#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-#         form_class = uic.loadUiType(ui_path)[0]
-# else:
-#     plt.rcParams["font.family"] = "Times New Roman"
-#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-#         form_class = uic.loadUiType(ui_path)[0]
-# plt.rcParams['mathtext.fontset'] = 'stix'
-
 if PLATFORM == "Linux":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
-    ui_path = "pltEditorGUI-1.ui"
-    form_class = uic.loadUiType(ui_path)[0]
+    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+        form_class = uic.loadUiType(ui_path)[0]
 elif PLATFORM == "Darwin":
     plt.rcParams["font.family"] = 'DeJaVu Serif'
-    ui_path = "pltEditorGUI-1.ui"
-    form_class = uic.loadUiType(ui_path)[0]
+    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+        form_class = uic.loadUiType(ui_path)[0]
 else:
     plt.rcParams["font.family"] = "Times New Roman"
-    ui_path = "pltEditorGUI-1.ui"
-    form_class = uic.loadUiType(ui_path)[0]
+    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+        form_class = uic.loadUiType(ui_path)[0]
 plt.rcParams['mathtext.fontset'] = 'stix'
+
+# if PLATFORM == "Linux":
+#     plt.rcParams["font.family"] = 'DeJaVu Serif'
+#     ui_path = "pltEditorGUI-1.ui"
+#     form_class = uic.loadUiType(ui_path)[0]
+# elif PLATFORM == "Darwin":
+#     plt.rcParams["font.family"] = 'DeJaVu Serif'
+#     ui_path = "pltEditorGUI-1.ui"
+#     form_class = uic.loadUiType(ui_path)[0]
+# else:
+#     plt.rcParams["font.family"] = "Times New Roman"
+#     ui_path = "pltEditorGUI-1.ui"
+#     form_class = uic.loadUiType(ui_path)[0]
+# plt.rcParams['mathtext.fontset'] = 'stix'
 
 
 
