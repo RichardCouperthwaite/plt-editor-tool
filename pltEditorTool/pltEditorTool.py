@@ -29,33 +29,33 @@ except ImportError:
     from plot_functions import plot_class
 
 
-if PLATFORM == "Linux":
-    plt.rcParams["font.family"] = 'DeJaVu Serif'
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
-elif PLATFORM == "Darwin":
-    plt.rcParams["font.family"] = 'DeJaVu Serif'
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
-else:
-    plt.rcParams["font.family"] = "Times New Roman"
-    with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
-        form_class = uic.loadUiType(ui_path)[0]
-plt.rcParams['mathtext.fontset'] = 'stix'
-
 # if PLATFORM == "Linux":
 #     plt.rcParams["font.family"] = 'DeJaVu Serif'
-#     ui_path = "pltEditorGUI-1.ui"
-#     form_class = uic.loadUiType(ui_path)[0]
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
 # elif PLATFORM == "Darwin":
 #     plt.rcParams["font.family"] = 'DeJaVu Serif'
-#     ui_path = "pltEditorGUI-1.ui"
-#     form_class = uic.loadUiType(ui_path)[0]
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
 # else:
 #     plt.rcParams["font.family"] = "Times New Roman"
-#     ui_path = "pltEditorGUI-1.ui"
-#     form_class = uic.loadUiType(ui_path)[0]
+#     with importlib.resources.path(__package__, "pltEditorGUI-1.ui") as ui_path:
+#         form_class = uic.loadUiType(ui_path)[0]
 # plt.rcParams['mathtext.fontset'] = 'stix'
+
+if PLATFORM == "Linux":
+    plt.rcParams["font.family"] = 'DeJaVu Serif'
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
+elif PLATFORM == "Darwin":
+    plt.rcParams["font.family"] = 'DeJaVu Serif'
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
+else:
+    plt.rcParams["font.family"] = "Times New Roman"
+    ui_path = "pltEditorGUI-1.ui"
+    form_class = uic.loadUiType(ui_path)[0]
+plt.rcParams['mathtext.fontset'] = 'stix'
 
 
 
@@ -95,6 +95,12 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
         self.btnRemPlot.clicked.connect(self.rem_plot)
         self.btnGenPlot.clicked.connect(self.show_plot)
         self.btnSavePlot.clicked.connect(self.save_plot)
+        self.chbColorMatch1.stateChanged.connect(self.match1_change)
+        self.chbColorMatch2.stateChanged.connect(self.match2_change)
+        self.chbColorMatch3.stateChanged.connect(self.match3_change)
+        self.chbColorMatch4.stateChanged.connect(self.match4_change)
+        self.chbColorMatch5.stateChanged.connect(self.match5_change)
+        self.chbColorMatch6.stateChanged.connect(self.match6_change)
         
     def populate_GUI(self):
         self.tabWidget.setCurrentIndex(0)
@@ -107,48 +113,66 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
         sSheet = 'background-color: rgb({}, {}, {});'.format(new_col[0]*255, 
                                                              new_col[1]*255, 
                                                              new_col[2]*255)
-        self.btnEBCol.setStyleSheet(sSheet)
-        self.colors['Errorbar'] = new_col
+        if self.chbColorMatch1.isChecked():
+            self.changeAllColors(new_col, sSheet)
+        else:
+            self.btnEBCol.setStyleSheet(sSheet)
+            self.colors['Errorbar'] = new_col
     
     def lColChange(self):
         new_col = get_color(self.colors['Line'])
         sSheet = 'background-color: rgb({}, {}, {});'.format(new_col[0]*255, 
                                                              new_col[1]*255, 
                                                              new_col[2]*255)
-        self.btnLCol.setStyleSheet(sSheet)
-        self.colors['Line'] = new_col
+        if self.chbColorMatch1.isChecked():
+            self.changeAllColors(new_col, sSheet)
+        else:
+            self.btnLCol.setStyleSheet(sSheet)
+            self.colors['Line'] = new_col
         
     def meColChange(self):
         new_col = get_color(self.colors['MarkerEdge'])
         sSheet = 'background-color: rgb({}, {}, {});'.format(new_col[0]*255, 
                                                              new_col[1]*255, 
                                                              new_col[2]*255)
-        self.btnMEC.setStyleSheet(sSheet)
-        self.colors['MarkerEdge'] = new_col
+        if self.chbColorMatch1.isChecked():
+            self.changeAllColors(new_col, sSheet)
+        else:
+            self.btnMEC.setStyleSheet(sSheet)
+            self.colors['MarkerEdge'] = new_col
         
     def mfColChange(self):
         new_col = get_color(self.colors['MarkerFace'])
         sSheet = 'background-color: rgb({}, {}, {});'.format(new_col[0]*255, 
                                                              new_col[1]*255, 
                                                              new_col[2]*255)
-        self.btnMFC.setStyleSheet(sSheet)
-        self.colors['MarkerFace'] = new_col
+        if self.chbColorMatch1.isChecked():
+            self.changeAllColors(new_col, sSheet)
+        else:
+            self.btnMFC.setStyleSheet(sSheet)
+            self.colors['MarkerFace'] = new_col
         
     def ffColChange(self):
         new_col = get_color(self.colors['FillFace'])
         sSheet = 'background-color: rgb({}, {}, {});'.format(new_col[0]*255, 
                                                              new_col[1]*255, 
                                                              new_col[2]*255)
-        self.btnFFC.setStyleSheet(sSheet)
-        self.colors['FillFace'] = new_col
+        if self.chbColorMatch1.isChecked():
+            self.changeAllColors(new_col, sSheet)
+        else:
+            self.btnFFC.setStyleSheet(sSheet)
+            self.colors['FillFace'] = new_col
         
     def feColChange(self):
         new_col = get_color(self.colors['FillEdge'])
         sSheet = 'background-color: rgb({}, {}, {});'.format(new_col[0]*255, 
                                                              new_col[1]*255, 
                                                              new_col[2]*255)
-        self.btnFEC.setStyleSheet(sSheet)
-        self.colors['FillEdge'] = new_col
+        if self.chbColorMatch1.isChecked():
+            self.changeAllColors(new_col, sSheet)
+        else:
+            self.btnFEC.setStyleSheet(sSheet)
+            self.colors['FillEdge'] = new_col
         
     def seColChange(self):
         new_col = get_color(self.colors['ScatterEdge'])
@@ -165,6 +189,22 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
                                                              new_col[2]*255)
         self.btnScatFCol.setStyleSheet(sSheet)
         self.colors['ScatterFace'] = new_col
+        
+    def changeAllColors(self, new_col, sSheet):
+        self.btnFEC.setStyleSheet(sSheet)
+        self.colors['FillEdge'] = new_col
+        self.btnFFC.setStyleSheet(sSheet)
+        self.colors['FillFace'] = new_col
+        self.btnMFC.setStyleSheet(sSheet)
+        self.colors['MarkerFace'] = new_col
+        self.btnMEC.setStyleSheet(sSheet)
+        self.colors['MarkerEdge'] = new_col
+        self.btnLCol.setStyleSheet(sSheet)
+        self.colors['Line'] = new_col
+        self.btnEBCol.setStyleSheet(sSheet)
+        self.colors['Errorbar'] = new_col
+        
+        
         
     def select_multi(self):
         if self.chbSelMult.isChecked():
@@ -337,7 +377,90 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
     def collect_current_data(self):
         save_plot_data(self, self.current_plot)
         save_axis_data(self, self.selected_axis_value)
-
+        
+    def match1_change(self):
+        if self.chbColorMatch1.isChecked():
+            self.chbColorMatch2.setChecked(True)
+            self.chbColorMatch3.setChecked(True)
+            self.chbColorMatch4.setChecked(True)
+            self.chbColorMatch5.setChecked(True)
+            self.chbColorMatch6.setChecked(True)
+        else:
+            self.chbColorMatch2.setChecked(False)
+            self.chbColorMatch3.setChecked(False)
+            self.chbColorMatch4.setChecked(False)
+            self.chbColorMatch5.setChecked(False)
+            self.chbColorMatch6.setChecked(False)
+            
+    def match2_change(self):
+        if self.chbColorMatch2.isChecked():
+            self.chbColorMatch1.setChecked(True)
+            self.chbColorMatch3.setChecked(True)
+            self.chbColorMatch4.setChecked(True)
+            self.chbColorMatch5.setChecked(True)
+            self.chbColorMatch6.setChecked(True)
+        else:
+            self.chbColorMatch1.setChecked(False)
+            self.chbColorMatch3.setChecked(False)
+            self.chbColorMatch4.setChecked(False)
+            self.chbColorMatch5.setChecked(False)
+            self.chbColorMatch6.setChecked(False)
+            
+    def match3_change(self):
+        if self.chbColorMatch3.isChecked():
+            self.chbColorMatch2.setChecked(True)
+            self.chbColorMatch1.setChecked(True)
+            self.chbColorMatch4.setChecked(True)
+            self.chbColorMatch5.setChecked(True)
+            self.chbColorMatch6.setChecked(True)
+        else:
+            self.chbColorMatch2.setChecked(False)
+            self.chbColorMatch1.setChecked(False)
+            self.chbColorMatch4.setChecked(False)
+            self.chbColorMatch5.setChecked(False)
+            self.chbColorMatch6.setChecked(False)
+            
+    def match4_change(self):
+        if self.chbColorMatch4.isChecked():
+            self.chbColorMatch2.setChecked(True)
+            self.chbColorMatch3.setChecked(True)
+            self.chbColorMatch1.setChecked(True)
+            self.chbColorMatch5.setChecked(True)
+            self.chbColorMatch6.setChecked(True)
+        else:
+            self.chbColorMatch2.setChecked(False)
+            self.chbColorMatch3.setChecked(False)
+            self.chbColorMatch1.setChecked(False)
+            self.chbColorMatch5.setChecked(False)
+            self.chbColorMatch6.setChecked(False)
+            
+    def match5_change(self):
+        if self.chbColorMatch5.isChecked():
+            self.chbColorMatch2.setChecked(True)
+            self.chbColorMatch3.setChecked(True)
+            self.chbColorMatch4.setChecked(True)
+            self.chbColorMatch1.setChecked(True)
+            self.chbColorMatch6.setChecked(True)
+        else:
+            self.chbColorMatch2.setChecked(False)
+            self.chbColorMatch3.setChecked(False)
+            self.chbColorMatch4.setChecked(False)
+            self.chbColorMatch1.setChecked(False)
+            self.chbColorMatch6.setChecked(False)
+    
+    def match6_change(self):
+        if self.chbColorMatch5.isChecked():
+            self.chbColorMatch2.setChecked(True)
+            self.chbColorMatch3.setChecked(True)
+            self.chbColorMatch4.setChecked(True)
+            self.chbColorMatch5.setChecked(True)
+            self.chbColorMatch1.setChecked(True)
+        else:
+            self.chbColorMatch2.setChecked(False)
+            self.chbColorMatch3.setChecked(False)
+            self.chbColorMatch4.setChecked(False)
+            self.chbColorMatch5.setChecked(False)
+            self.chbColorMatch1.setChecked(False)
 
 
 def get_color(color):

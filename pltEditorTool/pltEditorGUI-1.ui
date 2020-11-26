@@ -3373,7 +3373,7 @@ Plot</string>
      <enum>QTabWidget::Rounded</enum>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -3388,22 +3388,7 @@ Plot</string>
         <height>221</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_10">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Cap Size:</string>
-         </property>
-        </widget>
-       </item>
+      <layout class="QGridLayout" name="gridLayout" columnstretch="1,1,0">
        <item row="0" column="1">
         <widget class="QPushButton" name="btnEBCol">
          <property name="font">
@@ -3422,7 +3407,72 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Line Width:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_10">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cap Size:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <weight>50</weight>
+           <bold>false</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Cap Thickness:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Errorbar Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="chbColorMatch1">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbEBLW">
          <property name="font">
           <font>
@@ -3443,35 +3493,7 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_9">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Line Width:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_13">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Errorbar Color:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
+       <item row="2" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbEBCS">
          <property name="font">
           <font>
@@ -3492,22 +3514,7 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_11">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-           <weight>50</weight>
-           <bold>false</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Cap Thickness:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
+       <item row="3" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbEBCT">
          <property name="font">
           <font>
@@ -3544,7 +3551,33 @@ Plot</string>
         <height>221</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_9">
+      <layout class="QGridLayout" name="gridLayout_9" columnstretch="1,1,0">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Line Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_5">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Line Style:</string>
+         </property>
+        </widget>
+       </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_4">
          <property name="font">
@@ -3573,52 +3606,21 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QDoubleSpinBox" name="sbLW">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="locale">
-          <locale language="English" country="UnitedStates"/>
-         </property>
-         <property name="decimals">
-          <number>1</number>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_42">
          <property name="text">
-          <string>Line Color:</string>
+          <string>Line Alpha:</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_5">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
+       <item row="0" column="2">
+        <widget class="QCheckBox" name="chbColorMatch2">
          <property name="text">
-          <string>Line Style:</string>
+          <string/>
          </property>
         </widget>
        </item>
-       <item row="1" column="1">
+       <item row="1" column="1" colspan="2">
         <widget class="QComboBox" name="cbLS">
          <property name="font">
           <font>
@@ -3653,14 +3655,26 @@ Plot</string>
          </item>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_42">
-         <property name="text">
-          <string>Line Alpha:</string>
+       <item row="2" column="1" colspan="2">
+        <widget class="QDoubleSpinBox" name="sbLW">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
+         </property>
+         <property name="decimals">
+          <number>1</number>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
          </property>
         </widget>
        </item>
-       <item row="3" column="1">
+       <item row="3" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbLAlpha">
          <property name="locale">
           <locale language="English" country="UnitedStates"/>
@@ -3686,46 +3700,29 @@ Plot</string>
         <x>10</x>
         <y>20</y>
         <width>301</width>
-        <height>211</height>
+        <height>221</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_10">
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_8">
+      <layout class="QGridLayout" name="gridLayout_10" columnstretch="1,1,0,0">
+       <item row="4" column="1" colspan="2">
+        <widget class="QDoubleSpinBox" name="sbMS">
          <property name="font">
           <font>
            <family>Arial</family>
            <pointsize>10</pointsize>
           </font>
          </property>
-         <property name="text">
-          <string>Edge Width:</string>
+         <property name="locale">
+          <locale language="English" country="UnitedStates"/>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
+         <property name="decimals">
+          <number>1</number>
          </property>
-         <property name="text">
-          <string>Size:</string>
+         <property name="maximum">
+          <double>1000.000000000000000</double>
          </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_12">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Face Color:</string>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
          </property>
         </widget>
        </item>
@@ -3742,7 +3739,7 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="2" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbMEW">
          <property name="font">
           <font>
@@ -3761,7 +3758,56 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Size:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1" colspan="2">
+        <widget class="QSpinBox" name="sbMEvery">
+         <property name="maximum">
+          <number>99999</number>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_46">
+         <property name="text">
+          <string>Mark Every:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QCheckBox" name="chbColorMatch3">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="btnMEC">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>COLOR</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
         <widget class="QComboBox" name="cbMT">
          <property name="font">
           <font>
@@ -3901,25 +3947,29 @@ Plot</string>
          </item>
         </widget>
        </item>
-       <item row="4" column="1">
-        <widget class="QDoubleSpinBox" name="sbMS">
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_8">
          <property name="font">
           <font>
            <family>Arial</family>
            <pointsize>10</pointsize>
           </font>
          </property>
-         <property name="locale">
-          <locale language="English" country="UnitedStates"/>
+         <property name="text">
+          <string>Edge Width:</string>
          </property>
-         <property name="decimals">
-          <number>1</number>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_12">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
          </property>
-         <property name="maximum">
-          <double>1000.000000000000000</double>
-         </property>
-         <property name="singleStep">
-          <double>0.100000000000000</double>
+         <property name="text">
+          <string>Face Color:</string>
          </property>
         </widget>
        </item>
@@ -3933,21 +3983,6 @@ Plot</string>
          </property>
          <property name="text">
           <string>Type:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="btnMEC">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>COLOR</string>
          </property>
         </widget>
        </item>
@@ -3966,17 +4001,10 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="5" column="0">
-        <widget class="QLabel" name="label_46">
+       <item row="3" column="2">
+        <widget class="QCheckBox" name="chbColorMatch5">
          <property name="text">
-          <string>Mark Every:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="5" column="1">
-        <widget class="QSpinBox" name="sbMEvery">
-         <property name="maximum">
-          <number>99999</number>
+          <string/>
          </property>
         </widget>
        </item>
@@ -3993,12 +4021,12 @@ Plot</string>
         <x>10</x>
         <y>20</y>
         <width>301</width>
-        <height>211</height>
+        <height>221</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_11">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_15">
+      <layout class="QGridLayout" name="gridLayout_11" columnstretch="1,1,0">
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_18">
          <property name="font">
           <font>
            <family>Arial</family>
@@ -4006,12 +4034,12 @@ Plot</string>
           </font>
          </property>
          <property name="text">
-          <string>Fill Alpha:</string>
+          <string>Edge Width:</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_17">
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_19">
          <property name="font">
           <font>
            <family>Arial</family>
@@ -4019,7 +4047,7 @@ Plot</string>
           </font>
          </property>
          <property name="text">
-          <string>Edge Color:</string>
+          <string>Edge Style:</string>
          </property>
         </widget>
        </item>
@@ -4033,6 +4061,19 @@ Plot</string>
          </property>
          <property name="text">
           <string>Face Color:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_15">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+          </font>
+         </property>
+         <property name="text">
+          <string>Fill Alpha:</string>
          </property>
         </widget>
        </item>
@@ -4054,22 +4095,27 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="btnFEC">
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_17">
          <property name="font">
           <font>
            <family>Arial</family>
            <pointsize>10</pointsize>
-           <weight>75</weight>
-           <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>COLOR</string>
+          <string>Edge Color:</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
+       <item row="1" column="2">
+        <widget class="QCheckBox" name="chbColorMatch4">
+         <property name="text">
+          <string/>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbFA">
          <property name="font">
           <font>
@@ -4091,20 +4137,7 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QLabel" name="label_18">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Edge Width:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
+       <item row="3" column="1" colspan="2">
         <widget class="QDoubleSpinBox" name="sbFEW">
          <property name="font">
           <font>
@@ -4123,20 +4156,7 @@ Plot</string>
          </property>
         </widget>
        </item>
-       <item row="4" column="0">
-        <widget class="QLabel" name="label_19">
-         <property name="font">
-          <font>
-           <family>Arial</family>
-           <pointsize>10</pointsize>
-          </font>
-         </property>
-         <property name="text">
-          <string>Edge Style:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
+       <item row="4" column="1" colspan="2">
         <widget class="QComboBox" name="cbFES">
          <property name="font">
           <font>
@@ -4169,6 +4189,28 @@ Plot</string>
            <string/>
           </property>
          </item>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="btnFEC">
+         <property name="font">
+          <font>
+           <family>Arial</family>
+           <pointsize>10</pointsize>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>COLOR</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QCheckBox" name="chbColorMatch6">
+         <property name="text">
+          <string/>
+         </property>
         </widget>
        </item>
       </layout>
