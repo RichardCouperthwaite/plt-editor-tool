@@ -123,7 +123,21 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
 
 
     def select_file(self):
-        fname = QtWidgets.QFileDialog.getOpenFileName(self, 'Select File', '/Home')
+        fname = QtWidgets.QFileDialog.getOpenFileName(myWindow, 'Select File', '/Home')
+        self.leFileName.setText('')
+        self.cbXDataLabels.clear()
+        self.cbXDataLabels.addItem("None...")
+        self.cbYDataLabels.clear()
+        self.cbYDataLabels.addItem("None...")
+        self.cbXErrLabels.clear()
+        self.cbXErrLabels.addItem("None...")
+        self.cbYErrLabels.clear()
+        self.cbYErrLabels.addItem("None...")
+        self.cbFillLabels.clear()
+        self.cbFillLabels.addItem("None...")
+        self.cbFillAltLabels.clear()
+        self.cbFillAltLabels.addItem("None...")
+
         if re.match(".*csv", fname[0]) != None:
             self.data = pd.read_csv(fname[0])
             self.leFileName.setText(fname[0])
@@ -139,7 +153,7 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
 
         else:
             self.leFileName.setText("File must be a '.csv' file")
-            QtWidgets.QMessageBox.critical(self,
+            QtWidgets.QMessageBox.critical(myWindow,
                                         'Select Data File',
                                     "Data File must be a '.csv' file")
 
@@ -164,7 +178,7 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
         xlabel = self.cbXDataLabels.currentText()
         ylabel = self.cbYDataLabels.currentText()
         if xlabel=="None..." or ylabel=="None...":
-            QtWidgets.QMessageBox.critical(self,
+            QtWidgets.QMessageBox.critical(myWindow,
                                         'Load Data Set',
                                     "Data Set must have both X and Y data!")
             return
@@ -197,9 +211,12 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
         if fillaltlabel != "None...":
             fill_alt = np.array(self.data.loc[:,fillaltlabel])
         else:
-            fill_alt = np.array([])
+            if filllabel != "None...":
+                fill_alt = np.array(self.data.loc[:,filllabel])
+            else:
+                fill_alt = np.array([])
         if self.leDatasetName.text() == "":
-            datalabel = "external-dataset{}".format(self.dataset_num)
+            datalabel = "dataset{}".format(self.dataset_num)
         else:
             datalabel = self.leDatasetName.text()
 
@@ -254,10 +271,10 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
                        'type':'.',
                        'color_vector_names':self.data.columns,
                        'color_vectors':self.vectors,
-                       'current_color':self.data.columns[0],
+                       'current_color':'None',
                        'size_vector_names':self.data.columns,
                        'size_vectors':self.vectors,
-                       'current_size':self.data.columns[0],
+                       'current_size':'None',
                        'cmap':'viridis',
                        'edge':'none',
                        'alpha':0.5,
