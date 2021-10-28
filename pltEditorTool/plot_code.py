@@ -422,7 +422,9 @@ file_data2 = ["from matplotlib.gridspec import GridSpec\n",
 "                                hspace=self.axis_dict['Fig_legend']['hspace'],)\n",
 "        if len(cbar_map) > 0:\n",
 "            for i in range(len(cbar_map)):\n",
-"                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])\n",
+"                cbar = self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])",
+"                cbar.ax.tick_params(labelsize=plot['scatter']['cbarTextSize']-4)",
+"                cbar.set_label(plot['scatter']['cbarTitle'], size=plot['scatter']['cbarTextSize'])",
 "        if save:\n",
 "            self.fig.set_dpi(600)\n",
 "            self.fig.savefig(self.save_fname, bbox_inches='tight')\n",
@@ -522,7 +524,9 @@ file_data2 = ["from matplotlib.gridspec import GridSpec\n",
 "                                hspace=self.axis_dict['Fig_legend']['hspace'],)\n",
 "        if len(cbar_map) > 0:\n",
 "            for i in range(len(cbar_map)):\n",
-"                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])\n",
+"                cbar = self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])",
+"                cbar.ax.tick_params(labelsize=plot['scatter']['cbarTextSize']-4)",
+"                cbar.set_label(plot['scatter']['cbarTitle'], size=plot['scatter']['cbarTextSize'])",
 "        if save:\n",
 "            self.fig.set_dpi(600)\n",
 "            self.fig.savefig(self.save_fname)\n",
@@ -546,8 +550,8 @@ file_data2 = ["from matplotlib.gridspec import GridSpec\n",
 "\n\n",
 "if __name__ == '__main__':\n"]
 
-def write_code_file(save_dir, fname, choice):  
-    import platform    
+def write_code_file(save_dir, fname, choice):
+    import platform
     with open(save_dir+'{}_figure_plot_code.py'.format(fname),'w') as f:
         f.writelines(file_data1)
         if platform.system() == "Linux":
