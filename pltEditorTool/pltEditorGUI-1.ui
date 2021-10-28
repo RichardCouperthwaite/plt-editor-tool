@@ -482,7 +482,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_6">
      <attribute name="title">
@@ -4386,7 +4386,7 @@ Plot</string>
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>4</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -5252,47 +5252,6 @@ Plot</string>
          <property name="sizeConstraint">
           <enum>QLayout::SetNoConstraint</enum>
          </property>
-         <item row="1" column="0">
-          <widget class="QLabel" name="label_21">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Color:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_20">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Marker:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="btnScatFCol">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>COLOR</string>
-           </property>
-          </widget>
-         </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_22">
            <property name="font">
@@ -5303,21 +5262,6 @@ Plot</string>
            </property>
            <property name="text">
             <string>Size:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="btnScatECol">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-             <weight>75</weight>
-             <bold>true</bold>
-            </font>
-           </property>
-           <property name="text">
-            <string>COLOR</string>
            </property>
           </widget>
          </item>
@@ -5334,194 +5278,6 @@ Plot</string>
              <string>None</string>
             </property>
            </item>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QComboBox" name="cbSCV">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <item>
-            <property name="text">
-             <string>None</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="0" column="2">
-          <widget class="QComboBox" name="cbSMT">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <item>
-            <property name="text">
-             <string>.</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>,</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>o</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>v</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>^</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>&lt;</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>&gt;</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>1</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>2</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>3</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>4</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>8</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>s</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>p</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>P</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>*</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>h</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>H</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>+</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>x</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>X</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>d</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>D</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>|</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>_</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>None</string>
-            </property>
-           </item>
-          </widget>
-         </item>
-         <item row="3" column="0">
-          <widget class="QLabel" name="label_43">
-           <property name="text">
-            <string>Alpha:</string>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="1">
-          <widget class="QDoubleSpinBox" name="sbScatAlpha">
-           <property name="locale">
-            <locale language="English" country="UnitedStates"/>
-           </property>
-           <property name="maximum">
-            <double>1.000000000000000</double>
-           </property>
-           <property name="singleStep">
-            <double>0.010000000000000</double>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="2">
-          <widget class="QCheckBox" name="chbSCB">
-           <property name="font">
-            <font>
-             <family>Arial</family>
-             <pointsize>10</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Colorbar</string>
-           </property>
           </widget>
          </item>
          <item row="4" column="1">
@@ -5793,6 +5549,235 @@ Plot</string>
            </item>
           </widget>
          </item>
+         <item row="5" column="0">
+          <widget class="QLabel" name="label_50">
+           <property name="text">
+            <string>Colorbar Title:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QComboBox" name="cbSMT">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <item>
+            <property name="text">
+             <string>.</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>,</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>o</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>v</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>^</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>&lt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>&gt;</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>4</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>8</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>s</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>p</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>P</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>*</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>h</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>H</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>+</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>x</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>X</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>d</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>D</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>|</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>_</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>None</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QPushButton" name="btnScatFCol">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>COLOR</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QDoubleSpinBox" name="sbScatAlpha">
+           <property name="locale">
+            <locale language="English" country="UnitedStates"/>
+           </property>
+           <property name="maximum">
+            <double>1.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.010000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_21">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Color:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_20">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Marker:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QComboBox" name="cbSCV">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <item>
+            <property name="text">
+             <string>None</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="4" column="2">
+          <widget class="QCheckBox" name="chbSCB">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Colorbar</string>
+           </property>
+          </widget>
+         </item>
          <item row="4" column="0">
           <widget class="QLabel" name="label_44">
            <property name="text">
@@ -5810,6 +5795,48 @@ Plot</string>
            </property>
            <property name="maximum">
             <double>99999.000000000000000</double>
+           </property>
+           <property name="singleStep">
+            <double>0.100000000000000</double>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="btnScatECol">
+           <property name="font">
+            <font>
+             <family>Arial</family>
+             <pointsize>10</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>COLOR</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_43">
+           <property name="text">
+            <string>Alpha:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="6" column="0">
+          <widget class="QLabel" name="label_73">
+           <property name="text">
+            <string>Text Size:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="5" column="1" colspan="2">
+          <widget class="QLineEdit" name="leCbarTitle"/>
+         </item>
+         <item row="6" column="1">
+          <widget class="QDoubleSpinBox" name="sbCBarTextSize">
+           <property name="decimals">
+            <number>1</number>
            </property>
            <property name="singleStep">
             <double>0.100000000000000</double>

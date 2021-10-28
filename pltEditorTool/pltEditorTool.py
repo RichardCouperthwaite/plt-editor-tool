@@ -17,7 +17,7 @@ from tkinter import messagebox
 import importlib.resources
 import re
 from matplotlib.figure import Figure
-from matplotlib.backends.backend_qt4agg import (
+from matplotlib.backends.backend_qt5agg import (
     FigureCanvasQTAgg as FigureCanvas,
     NavigationToolbar2QT as NavigationToolbar)
 
@@ -280,7 +280,9 @@ class MyWindowClass(QtWidgets.QMainWindow, form_class):
                        'alpha':0.5,
                        'face_col':line_col[self.col_count],
                        'edge_col':line_col[self.col_count],
-                       'size':10},
+                       'size':10,
+                       'cbarTitle':'',
+                       'cbarTextSize':14},
             'barplot':{'exist':0,
                        'width':0.8,
                        'x-position':0,
@@ -888,14 +890,20 @@ def set_plot_data(window, index):
 
     window.chbS.setChecked(currentData['scatter']['exist'])
     window.cbSMT.setCurrentText(currentData['scatter']['type'])
+    window.cbSCV.clear()
+    window.cbSCV.addItem("None")
     window.cbSCV.addItems(currentData['scatter']['color_vector_names'])
     window.cbSCV.setCurrentText(currentData['scatter']['current_color'])
     window.sbScatSz.setValue(currentData['scatter']['size'])
+    window.cbSSV.clear()
+    window.cbSSV.addItem("None")
     window.cbSSV.addItems(currentData['scatter']['size_vector_names'])
     window.cbSSV.setCurrentText(currentData['scatter']['current_size'])
     window.sbScatAlpha.setValue(currentData['scatter']['alpha'])
     window.cbScatCmap.setCurrentText(currentData['scatter']['cmap'])
     window.chbSCB.setChecked(currentData['colorbar'])
+    window.leCbarTitle.setText(currentData['scatter']['cbarTitle'])
+    window.sbCBarTextSize.setValue(currentData['scatter']['cbarTextSize'])
 
     window.ePlotTitle.setText(currentData['label'])
     window.eFillTitle.setText(currentData['fill-label'])
@@ -954,6 +962,8 @@ def save_plot_data(window, index, multi=False):
     currentData['scatter']['alpha'] = window.sbScatAlpha.value()
     currentData['scatter']['cmap'] = window.cbScatCmap.currentText()
     currentData['colorbar'] = window.chbSCB.isChecked()
+    currentData['scatter']['cbarTitle'] = window.leCbarTitle.text()
+    currentData['scatter']['cbarTextSize'] = window.sbCBarTextSize.value()
 
     if not multi:
         currentData['label'] = window.ePlotTitle.text()
@@ -1537,7 +1547,9 @@ class plotEditor():
                            'alpha':0.5,
                            'face_col':line_col[col_count],
                            'edge_col':line_col[col_count],
-                           'size':10},
+                           'size':10,
+                           'cbarTitle':'',
+                           'cbarTextSize':14},
                 'barplot':{'exist':0,
                            'width':0.8,
                            'x-position':0,

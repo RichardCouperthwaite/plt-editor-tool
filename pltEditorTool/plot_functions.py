@@ -423,7 +423,9 @@ class plot_class():
                                 hspace=self.axis_dict['Fig_legend']['hspace'],)
         if len(cbar_map) > 0:
             for i in range(len(cbar_map)):
-                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+                cbar = self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+                cbar.ax.tick_params(labelsize=plot['scatter']['cbarTextSize']-4)
+                cbar.set_label(plot['scatter']['cbarTitle'], size=plot['scatter']['cbarTextSize'])
         if save:
             self.fig.set_dpi(600)
             self.fig.savefig(self.save_fname, bbox_inches='tight')
@@ -531,7 +533,9 @@ class plot_class():
                                 hspace=self.axis_dict['Fig_legend']['hspace'],)
         if len(cbar_map) > 0:
             for i in range(len(cbar_map)):
-                self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+                cbar = self.fig.colorbar(cbar_map[i], ax=cbar_axis[i])
+                cbar.ax.tick_params(labelsize=plot['scatter']['cbarTextSize']-4)
+                cbar.set_label(plot['scatter']['cbarTitle'], size=plot['scatter']['cbarTextSize'])
         if save:
             self.fig.set_dpi(600)
             self.fig.savefig(self.save_fname)
